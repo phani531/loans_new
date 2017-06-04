@@ -17,440 +17,406 @@
 
 
 // REMOVE THIS BLOCK - used for DataTables test environment only!
-$file = $_SERVER['DOCUMENT_ROOT'].'/datatables/mysql.php';
-if ( is_file( $file ) ) {
-	include( $file );
+$file = $_SERVER['DOCUMENT_ROOT'] . '/datatables/mysql.php';
+if (is_file($file)) {
+    include( $file );
 }
 
-
 class datatable {
-	/**
-	 * Create the data output array for the DataTables rows
-	 *
-	 *  @param  array $columns Column information array
-	 *  @param  array $data    Data from the SQL get
-	 *  @return array          Formatted data in a row based format
-	 */
-	 
-	 static function remove_alias($columns)
-	 {
-	    for ( $j=0, $jen=count($columns) ; $j<$jen ; $j++ ) {
-		        //removing alias i.e eg: a.first_name as first_name START
-				$dot_position=strpos($columns[$j]['db'],'.');
-				if($dot_position>0)
-                $columns[$j]['db']=substr($columns[$j]['db'],$dot_position+1);
-                else
-                $columns[$j]['db']=$columns[$j]['db'];	
-				//removing alias i.e eg: a.first_name as first_name START
-		}
-	    return $columns;
-	 }
 
-	static function data_output ( $columns, $data ,$start=0 ,$sno_show=true)
-	{
-		$columns=self::remove_alias($columns);
-		//echo "<pre>";print_r($columns);exit;
-    	$out = array();
+    /**
+     * Create the data output array for the DataTables rows
+     *
+     *  @param  array $columns Column information array
+     *  @param  array $data    Data from the SQL get
+     *  @return array          Formatted data in a row based format
+     */
+    static function remove_alias($columns) {
+        for ($j = 0, $jen = count($columns); $j < $jen; $j++) {
+            //removing alias i.e eg: a.first_name as first_name START
+            $dot_position = strpos($columns[$j]['db'], '.');
+            if ($dot_position)
+                $columns[$j]['db'] = substr($columns[$j]['db'], $dot_position + 1);
+            //removing alias i.e eg: a.first_name as first_name START
+        }
+        return $columns;
+    }
 
-		for ( $i=0, $ien=count($data) ; $i<$ien ; $i++ ) {
-			$row = array();
-             $start++;
-			for ( $j=0, $jen=count($columns) ; $j<$jen ; $j++ ) {
-				$column = $columns[$j];
-					
-                if($columns[$j]['dt']==0 && $sno_show)
-				{
-				    $row[ $column['dt'] ]=$start;
-				  
-				}
-				else
-				{
-					// Is there a formatter?
-					if ( isset( $column['formatter'] ) ) {
-					
-						$row[ $column['dt'] ] = $column['formatter']( $data[$i][ $column['db'] ], $data[$i] );
-					}
-					else {
-						$row[ $column['dt'] ] = $data[$i][ $columns[$j]['db'] ];
-					}
-		        }
-			}
+    static function data_output($columns, $data) {
+        $columns = self::remove_alias($columns);
+        $out = array();
+        //echo "<pre>"; print_r($columns);
+        //exit();
+        for ($i = 0, $ien = count($data); $i < $ien; $i++) {
+            $row = array();
 
-			$out[] = $row;
-		}
+            for ($j = 0, $jen = count($columns); $j < $jen; $j++) {
+                $column = $columns[$j];
 
-		
+                // Is there a formatter?
+                if (isset($column['formatter'])) {
+
+                    $row[$column['dt']] = $column['formatter']($data[$i][$column['db']], $data[$i]);
+                } else {
+                    $row[$column['dt']] = $data[$i][$columns[$j]['db']];
+                }
+            }
+
+            $out[] = $row;
+        }
+
+
 
 //echo "<pre>";print_r($out);exit;
-		return $out;
-	}
+        return $out;
+    }
 
+    /**
+     * Paging
+     *
+     * Construct the LIMIT clause for server-side processing SQL query
+     *
+     *  @param  array $request Data sent to server by DataTables
+     *  @param  array $columns Column information array
+     *  @return string SQL limit clause
+     */
+    static function limit($request, $columns) {
+        $limit = '';
 
-	/**
-	 * Paging
-	 *
-	 * Construct the LIMIT clause for server-side processing SQL query
-	 *
-	 *  @param  array $request Data sent to server by DataTables
-	 *  @param  array $columns Column information array
-	 *  @return string SQL limit clause
-	 */
-	static function limit ( $request, $columns )
-	{
-		$limit = '';
+        if (isset($request['start']) && $request['length'] != -1) {
+            $limit = "LIMIT " . intval($request['start']) . ", " . intval($request['length']);
+        }
 
-		if ( isset($request['start']) && $request['length'] != -1 ) {
-			$limit = "LIMIT ".intval($request['start']).", ".intval($request['length']);
-		}
+        return $limit;
+    }
 
-		return $limit;
-	}
+    /**
+     * Ordering
+     *
+     * Construct the ORDER BY clause for server-side processing SQL query
+     *
+     *  @param  array $request Data sent to server by DataTables
+     *  @param  array $columns Column information array
+     *  @return string SQL order by clause
+     */
+    static function order($request, $columns) {
+        $order = '';
 
+        if (isset($request['order']) && count($request['order'])) {
+            $orderBy = array();
+            $dtColumns = self::pluck($columns, 'dt');
 
-	/**
-	 * Ordering
-	 *
-	 * Construct the ORDER BY clause for server-side processing SQL query
-	 *
-	 *  @param  array $request Data sent to server by DataTables
-	 *  @param  array $columns Column information array
-	 *  @return string SQL order by clause
-	 */
-	static function order ( $request, $columns )
-	{
-		$order = '';
+            for ($i = 0, $ien = count($request['order']); $i < $ien; $i++) {
+                // Convert the column index into the column data property
+                $columnIdx = intval($request['order'][$i]['column']);
+                $requestColumn = $request['columns'][$columnIdx];
 
-		if ( isset($request['order']) && count($request['order']) ) {
-			$orderBy = array();
-			$dtColumns = self::pluck( $columns, 'dt' );
+                $columnIdx = array_search($requestColumn['data'], $dtColumns);
+                $column = $columns[$columnIdx];
 
-			for ( $i=0, $ien=count($request['order']) ; $i<$ien ; $i++ ) {
-				// Convert the column index into the column data property
-				$columnIdx = intval($request['order'][$i]['column']);
-				$requestColumn = $request['columns'][$columnIdx];
+                if ($requestColumn['orderable'] == 'true') {
+                    $dir = $request['order'][$i]['dir'] === 'asc' ?
+                            'ASC' :
+                            'DESC';
 
-				$columnIdx = array_search( $requestColumn['data'], $dtColumns );
-				$column = $columns[ $columnIdx ];
+                    $orderBy[] = '' . $column['db'] . ' ' . $dir;
+                }
+            }
 
-				if ( $requestColumn['orderable'] == 'true' ) {
-					$dir = $request['order'][$i]['dir'] === 'asc' ?
-						'ASC' :
-						'DESC';
+            $order = 'ORDER BY ' . implode(', ', $orderBy);
+        }
 
-					$orderBy[] = ''.$column['db'].' '.$dir;
-				}
-			}
+        return $order;
+    }
 
-			$order = 'ORDER BY '.implode(', ', $orderBy);
-		}
+    static function custom_filter($request) {
+        $search_cols = isset($request['searchcolumns']) ? $request['searchcolumns'] : array();
+        $where_string = "";
+        if (count($search_cols) > 0) {
+            $where_array = array();
+            foreach ($search_cols as $key => $value) {
+                $where_array[] = $key . "='" . $value . "'";
+            }
+        }
+        if (count($where_array) > 0) {
+            $where_string = " (" . implode(" AND ", $where_array) . ") ";
+        }
+        return $where_string;
+    }
 
-		return $order;
-	}
+    /**
+     * Searching / Filtering
+     *
+     * Construct the WHERE clause for server-side processing SQL query.
+     *
+     * NOTE this does not match the built-in DataTables filtering which does it
+     * word by word on any field. It's possible to do here performance on large
+     * databases would be very poor
+     *
+     *  @param  array $request Data sent to server by DataTables
+     *  @param  array $columns Column information array
+     *  @param  array $bindings Array of values for PDO bindings, used in the
+     *    sql_exec() function
+     *  @return string SQL where clause
+     */
+    static function filter($request, $columns, &$bindings) {
+        $globalSearch = array();
+        $columnSearch = array();
+        $dtColumns = self::pluck($columns, 'dt');
 
-	static function custom_filter($request)
-	{
-	    $search_cols=isset($request['searchcolumns'])?$request['searchcolumns']:array();
-	    $where_string="";
-	    if(count($search_cols)>0)
-		{
-		  $where_array=array();
-		  foreach($search_cols as $key=>$value)
-		  {
-		    $where_array[]=$key."='".$value."'";
-		  }
-		}
-	    if(count($where_array)>0)
-		{
-		$where_string=" (".implode(" AND ",$where_array).") ";
-		}
-		return $where_string;
-	}
-	
-	
+        if (isset($request['search']) && $request['search']['value'] != '') {
+            $str = $request['search']['value'];
 
-	/**
-	 * Searching / Filtering
-	 *
-	 * Construct the WHERE clause for server-side processing SQL query.
-	 *
-	 * NOTE this does not match the built-in DataTables filtering which does it
-	 * word by word on any field. It's possible to do here performance on large
-	 * databases would be very poor
-	 *
-	 *  @param  array $request Data sent to server by DataTables
-	 *  @param  array $columns Column information array
-	 *  @param  array $bindings Array of values for PDO bindings, used in the
-	 *    sql_exec() function
-	 *  @return string SQL where clause
-	 */
-	static function filter ( $request, $columns, &$bindings )
-	{
-		$globalSearch = array();
-		$columnSearch = array();
-		$dtColumns = self::pluck( $columns, 'dt' );
+            for ($i = 0, $ien = count($request['columns']); $i < $ien; $i++) {
+                $requestColumn = $request['columns'][$i];
+                $columnIdx = array_search($requestColumn['data'], $dtColumns);
+                $column = $columns[$columnIdx];
 
-		if ( isset($request['search']) && $request['search']['value'] != '' ) {
-			$str = $request['search']['value'];
+                if ($requestColumn['searchable'] == 'true') {
+                    $binding = self::bind($bindings, '%' . $str . '%', PDO::PARAM_STR);
+                    $globalSearch[] = "" . $column['db'] . " LIKE " . $binding;
+                }
+            }
+        }
 
-			for ( $i=0, $ien=count($request['columns']) ; $i<$ien ; $i++ ) {
-				$requestColumn = $request['columns'][$i];
-				$columnIdx = array_search( $requestColumn['data'], $dtColumns );
-				$column = $columns[ $columnIdx ];
+        // Individual column filtering
+        for ($i = 0, $ien = count($request['columns']); $i < $ien; $i++) {
+            $requestColumn = $request['columns'][$i];
+            $columnIdx = array_search($requestColumn['data'], $dtColumns);
+            $column = $columns[$columnIdx];
 
-				if ( $requestColumn['searchable'] == 'true' ) {
-					$binding = self::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
-					$globalSearch[] = "".$column['db']." LIKE ".$binding;
-				}
-			}
-		}
+            $str = $requestColumn['search']['value'];
 
-		// Individual column filtering
-		for ( $i=0, $ien=count($request['columns']) ; $i<$ien ; $i++ ) {
-			$requestColumn = $request['columns'][$i];
-			$columnIdx = array_search( $requestColumn['data'], $dtColumns );
-			$column = $columns[ $columnIdx ];
+            if ($requestColumn['searchable'] == 'true' &&
+                    $str != '') {
+                $binding = self::bind($bindings, '%' . $str . '%', PDO::PARAM_STR);
+                $columnSearch[] = "" . $column['db'] . " LIKE " . $binding;
+            }
+        }
 
-			$str = $requestColumn['search']['value'];
+        // Combine the filters into a single string
+        $where = '';
 
-			if ( $requestColumn['searchable'] == 'true' &&
-			 $str != '' ) {
-				$binding = self::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
-				$columnSearch[] = "".$column['db']." LIKE ".$binding;
-			}
-		}
+        if (count($globalSearch)) {
+            $where = '(' . implode(' OR ', $globalSearch) . ')';
+        }
 
-		// Combine the filters into a single string
-		$where = '';
+        if (count($columnSearch)) {
+            $where = $where === '' ?
+                    implode(' AND ', $columnSearch) :
+                    $where . ' AND ' . implode(' AND ', $columnSearch);
+        }
 
-		if ( count( $globalSearch ) ) {
-			$where = '('.implode(' OR ', $globalSearch).')';
-		}
+        if ($where !== '') {
+            $where = 'HAVING ' . $where;
+        }
 
-		if ( count( $columnSearch ) ) {
-			$where = $where === '' ?
-				implode(' AND ', $columnSearch) :
-				$where .' AND '. implode(' AND ', $columnSearch);
-		}
+        return $where;
+    }
 
-		if ( $where !== '' ) {
-			$where = 'HAVING '.$where;
-		}
+    /**
+     * Perform the SQL queries needed for an server-side processing requested,
+     * utilising the helper functions of this class, limit(), order() and
+     * filter() among others. The returned array is ready to be encoded as JSON
+     * in response to an SSP request, or can be modified if needed before
+     * sending back to the client.
+     *
+     *  @param  array $request Data sent to server by DataTables
+     *  @param  array $sql_details SQL connection details - see sql_connect()
+     *  @param  string $table SQL table to query
+     *  @param  string $primaryKey Primary key of the table
+     *  @param  array $columns Column information array
+     *  @return array          Server-side processing response array
+     */
+    static function simple($request, $sql_details, $sql_query, $query_columns, $columns) {
+        $bindings = array();
+        $db = self::sql_connect($sql_details);
 
-		return $where;
-	}
+        // Build the SQL query string from the request
+        $limit = self::limit($request, $columns);
+        $order = self::order($request, $columns);
+        $where = self::filter($request, $columns, $bindings);
+        //$custom_where=self::custom_filter($request);
+        $custom_where = $request['custom_where'];
+        if ($where != "" && $custom_where != "") {
+            $where = $where . " AND " . $custom_where;
+        } elseif ($custom_where != "") {
+            $where = "WHERE " . $custom_where;
+        }
 
+        //$query_columns=" SQL_CALC_FOUND_ROWS ".implode(",", self::pluck($columns, 'db'))."";
+        $query_columns = 'SQL_CALC_FOUND_ROWS ' . $query_columns;
+        $sql_main_query = str_replace('$query_columns', $query_columns, $sql_query);
 
-	/**
-	 * Perform the SQL queries needed for an server-side processing requested,
-	 * utilising the helper functions of this class, limit(), order() and
-	 * filter() among others. The returned array is ready to be encoded as JSON
-	 * in response to an SSP request, or can be modified if needed before
-	 * sending back to the client.
-	 *
-	 *  @param  array $request Data sent to server by DataTables
-	 *  @param  array $sql_details SQL connection details - see sql_connect()
-	 *  @param  string $table SQL table to query
-	 *  @param  string $primaryKey Primary key of the table
-	 *  @param  array $columns Column information array
-	 *  @return array          Server-side processing response array
-	 */
-	static function simple ( $request, $sql_details, $sql_query, $query_columns, $columns, $sno_show=true)
-	{
-		$bindings = array();
-		$db = self::sql_connect( $sql_details );
-        //echo "<pre>";print_r($request);
-		//echo "<pre>";print_r($columns);exit;
-		// Build the SQL query string from the request
-		$limit = self::limit( $request, $columns );
-		$order = self::order( $request, $columns );
-		$where = self::filter( $request, $columns, $bindings );
-		//$custom_where=self::custom_filter($request);
-		$custom_where=$request['custom_where'];
-		if($where!="" && $custom_where!="")
-		{
-		$where=$where." AND ".$custom_where;
-		}
-		elseif($custom_where!="")
-		{
-		$where="HAVING ".$custom_where;
-		}
-		
-		//$query_columns=" SQL_CALC_FOUND_ROWS ".implode(",", self::pluck($columns, 'db'))."";
-		$query_columns='SQL_CALC_FOUND_ROWS '.$query_columns;
-		$sql_main_query=str_replace('$query_columns',$query_columns,$sql_query);
-		
-        
-		// Main query to actually get the data
-		$data = self::sql_exec( $db, $bindings,
-			$sql_main_query." 
+        //echo $sql_main_query." $where $order $limit";exit;
+        // Main query to actually get the data
+        $data = self::sql_exec($db, $bindings, $sql_main_query . " 
 			 $where
 			 $order
 			 $limit"
-		);
+        );
 
-		// Data set length after filtering
-		$resFilterLength = self::sql_exec( $db,
-			"SELECT FOUND_ROWS()"
-		);
-		$recordsFiltered = $resFilterLength[0][0];
+        // Data set length after filtering
+        $resFilterLength = self::sql_exec($db, "SELECT FOUND_ROWS()"
+        );
+        $recordsFiltered = $resFilterLength[0][0];
 
-	
+        /* $query_columns=" COUNT(*)";
+          //$sql_query=$sql_query.$where;
+          $sql_count_query=str_replace('$query_columns',$query_columns,$sql_query);
+
+          // Total data set length
+          $resTotalLength = self::sql_exec( $db,
+          $sql_count_query
+          );
+          $recordsTotal = $resTotalLength[0][0]; */
         $recordsTotal = $resFilterLength[0][0];
+        /* echo "<pre>";print_r($columns);
+          echo "<pre>";print_r($data);
+          exit; */
 
+        /*
+         * Output
+         */
+        return array(
+            "draw" => intval($request['draw']),
+            "recordsTotal" => intval($recordsTotal),
+            "recordsFiltered" => intval($recordsFiltered),
+            "data" => self::data_output($columns, $data)
+        );
+    }
 
-		/*
-		 * Output
-		 */
-        $record_start=($request['start']!="")?$request['start']:0;		
-		
-		return array(
-			"draw"            => intval( $request['draw'] ),
-			"recordsTotal"    => intval( $recordsTotal ),
-			"recordsFiltered" => intval( $recordsFiltered ),
-			"data"            => self::data_output( $columns, $data,$record_start,$sno_show )
-		);
-	}
+    /**
+     * Connect to the database
+     *
+     * @param  array $sql_details SQL server connection details array, with the
+     *   properties:
+     *     * host - host name
+     *     * db   - database name
+     *     * user - user name
+     *     * pass - user password
+     * @return resource Database connection handle
+     */
+    static function sql_connect($sql_details) {
+        try {
+            if (strpos($sql_details['host'], 'cloudsql') !== false) {
+                $host = substr($sql_details['host'], 1);
+                $db = new pdo('mysql:unix_socket=' . $host . ';dbname=' . $sql_details['db'], $sql_details['user'], // username
+                        $sql_details['pass']       // password
+                );
+            } else {
+                $db = @new PDO(
+                        "mysql:host={$sql_details['host']};dbname={$sql_details['db']}", $sql_details['user'], $sql_details['pass']
+                );
+            }
+            array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+            $db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+        } catch (PDOException $e) {
+            self::fatal(
+                    "An error occurred while connecting to the database. " .
+                    "The error reported by the server was: " . $e->getMessage()
+            );
+        }
 
+        return $db;
+    }
 
-	/**
-	 * Connect to the database
-	 *
-	 * @param  array $sql_details SQL server connection details array, with the
-	 *   properties:
-	 *     * host - host name
-	 *     * db   - database name
-	 *     * user - user name
-	 *     * pass - user password
-	 * @return resource Database connection handle
-	 */
-	static function sql_connect ( $sql_details )
-	{
-		try {
-			$db = @new PDO(
-				"mysql:host={$sql_details['host']};dbname={$sql_details['db']}",
-				$sql_details['user'],
-				$sql_details['pass'],
-				array( PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION )
-			);
-			$db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
-		}
-		catch (PDOException $e) {
-			self::fatal(
-				"An error occurred while connecting to the database. ".
-				"The error reported by the server was: ".$e->getMessage()
-			);
-		}
+    /**
+     * Execute an SQL query on the database
+     *
+     * @param  resource $db  Database handler
+     * @param  array    $bindings Array of PDO binding values from bind() to be
+     *   used for safely escaping strings. Note that this can be given as the
+     *   SQL query string if no bindings are required.
+     * @param  string   $sql SQL query to execute.
+     * @return array         Result from the query (all rows)
+     */
+    static function sql_exec($db, $bindings, $sql = null) {
+        // Argument shifting
+        if ($sql === null) {
+            $sql = $bindings;
+        }
 
-		return $db;
-	}
+        $stmt = $db->prepare($sql);
+//        echo $sql;exit();
+        // Bind parameters
+        if (is_array($bindings)) {
+            //echo "<pre>"; print_r($bindings);exit;
+            for ($i = 0, $ien = count($bindings); $i < $ien; $i++) {
+                $binding = $bindings[$i];
+                $stmt->bindValue($binding['key'], $binding['val'], $binding['type']);
+            }
+        }
 
+        // Execute
+        try {
+            $stmt->execute();
+        } catch (PDOException $e) {
+            self::fatal("An SQL error occurred: " . $e->getMessage());
+        }
 
-	/**
-	 * Execute an SQL query on the database
-	 *
-	 * @param  resource $db  Database handler
-	 * @param  array    $bindings Array of PDO binding values from bind() to be
-	 *   used for safely escaping strings. Note that this can be given as the
-	 *   SQL query string if no bindings are required.
-	 * @param  string   $sql SQL query to execute.
-	 * @return array         Result from the query (all rows)
-	 */
-	static function sql_exec ( $db, $bindings, $sql=null )
-	{
-		// Argument shifting
-		if ( $sql === null ) {
-			$sql = $bindings;
-		}
+        // Return all
+        return $stmt->fetchAll();
+    }
 
-		$stmt = $db->prepare( $sql );
-		//echo $sql;exit;
+    /*     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * Internal methods
+     */
 
-		// Bind parameters
-		if ( is_array( $bindings ) ) {
-			for ( $i=0, $ien=count($bindings) ; $i<$ien ; $i++ ) {
-				$binding = $bindings[$i];
-				$stmt->bindValue( $binding['key'], $binding['val'], $binding['type'] );
-			}
-		}
+    /**
+     * Throw a fatal error.
+     *
+     * This writes out an error message in a JSON string which DataTables will
+     * see and show to the user in the browser.
+     *
+     * @param  string $msg Message to send to the client
+     */
+    static function fatal($msg) {
+        echo json_encode(array(
+            "error" => $msg
+        ));
 
-		// Execute
-		try {
-			$stmt->execute();
-		}
-		catch (PDOException $e) {
-			self::fatal( "An SQL error occurred: ".$e->getMessage() );
-		}
+        exit(0);
+    }
 
-		$return_object=$stmt->fetchAll();
-		
-		$stmt->closeCursor();
-		// Return all
-		return $return_object;
-	}
+    /**
+     * Create a PDO binding key which can be used for escaping variables safely
+     * when executing a query with sql_exec()
+     *
+     * @param  array &$a    Array of bindings
+     * @param  *      $val  Value to bind
+     * @param  int    $type PDO field type
+     * @return string       Bound key to be used in the SQL where this parameter
+     *   would be used.
+     */
+    static function bind(&$a, $val, $type) {
+        $key = ':binding_' . count($a);
 
+        $a[] = array(
+            'key' => $key,
+            'val' => $val,
+            'type' => $type
+        );
 
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	 * Internal methods
-	 */
+        return $key;
+    }
 
-	/**
-	 * Throw a fatal error.
-	 *
-	 * This writes out an error message in a JSON string which DataTables will
-	 * see and show to the user in the browser.
-	 *
-	 * @param  string $msg Message to send to the client
-	 */
-	static function fatal ( $msg )
-	{
-		echo json_encode( array( 
-			"error" => $msg
-		) );
+    /**
+     * Pull a particular property from each assoc. array in a numeric array, 
+     * returning and array of the property values from each item.
+     *
+     *  @param  array  $a    Array to get data from
+     *  @param  string $prop Property to read
+     *  @return array        Array of property values
+     */
+    static function pluck($a, $prop) {
+        $out = array();
 
-		exit(0);
-	}
+        for ($i = 0, $len = count($a); $i < $len; $i++) {
+            $out[] = $a[$i][$prop];
+        }
 
-	/**
-	 * Create a PDO binding key which can be used for escaping variables safely
-	 * when executing a query with sql_exec()
-	 *
-	 * @param  array &$a    Array of bindings
-	 * @param  *      $val  Value to bind
-	 * @param  int    $type PDO field type
-	 * @return string       Bound key to be used in the SQL where this parameter
-	 *   would be used.
-	 */
-	static function bind ( &$a, $val, $type )
-	{
-		$key = ':binding_'.count( $a );
+        return $out;
+    }
 
-		$a[] = array(
-			'key' => $key,
-			'val' => $val,
-			'type' => $type
-		);
-
-		return $key;
-	}
-
-
-	/**
-	 * Pull a particular property from each assoc. array in a numeric array, 
-	 * returning and array of the property values from each item.
-	 *
-	 *  @param  array  $a    Array to get data from
-	 *  @param  string $prop Property to read
-	 *  @return array        Array of property values
-	 */
-	static function pluck ( $a, $prop )
-	{
-		$out = array();
-
-		for ( $i=0, $len=count($a) ; $i<$len ; $i++ ) {
-			$out[] = $a[$i][$prop];
-		}
-
-		return $out;
-	}
 }
-
