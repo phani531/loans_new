@@ -9,7 +9,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="<?php echo base_url('resources/css/bootstrap.min.css'); ?>">
-        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                      ?>
+        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                          ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>">
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/ionicons.min.css'); ?>">
@@ -60,7 +60,7 @@
 
                                         <p>
                                             <?php echo (isset($_SESSION['user'])) ? ucfirst($_SESSION['user']['LOGIN_USERNAME']) : 'GUEST'; ?>
-                                            <small>Member since <?php echo (isset($_SESSION['user'])) ? date('M', strtotime($_SESSION['user']['created_date'])) . ' ' . date('Y', strtotime($_SESSION['user']['created_date'])) : 'GUEST'; ?></small>
+                                            <small>Member since <?php echo (isset($_SESSION['user']) && isset($_SESSION['user']['created_date'])) ? date('M', strtotime($_SESSION['user']['created_date'])) . ' ' . date('Y', strtotime($_SESSION['user']['created_date'])) : date("Y-m-d H:i:s"); ?></small>
                                         </p>
                                     </li>
                                     <!-- Menu Footer-->
