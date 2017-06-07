@@ -9,7 +9,7 @@
             </div>
 
             <div class="box-body no-padding table-responsive">
-                <table class="table table-striped" id="admin_comp_profile">
+                <table class="table table-striped table-bordered admin-datatable" id="admin_comp_profile" data-href="<?php echo base_url(); ?>administration_comp_profile/getBranchList">
                     <thead>
                         <tr>
                             <th>BRANCH ID</th>
@@ -32,6 +32,7 @@
                             <th>FINANCIAL YEAR FROM</th>
                             <th>FINANCIAL YEAR TO</th>
                             <th>CREATED DATE</th>
+                            <th>ACTIONS</th>
                         </tr>
                     </thead>
                     <?php /* foreach ($administration_comp_profile as $a) { ?>
