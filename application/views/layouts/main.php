@@ -9,7 +9,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="<?php echo base_url('resources/css/bootstrap.min.css'); ?>">
-        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                 ?>
+        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                      ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>">
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/ionicons.min.css'); ?>">
@@ -51,7 +51,7 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="<?php echo site_url('assets/img/user.png'); ?>" class="user-image" alt="User Image">
-                                    <span class="hidden-xs"><?php echo (isset($_SESSION['user'])) ? ucfirst($_SESSION['user']['LOGIN_USERNAME'] . ' ' . ucfirst($_SESSION['user']['lname'])) : 'GUEST'; ?></span>
+                                    <span class="hidden-xs"><?php echo (isset($_SESSION['user'])) ? ucfirst($_SESSION['user']['LOGIN_USERNAME']) : 'GUEST'; ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
@@ -59,7 +59,7 @@
                                         <img src="<?php echo site_url('assets/img/user.png'); ?>" class="img-circle" alt="User Image">
 
                                         <p>
-                                            <?php echo (isset($_SESSION['user'])) ? ucfirst($_SESSION['user']['LOGIN_USERNAME'] . ' ' . ucfirst($_SESSION['user']['lname'])) : 'GUEST'; ?>
+                                            <?php echo (isset($_SESSION['user'])) ? ucfirst($_SESSION['user']['LOGIN_USERNAME']) : 'GUEST'; ?>
                                             <small>Member since <?php echo (isset($_SESSION['user'])) ? date('M', strtotime($_SESSION['user']['created_date'])) . ' ' . date('Y', strtotime($_SESSION['user']['created_date'])) : 'GUEST'; ?></small>
                                         </p>
                                     </li>
@@ -88,7 +88,7 @@
                             <img src="<?php echo site_url('assets/img/user.png'); ?>" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p><?php echo (isset($_SESSION['user'])) ? ucfirst($_SESSION['user']['LOGIN_USERNAME'] . ' ' . ucfirst($_SESSION['user']['lname'])) : 'GUEST'; ?>
+                            <p><?php echo (isset($_SESSION['user'])) ? ucfirst($_SESSION['user']['LOGIN_USERNAME']) : 'GUEST'; ?>
                             </p><a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>

@@ -28,7 +28,7 @@ var admin = function () {
             "dom": 'T<"clear">lfrtip',
             "language": {
                 "lengthMenu": "Show&nbsp;  _MENU_ &nbsp;entries",
-                "info": "Showing _START_ to _END_ of _TOTAL_ Challenges"
+                "info": "Showing _START_ to _END_ of _TOTAL_ Users"
             },
             "oTableTools": {
                 "sSwfPath": SITEURL + "assets/admin/dataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",

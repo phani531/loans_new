@@ -19,7 +19,6 @@ class Administration_comp_profile extends CI_Controller {
      */
 
     function index() {
-        $data['administration_comp_profile'] = $this->Administration_comp_profile_model->get_all_administration_comp_profile();
         $data['_view'] = 'administration_comp_profile/index';
         $this->load->view('layouts/main', $data);
     }

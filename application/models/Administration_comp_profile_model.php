@@ -158,12 +158,14 @@ class Administration_comp_profile_model extends CI_Model {
             );
 
             $join = "";
+            $where = "";
 
             $query_columns_array = array("BRANCH_ID", "BRANCH_NAME", "BRANCH_TYPE", "BRANCH_CODE", "BRANCH_REG_NO", "BRANCH_LICENCE_NO", "BRANCH_ADDRESS", "BRANCH_OFFICE_NO", "BRANCH_FAX_NO", "BRANCH_EMAILID", "BRANCH_WEBSITE", "BRANCH_LOGO_PIC_PATH", "LAWYER_NAME", "LAWYER_ADDRESS", "LAWYER_OFFICE_NO", "LAWYER_FAX_NO", "LAWYER_EMAILID", "FINANCIAL_YEAR_FROM", "FINANCIAL_YEAR_TO", "CREATED_DATE", "CREATED_BY");
 
-            $custom_where = array("IS_ACTIVE = 1");
-            $where .= " WHERE ";
-            $where .= (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : '';
+            $custom_where = array();
+            $where .= " WHERE IS_ACTIVE = 1 ";
+            $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
+            $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
             $sql_query = 'SELECT $query_columns from administration_comp_profile' . $join . $where;
             $result = datatable::simple($request, $sql_details, $sql_query, $query_columns, $columns);
