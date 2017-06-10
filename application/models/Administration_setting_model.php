@@ -221,97 +221,97 @@ class Administration_setting_model extends CI_Model {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'PAYMENT_MODE',
-                    'dt' => 31,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'GOLD_LOAN',
-                    'dt' => 32,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'A',
-                    'dt' => 33,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'B',
-                    'dt' => 34,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'C',
-                    'dt' => 35,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'D',
-                    'dt' => 36,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'E',
-                    'dt' => 37,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'F',
-                    'dt' => 38,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'G',
-                    'dt' => 39,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'H',
-                    'dt' => 40,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'MAX_SMS_PER_WEEK',
-                    'dt' => 41,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'CREATED_DATE',
-                    'dt' => 42,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'CREATED_BY',
-                    'dt' => 43,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ), array('db' => 'MODIFIED_DATE',
-                    'dt' => 44,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'MODIFIED_BY',
-                    'dt' => 45,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
+//                array('db' => 'PAYMENT_MODE',
+//                    'dt' => 31,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'GOLD_LOAN',
+//                    'dt' => 32,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'A',
+//                    'dt' => 33,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'B',
+//                    'dt' => 34,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'C',
+//                    'dt' => 35,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'D',
+//                    'dt' => 36,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'E',
+//                    'dt' => 37,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'F',
+//                    'dt' => 38,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'G',
+//                    'dt' => 39,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'H',
+//                    'dt' => 40,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'MAX_SMS_PER_WEEK',
+//                    'dt' => 41,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'CREATED_DATE',
+//                    'dt' => 42,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'CREATED_BY',
+//                    'dt' => 43,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ), array('db' => 'MODIFIED_DATE',
+//                    'dt' => 44,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
+//                array('db' => 'MODIFIED_BY',
+//                    'dt' => 45,
+//                    'formatter' => function($d, $row) {
+//                        return !empty($d) ? $d : "N/A";
+//                    }
+//                ),
                 array('db' => 'SETTINGS_ID',
-                    'dt' => 46,
+                    'dt' => 31,
                     'formatter' => function($d, $row) {
                         $returnString = "";
                         $returnString .= '<a href="' . site_url('administration_setting/edit/' . $d) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';
@@ -323,7 +323,7 @@ class Administration_setting_model extends CI_Model {
             $join = "";
             $where = "";
 
-            $query_columns_array = array("SETTINGS_ID, BRANCH_ID,LATE_PAYMENT_CHARGES, SITE_VISIT_CHARGES, LOD_CHARGES, OTHER_CHARGES GIVEN_DISCOUNT, STAMPING_CHARGES, PROCESSING_FEES, FILING_CHARGES, CASH_ACCOUNT, BANK_ACCOUNT, NEW_LOAN_ACCOUNT_GIVEN, RECEIVED_CAPITAL, RECEIVED_INTEREST, LOANS_TAKEN_INVESTMENT, PAID_CAPITAL_INVESTMENT, PAID_INTEREST, APPLICATION_NO, PAY_VOUCHER, PERSONAL_LOAN_NO, CHEQUE_LOAN_NO, HIRE_PURCHASE_LOAN_NO, SECURITY_LOAN_NO, CHEQUE_VS_LOAN, ALLOW_FUTURE_DATE, CALCULATION_TYPE, ADVANCE_LOAN, STATEMENT, FLEXIBILITY_OF_INTEREST, INTEREST_TYPE, PAYMENT_MODE, GOLD_LOAN, A, B, C, D, E, F, G, H, MAX_SMS_PER_WEEK, CREATED_DATE, CREATED_BY, MODIFIED_DATE, MODIFIED_BY");
+            $query_columns_array = array("SETTINGS_ID, BRANCH_ID,LATE_PAYMENT_CHARGES, SITE_VISIT_CHARGES, LOD_CHARGES, OTHER_CHARGES, GIVEN_DISCOUNT, STAMPING_CHARGES, PROCESSING_FEES, FILING_CHARGES, CASH_ACCOUNT, BANK_ACCOUNT, NEW_LOAN_ACCOUNT_GIVEN, RECEIVED_CAPITAL, RECEIVED_INTEREST, LOANS_TAKEN_INVESTMENT, PAID_CAPITAL_INVESTMENT, PAID_INTEREST, APPLICATION_NO, PAY_VOUCHER, PERSONAL_LOAN_NO, CHEQUE_LOAN_NO, HIRE_PURCHASE_LOAN_NO, SECURITY_LOAN_NO, CHEQUE_VS_LOAN, ALLOW_FUTURE_DATE, CALCULATION_TYPE, ADVANCE_LOAN, STATEMENT, FLEXIBILITY_OF_INTEREST, INTEREST_TYPE, PAYMENT_MODE, GOLD_LOAN, A, B, C, D, E, F, G, H, MAX_SMS_PER_WEEK, CREATED_DATE, CREATED_BY, MODIFIED_DATE, MODIFIED_BY");
 
             $custom_where = array();
             $where .= "";

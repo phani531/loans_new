@@ -43,7 +43,7 @@
                             <th>STATEMENT</th>
                             <th>FLEXIBILITY OF INTEREST</th>
                             <th>INTEREST TYPE</th>
-                            <th>PAYMENT MODE</th>
+<!--                            <th>PAYMENT MODE</th>
                             <th>GOLD LOAN</th>
                             <th>A</th>
                             <th>B</th>
@@ -57,7 +57,7 @@
                             <th>CREATED DATE</th>
                             <th>CREATED BY</th>
                             <th>MODIFIED DATE</th>
-                            <th>MODIFIED BY</th>
+                            <th>MODIFIED BY</th>-->
                             <th>Actions</th>
                         </tr>
                     </thead>

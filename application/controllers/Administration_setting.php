@@ -10,6 +10,7 @@ class Administration_setting extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Administration_setting_model');
+        $this->load->helper(array("datatable"));
     }
 
     /*
