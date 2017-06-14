@@ -254,33 +254,7 @@
 							<input type="text" name="MAX_SMS_PER_WEEK" value="<?php echo ($this->input->post('MAX_SMS_PER_WEEK') ? $this->input->post('MAX_SMS_PER_WEEK') : $administration_setting['MAX_SMS_PER_WEEK']); ?>" class="form-control" id="MAX_SMS_PER_WEEK" />
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="CREATED_DATE" class="col-md-4 control-label">CREATED DATE</label>
-						<div class="col-md-8">
-							<input type="text" name="CREATED_DATE" value="<?php echo ($this->input->post('CREATED_DATE') ? $this->input->post('CREATED_DATE') : $administration_setting['CREATED_DATE']); ?>" class="form-control" id="CREATED_DATE" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="CREATED_BY" class="col-md-4 control-label">CREATED BY</label>
-						<div class="col-md-8">
-							<input type="text" name="CREATED_BY" value="<?php echo ($this->input->post('CREATED_BY') ? $this->input->post('CREATED_BY') : $administration_setting['CREATED_BY']); ?>" class="form-control" id="CREATED_BY" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="MODIFIED_DATE" class="col-md-4 control-label">MODIFIED DATE</label>
-						<div class="col-md-8">
-							<input type="text" name="MODIFIED_DATE" value="<?php echo ($this->input->post('MODIFIED_DATE') ? $this->input->post('MODIFIED_DATE') : $administration_setting['MODIFIED_DATE']); ?>" class="form-control" id="MODIFIED_DATE" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="MODIFIED_BY" class="col-md-4 control-label">MODIFIED BY</label>
-						<div class="col-md-8">
-							<input type="text" name="MODIFIED_BY" value="<?php echo ($this->input->post('MODIFIED_BY') ? $this->input->post('MODIFIED_BY') : $administration_setting['MODIFIED_BY']); ?>" class="form-control" id="MODIFIED_BY" />
-						</div>
-					</div>
-				</div>
-
-				<div class="box-footer">
+					<div class="box-footer">
                 	<div class="form-group">
               			<div class="col-md-4"></div>
           				<div class="col-md-8">
