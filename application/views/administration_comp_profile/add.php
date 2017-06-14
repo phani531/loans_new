@@ -132,30 +132,6 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="CREATED_DATE" class="col-md-4 control-label">CREATED DATE</label>
-						<div class="col-md-8">
-							<input type="text" name="CREATED_DATE" value="<?php echo $this->input->post('CREATED_DATE'); ?>" class="form-control" id="CREATED_DATE" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="CREATED_BY" class="col-md-4 control-label">CREATED BY</label>
-						<div class="col-md-8">
-							<input type="text" name="CREATED_BY" value="<?php echo $this->input->post('CREATED_BY'); ?>" class="form-control" id="CREATED_BY" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="MODIFIED_DATE" class="col-md-4 control-label">MODIFIED DATE</label>
-						<div class="col-md-8">
-							<input type="text" name="MODIFIED_DATE" value="<?php echo $this->input->post('MODIFIED_DATE'); ?>" class="form-control" id="MODIFIED_DATE" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="MODIFIED_BY" class="col-md-4 control-label">MODIFIED BY</label>
-						<div class="col-md-8">
-							<input type="text" name="MODIFIED_BY" value="<?php echo $this->input->post('MODIFIED_BY'); ?>" class="form-control" id="MODIFIED_BY" />
-						</div>
-					</div>
-					<div class="form-group">
 							<label for="CLIENT_ID" class="col-md-4 control-label">CLIENT ID</label>
 							<div class="col-md-8">
 								<select name="CLIENT_ID" class="form-control">
