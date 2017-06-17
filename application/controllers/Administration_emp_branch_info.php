@@ -53,10 +53,10 @@ class Administration_emp_branch_info extends CI_Controller {
             redirect('administration_emp_branch_info/index');
         } else {
             $this->load->model('Administration_employee_model');
-            $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees();
+            $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
 
             $this->load->model('Administration_comp_profile_model');
-            $data['all_administration_comp_profile'] = $this->Administration_comp_profile_model->get_all_administration_comp_profile();
+            $data['all_administration_comp_profile'] = $this->Administration_comp_profile_model->get_all_administration_comp_profile_data();
 
             $data['_view'] = 'administration_emp_branch_info/add';
             $this->load->view('layouts/main', $data);
@@ -86,10 +86,10 @@ class Administration_emp_branch_info extends CI_Controller {
                 redirect('administration_emp_branch_info/index');
             } else {
                 $this->load->model('Administration_employee_model');
-                $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees();
+                $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
 
                 $this->load->model('Administration_comp_profile_model');
-                $data['all_administration_comp_profile'] = $this->Administration_comp_profile_model->get_all_administration_comp_profile();
+                $data['all_administration_comp_profile'] = $this->Administration_comp_profile_model->get_all_administration_comp_profile_data();
 
                 $data['_view'] = 'administration_emp_branch_info/edit';
                 $this->load->view('layouts/main', $data);

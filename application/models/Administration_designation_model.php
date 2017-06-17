@@ -20,6 +20,13 @@ class Administration_designation_model extends CI_Model {
     }
 
     /**
+     * Function to get all administration designation data
+     */
+    function get_all_administration_designation_data() {
+        return $this->db->get('administration_designation')->result_array();
+    }
+
+    /**
      * Get all administration designation
      * 
      * @param type $request

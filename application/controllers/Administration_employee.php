@@ -82,7 +82,7 @@ class Administration_employee extends CI_Controller {
             $data['all_client_info'] = $this->Client_info_model->get_all_client_info();
 
             $this->load->model('Administration_designation_model');
-            $data['all_administration_designation'] = $this->Administration_designation_model->get_all_administration_designation();
+            $data['all_administration_designation'] = $this->Administration_designation_model->get_all_administration_designation_data();
 
             $data['_view'] = 'administration_employee/add';
             $this->load->view('layouts/main', $data);
@@ -141,7 +141,7 @@ class Administration_employee extends CI_Controller {
                 $data['all_client_info'] = $this->Client_info_model->get_all_client_info();
 
                 $this->load->model('Administration_designation_model');
-                $data['all_administration_designation'] = $this->Administration_designation_model->get_all_administration_designation();
+                $data['all_administration_designation'] = $this->Administration_designation_model->get_all_administration_designation_data();
 
                 $data['_view'] = 'administration_employee/edit';
                 $this->load->view('layouts/main', $data);

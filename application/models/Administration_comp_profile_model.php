@@ -19,6 +19,15 @@ class Administration_comp_profile_model extends CI_Model {
         return $this->db->get_where('administration_comp_profile', array('BRANCH_ID' => $BRANCH_ID))->row_array();
     }
 
+    /**
+     * Function to get all administration comp profile data
+     * 
+     * return array result
+     */
+    function get_all_administration_comp_profile_data() {
+        return $this->db->get('administration_comp_profile')->row_array();
+    }
+
     /*
      * Get all administration_comp_profile
      */

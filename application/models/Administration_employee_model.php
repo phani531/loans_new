@@ -20,6 +20,15 @@ class Administration_employee_model extends CI_Model {
     }
 
     /**
+     * Function to get all administration employees data
+     * 
+     * @return type
+     */
+    function get_all_administration_employees_data() {
+        return $this->db->get('administration_employees')->result_array();
+    }
+
+    /**
      * Get all administration_employees
      * 
      * @param array $request
