@@ -1,81 +1,60 @@
 <div class="row">
     <div class="col-md-12">
-      	<div class="box box-info">
+        <div class="box box-info">
             <div class="box-header with-border">
-              	<h3 class="box-title">Edit</h3>
+                <h3 class="box-title">Edit</h3>
             </div>
-			<?php echo validation_errors(); ?>
-			<?php echo form_open('masters_cust_bank/edit/'.$masters_cust_bank['BANK_ID'],array("class"=>"form-horizontal")); ?>
+            <?php echo validation_errors(); ?>
+            <?php echo form_open('masters_cust_bank/edit/' . $masters_cust_bank['BANK_ID'], array("class" => "form-horizontal")); ?>
 
-				<div class="box-body">
-					<div class="form-group">
-						<label for="BANK_CODE" class="col-md-4 control-label">BANK CODE</label>
-						<div class="col-md-8">
-							<input type="text" name="BANK_CODE" value="<?php echo ($this->input->post('BANK_CODE') ? $this->input->post('BANK_CODE') : $masters_cust_bank['BANK_CODE']); ?>" class="form-control" id="BANK_CODE" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="BANK_NAME" class="col-md-4 control-label">BANK NAME</label>
-						<div class="col-md-8">
-							<input type="text" name="BANK_NAME" value="<?php echo ($this->input->post('BANK_NAME') ? $this->input->post('BANK_NAME') : $masters_cust_bank['BANK_NAME']); ?>" class="form-control" id="BANK_NAME" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="BANK_BRANCH" class="col-md-4 control-label">BANK BRANCH</label>
-						<div class="col-md-8">
-							<input type="text" name="BANK_BRANCH" value="<?php echo ($this->input->post('BANK_BRANCH') ? $this->input->post('BANK_BRANCH') : $masters_cust_bank['BANK_BRANCH']); ?>" class="form-control" id="BANK_BRANCH" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="CREATED_DATE" class="col-md-4 control-label">CREATED DATE</label>
-						<div class="col-md-8">
-							<input type="text" name="CREATED_DATE" value="<?php echo ($this->input->post('CREATED_DATE') ? $this->input->post('CREATED_DATE') : $masters_cust_bank['CREATED_DATE']); ?>" class="form-control" id="CREATED_DATE" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="CREATED_BY" class="col-md-4 control-label">CREATED BY</label>
-						<div class="col-md-8">
-							<input type="text" name="CREATED_BY" value="<?php echo ($this->input->post('CREATED_BY') ? $this->input->post('CREATED_BY') : $masters_cust_bank['CREATED_BY']); ?>" class="form-control" id="CREATED_BY" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="MODIFIED_DATE" class="col-md-4 control-label">MODIFIED DATE</label>
-						<div class="col-md-8">
-							<input type="text" name="MODIFIED_DATE" value="<?php echo ($this->input->post('MODIFIED_DATE') ? $this->input->post('MODIFIED_DATE') : $masters_cust_bank['MODIFIED_DATE']); ?>" class="form-control" id="MODIFIED_DATE" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="MODIFIED_BY" class="col-md-4 control-label">MODIFIED BY</label>
-						<div class="col-md-8">
-							<input type="text" name="MODIFIED_BY" value="<?php echo ($this->input->post('MODIFIED_BY') ? $this->input->post('MODIFIED_BY') : $masters_cust_bank['MODIFIED_BY']); ?>" class="form-control" id="MODIFIED_BY" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="CLIENT_ID" class="col-md-4 control-label">CLIENT ID</label>
-						<div class="col-md-8">
-							<input type="text" name="CLIENT_ID" value="<?php echo ($this->input->post('CLIENT_ID') ? $this->input->post('CLIENT_ID') : $masters_cust_bank['CLIENT_ID']); ?>" class="form-control" id="CLIENT_ID" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="IS_ACTIVE" class="col-md-4 control-label">IS ACTIVE</label>
-						<div class="col-md-8">
-							<input type="checkbox" name="IS_ACTIVE" value="1" <?php echo ($masters_cust_bank['IS_ACTIVE']==1 ? 'checked="checked"' : ''); ?> id='IS_ACTIVE' />
-						</div>
-					</div>
-				</div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="BANK_CODE" class="col-md-4 control-label">BANK CODE</label>
+                    <div class="col-md-8">
+                        <input type="text" name="BANK_CODE" value="<?php echo ($this->input->post('BANK_CODE') ? $this->input->post('BANK_CODE') : $masters_cust_bank['BANK_CODE']); ?>" class="form-control" id="BANK_CODE" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="BANK_NAME" class="col-md-4 control-label">BANK NAME</label>
+                    <div class="col-md-8">
+                        <input type="text" name="BANK_NAME" value="<?php echo ($this->input->post('BANK_NAME') ? $this->input->post('BANK_NAME') : $masters_cust_bank['BANK_NAME']); ?>" class="form-control" id="BANK_NAME" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="BANK_BRANCH" class="col-md-4 control-label">BANK BRANCH</label>
+                    <div class="col-md-8">
+                        <input type="text" name="BANK_BRANCH" value="<?php echo ($this->input->post('BANK_BRANCH') ? $this->input->post('BANK_BRANCH') : $masters_cust_bank['BANK_BRANCH']); ?>" class="form-control" id="BANK_BRANCH" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="CLIENT_ID" class="col-md-4 control-label">CLIENT ID</label>
+                    <div class="col-md-8">
+                        <select name="CLIENT_ID" class="form-control">
+                            <option value="">select client_info</option>
+                            <?php
+                            foreach ($all_client_info as $client_info) {
+                                $selected = ($client_info['CLIENT_ID'] == $this->input->post('CLIENT_ID')) ? ' selected="selected"' : "";
+                                $selected = ($selected == "" && $masters_cust_bank['CLIENT_ID'] != "") ? (($client_info['CLIENT_ID'] == $masters_cust_bank['CLIENT_ID']) ? "selected='selected'" : "") : "";
+                                echo '<option value="' . $client_info['CLIENT_ID'] . '" ' . $selected . '>' . $client_info['CLIENT_NAME'] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-				<div class="box-footer">
-                	<div class="form-group">
-              			<div class="col-md-4"></div>
-          				<div class="col-md-8">
-							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Save
-							</button>
-						</div>
-					</div>
-		        </div>
-				
-			<?php echo form_close(); ?>
-		</div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-check"></i> Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <?php echo form_close(); ?>
+        </div>
     </div>
 </div>

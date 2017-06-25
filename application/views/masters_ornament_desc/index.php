@@ -7,40 +7,18 @@
                     <a href="<?php echo site_url('masters_ornament_desc/add'); ?>" class="btn btn-success btn-sm">Add</a> 
                 </div>
             </div>
-            
-            <div class="box-body no-padding">
-                <table class="table table-striped">
-                    <tr>
-						<th>ORNAMENT DESC ID</th>
-						<th>ORNAMENT DESC NAME</th>
-						<th>ORNAMENT DESCRIPTION</th>
-						<th>ORNAMENT TYPE</th>
-						<th>CREATED DATE</th>
-						<th>CREATED BY</th>
-						<th>MODIFIED DATE</th>
-						<th>MODIFIED BY</th>
-						<th>CLIENT ID</th>
-						<th>IS ACTIVE</th>
-						<th>Actions</th>
-                    </tr>
-                    <?php foreach($masters_ornament_desc as $m){ ?>
-                    <tr>
-						<td><?php echo $m['ORNAMENT_DESC_ID']; ?></td>
-						<td><?php echo $m['ORNAMENT_DESC_NAME']; ?></td>
-						<td><?php echo $m['ORNAMENT_DESCRIPTION']; ?></td>
-						<td><?php echo $m['ORNAMENT_TYPE']; ?></td>
-						<td><?php echo $m['CREATED_DATE']; ?></td>
-						<td><?php echo $m['CREATED_BY']; ?></td>
-						<td><?php echo $m['MODIFIED_DATE']; ?></td>
-						<td><?php echo $m['MODIFIED_BY']; ?></td>
-						<td><?php echo $m['CLIENT_ID']; ?></td>
-						<td><?php echo $m['IS_ACTIVE']; ?></td>
-						<td>
-                            <a href="<?php echo site_url('masters_ornament_desc/edit/'.$m['ORNAMENT_DESC_ID']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-                            <a href="<?php echo site_url('masters_ornament_desc/remove/'.$m['ORNAMENT_DESC_ID']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
-                        </td>
-                    </tr>
-                    <?php } ?>
+
+            <div class="box-body no-padding table-responsive">
+                <table class="table table-striped table-bordered admin-datatable" data-href="<?php echo base_url() ?>masters_ornament_desc/getAllMastersOrnamentDesc">
+                    <thead>
+                        <tr>
+                            <th>ORNAMENT DESC ID</th>
+                            <th>ORNAMENT DESC NAME</th>
+                            <th>ORNAMENT DESCRIPTION</th>
+                            <th>ORNAMENT TYPE</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
                 </table>
             </div>
         </div>
