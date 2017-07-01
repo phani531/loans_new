@@ -60,14 +60,8 @@ class Masters_carat_model extends CI_Model {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'CLIENT_ID',
-                    'dt' => 2,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
                 array('db' => 'CARAT_ID',
-                    'dt' => 3,
+                    'dt' => 2,
                     'formatter' => function($d, $row) {
                         $returnString = "";
                         $returnString .= '<a href="' . site_url('masters_carat/edit/' . $row['CARAT_ID']) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';

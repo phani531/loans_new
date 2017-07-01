@@ -50,7 +50,6 @@ class Masters_daily_gold_price extends CI_Controller {
                 'GOLD_PRICE_BASIS' => $this->input->post('GOLD_PRICE_BASIS'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
                 'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                 'IS_ACTIVE' => 1,
             );
 
@@ -81,7 +80,6 @@ class Masters_daily_gold_price extends CI_Controller {
                     'GOLD_PRICE_BASIS' => $this->input->post('GOLD_PRICE_BASIS'),
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
                     'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                    'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                     'IS_ACTIVE' => 1,
                 );
 

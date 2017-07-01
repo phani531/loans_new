@@ -46,7 +46,6 @@ class Masters_housestatu extends CI_Controller {
                 'HOUSESTATUS_NAME' => $this->input->post('HOUSESTATUS_NAME'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
                 'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                 'IS_ACTIVE' => 1,
             );
 
@@ -73,7 +72,6 @@ class Masters_housestatu extends CI_Controller {
                     'HOUSESTATUS_NAME' => $this->input->post('HOUSESTATUS_NAME'),
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
                     'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                    'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                     'IS_ACTIVE' => 1,
                 );
 

@@ -26,21 +26,6 @@
                         <input type="text" name="CASHMANAGEMENT_RETURN_AMOUNT" value="<?php echo ($this->input->post('CASHMANAGEMENT_RETURN_AMOUNT') ? $this->input->post('CASHMANAGEMENT_RETURN_AMOUNT') : $masters_cash_management['CASHMANAGEMENT_RETURN_AMOUNT']); ?>" class="form-control" id="CASHMANAGEMENT_RETURN_AMOUNT" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="CLIENT_ID" class="col-md-4 control-label">CLIENT ID</label>
-                    <div class="col-md-8">
-                        <select name="CLIENT_ID" class="form-control">
-                            <option value="">select client_info</option>
-                            <?php
-                            foreach ($all_client_info as $client_info) {
-                                $selected = ($client_info['CLIENT_ID'] == $this->input->post('CLIENT_ID')) ? ' selected="selected"' : "";
-                                $selected = ($selected == "" && $masters_cash_management['CLIENT_ID'] != "") ? (($client_info['CLIENT_ID'] == $masters_cash_management['CLIENT_ID']) ? "selected='selected'" : "") : "";
-                                echo '<option value="' . $client_info['CLIENT_ID'] . '" ' . $selected . '>' . $client_info['CLIENT_NAME'] . '</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
             </div>
 
             <div class="box-footer">

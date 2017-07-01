@@ -48,8 +48,8 @@ class Masters_orgtype_model extends CI_Model {
                     'dt' => 2,
                     'formatter' => function($d, $row) {
                         $returnString = "";
-                        $returnString .= '<a href="' . site_url('masters_document/edit/' . $row['ORGTYPE_ID']) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';
-                        $returnString .= '<a href="' . site_url('masters_document/remove/' . $row['ORGTYPE_ID']) . '" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>';
+                        $returnString .= '<a href="' . site_url('masters_orgtype/edit/' . $row['ORGTYPE_ID']) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';
+                        $returnString .= '<a href="' . site_url('masters_orgtype/remove/' . $row['ORGTYPE_ID']) . '" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>';
                         return $returnString;
                     }
                 )

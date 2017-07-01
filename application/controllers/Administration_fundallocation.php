@@ -9,7 +9,7 @@ class Administration_fundallocation extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('Administration_fundallocation_model');
+        $this->load->model(array('Administration_fundallocation_model', 'Administration_employee_model'));
         $this->load->helper(array("datatable"));
     }
 
@@ -48,18 +48,16 @@ class Administration_fundallocation extends CI_Controller {
                 'FA_DATE' => $this->input->post('FA_DATE'),
                 'EMP_ID' => $this->input->post('EMP_ID'),
                 'Amount' => $this->input->post('Amount'),
-                'IS_ACTIVE' => $this->input->post('IS_ACTIVE'),
-                'CREATED_BY' => $this->input->post('CREATED_BY'),
-                'CREATED_DATE' => $this->input->post('CREATED_DATE'),
-                'MODIFIED_DATE' => $this->input->post('MODIFIED_DATE'),
-                'MODIFIED_BY' => $this->input->post('MODIFIED_BY'),
+                'IS_ACTIVE' => 1,
+                'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                'CREATED_DATE' => date("Y-m-d H:i:s"),
             );
 
             $administration_fundallocation_id = $this->Administration_fundallocation_model->add_administration_fundallocation($params);
             redirect('administration_fundallocation/index');
         } else {
             $this->load->model('Administration_employee_model');
-            $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees();
+            $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
 
             $data['_view'] = 'administration_fundallocation/add';
             $this->load->view('layouts/main', $data);
@@ -84,18 +82,16 @@ class Administration_fundallocation extends CI_Controller {
                     'FA_DATE' => $this->input->post('FA_DATE'),
                     'EMP_ID' => $this->input->post('EMP_ID'),
                     'Amount' => $this->input->post('Amount'),
-                    'IS_ACTIVE' => $this->input->post('IS_ACTIVE'),
-                    'CREATED_BY' => $this->input->post('CREATED_BY'),
-                    'CREATED_DATE' => $this->input->post('CREATED_DATE'),
-                    'MODIFIED_DATE' => $this->input->post('MODIFIED_DATE'),
-                    'MODIFIED_BY' => $this->input->post('MODIFIED_BY'),
+                    'IS_ACTIVE' => 1,
+                    'MODIFIED_DATE' => date("Y-m-d H:i:s"),
+                    'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
                 );
 
                 $this->Administration_fundallocation_model->update_administration_fundallocation($FA_ID, $params);
                 redirect('administration_fundallocation/index');
             } else {
                 $this->load->model('Administration_employee_model');
-                $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees();
+                $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
 
                 $data['_view'] = 'administration_fundallocation/edit';
                 $this->load->view('layouts/main', $data);

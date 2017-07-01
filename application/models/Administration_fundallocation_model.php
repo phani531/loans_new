@@ -63,37 +63,8 @@ class Administration_fundallocation_model extends CI_Model {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'IS_ACTIVE',
-                    'dt' => 4,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'CREATED_BY',
-                    'dt' => 5,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ), array('db' => 'CREATED_DATE',
-                    'dt' => 6,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'MODIFIED_DATE',
-                    'dt' => 7,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'MODIFIED_BY',
-                    'dt' => 8,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
                 array('db' => 'FA_ID',
-                    'dt' => 9,
+                    'dt' => 4,
                     'formatter' => function($d, $row) {
                         $returnString = "";
                         $returnString .= '<a href="' . site_url('administration_fundallocation/edit/' . $d) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';

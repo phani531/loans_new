@@ -14,7 +14,6 @@
                         <tr>
                             <th>CARAT ID</th>
                             <th>CARAT NAME</th>
-                            <th>CLIENT ID</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

@@ -9,7 +9,7 @@ class Administration_employee extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('Administration_employee_model');
+        $this->load->model(array('Administration_employee_model', 'Role_model'));
         $this->load->helper(array("datatable"));
     }
 
@@ -53,11 +53,9 @@ class Administration_employee extends CI_Controller {
             $params = array(
                 'EMP_NAME' => $this->input->post('EMP_NAME'),
                 'CLIENT_ID' => $this->input->post('CLIENT_ID'),
-                'IS_ACTIVE' => $this->input->post('IS_ACTIVE'),
-                'CREATED_DATE' => $this->input->post('CREATED_DATE'),
-                'CREATED_BY' => $this->input->post('CREATED_BY'),
-                'MODIFIED_DATE' => $this->input->post('MODIFIED_DATE'),
-                'MODIFIED_BY' => $this->input->post('MODIFIED_BY'),
+                'IS_ACTIVE' => 1,
+                'CREATED_DATE' => date("Y-m-d H:i:s"),
+                'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
                 'IC_NO' => $this->input->post('IC_NO'),
                 'STAFF_NO' => $this->input->post('STAFF_NO'),
                 'ADDRESS' => $this->input->post('ADDRESS'),
@@ -83,7 +81,7 @@ class Administration_employee extends CI_Controller {
 
             $this->load->model('Administration_designation_model');
             $data['all_administration_designation'] = $this->Administration_designation_model->get_all_administration_designation_data();
-
+            $data['all_roles'] = $this->Role_model->get_all_roles();
             $data['_view'] = 'administration_employee/add';
             $this->load->view('layouts/main', $data);
         }
@@ -112,11 +110,9 @@ class Administration_employee extends CI_Controller {
                 $params = array(
                     'EMP_NAME' => $this->input->post('EMP_NAME'),
                     'CLIENT_ID' => $this->input->post('CLIENT_ID'),
-                    'IS_ACTIVE' => $this->input->post('IS_ACTIVE'),
-                    'CREATED_DATE' => $this->input->post('CREATED_DATE'),
-                    'CREATED_BY' => $this->input->post('CREATED_BY'),
-                    'MODIFIED_DATE' => $this->input->post('MODIFIED_DATE'),
-                    'MODIFIED_BY' => $this->input->post('MODIFIED_BY'),
+                    'IS_ACTIVE' => 1,
+                    'MODIFIED_DATE' => date("Y-m-d H:i:s"),
+                    'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
                     'IC_NO' => $this->input->post('IC_NO'),
                     'STAFF_NO' => $this->input->post('STAFF_NO'),
                     'ADDRESS' => $this->input->post('ADDRESS'),
@@ -142,7 +138,7 @@ class Administration_employee extends CI_Controller {
 
                 $this->load->model('Administration_designation_model');
                 $data['all_administration_designation'] = $this->Administration_designation_model->get_all_administration_designation_data();
-
+                $data['all_roles'] = $this->Role_model->get_all_roles();
                 $data['_view'] = 'administration_employee/edit';
                 $this->load->view('layouts/main', $data);
             }

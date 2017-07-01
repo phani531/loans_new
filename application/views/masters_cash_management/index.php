@@ -16,7 +16,6 @@
                             <th>CASHMANAGEMENT DATE</th>
                             <th>CASHMANAGEMENT AMOUNT</th>
                             <th>CASHMANAGEMENT RETURN AMOUNT</th>
-                            <th>CLIENT ID</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

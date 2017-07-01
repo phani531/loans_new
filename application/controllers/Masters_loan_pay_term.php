@@ -52,7 +52,6 @@ class Masters_loan_pay_term extends CI_Controller {
                 'LOANTERM_NOOFTERMS' => $this->input->post('LOANTERM_NOOFTERMS'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
                 'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                 'IS_ACTIVE' => 1,
             );
 
@@ -85,7 +84,6 @@ class Masters_loan_pay_term extends CI_Controller {
                     'LOANTERM_NOOFTERMS' => $this->input->post('LOANTERM_NOOFTERMS'),
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
                     'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                    'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                     'IS_ACTIVE' => 1,
                 );
 

@@ -26,21 +26,6 @@
                         <input type="text" name="BANK_BRANCH" value="<?php echo $this->input->post('BANK_BRANCH'); ?>" class="form-control" id="BANK_BRANCH" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="CLIENT_ID" class="col-md-4 control-label">CLIENT ID</label>
-                    <div class="col-md-8">
-                        <select name="CLIENT_ID" class="form-control">
-                            <option value="">select client_info</option>
-                            <?php
-                            foreach ($all_client_info as $client_info) {
-                                $selected = ($client_info['CLIENT_ID'] == $this->input->post('CLIENT_ID')) ? ' selected="selected"' : "";
-
-                                echo '<option value="' . $client_info['CLIENT_ID'] . '" ' . $selected . '>' . $client_info['CLIENT_NAME'] . '</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
             </div>
 
             <div class="box-footer">

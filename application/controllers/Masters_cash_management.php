@@ -48,7 +48,6 @@ class Masters_cash_management extends CI_Controller {
                 'CASHMANAGEMENT_RETURN_AMOUNT' => $this->input->post('CASHMANAGEMENT_RETURN_AMOUNT'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
                 'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                 'IS_ACTIVE' => 1
             );
 
@@ -77,7 +76,6 @@ class Masters_cash_management extends CI_Controller {
                     'CASHMANAGEMENT_RETURN_AMOUNT' => $this->input->post('CASHMANAGEMENT_RETURN_AMOUNT'),
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
                     'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                    'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                     'IS_ACTIVE' => 1,
                 );
 

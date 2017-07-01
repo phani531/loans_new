@@ -94,21 +94,6 @@
                         <input type="text" name="AGENT_PIC_PATH" value="<?php echo ($this->input->post('AGENT_PIC_PATH') ? $this->input->post('AGENT_PIC_PATH') : $masters_agent_info['AGENT_PIC_PATH']); ?>" class="form-control" id="AGENT_PIC_PATH" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="CLIENT_ID" class="col-md-4 control-label">CLIENT ID</label>
-                    <div class="col-md-8">
-                        <select name="CLIENT_ID" class="form-control">
-                            <option value="">select client_info</option>
-                            <?php
-                            foreach ($all_client_info as $client_info) {
-                                $selected = ($client_info['CLIENT_ID'] == $masters_agent_info['CLIENT_ID']) ? ' selected="selected"' : "";
-
-                                echo '<option value="' . $client_info['CLIENT_ID'] . '" ' . $selected . '>' . $client_info['CLIENT_NAME'] . '</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
             </div>
 
             <div class="box-footer">

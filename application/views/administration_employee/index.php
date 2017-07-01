@@ -15,11 +15,6 @@
                             <th>EMP ID</th>
                             <th>EMP NAME</th>
                             <th>CLIENT ID</th>
-                            <th>IS ACTIVE</th>
-                            <th>CREATED DATE</th>
-                            <th>CREATED BY</th>
-                            <th>MODIFIED DATE</th>
-                            <th>MODIFIED BY</th>
                             <th>IC NO</th>
                             <th>STAFF NO</th>
                             <th>ADDRESS</th>

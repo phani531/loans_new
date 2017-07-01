@@ -46,7 +46,6 @@ class Masters_storage_fee extends CI_Controller {
                 'STORAGE_CHARGE' => $this->input->post('STORAGE_CHARGE'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
                 'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                 'IS_ACTIVE' => 1,
             );
 
@@ -71,9 +70,8 @@ class Masters_storage_fee extends CI_Controller {
             if (isset($_POST) && count($_POST) > 0) {
                 $params = array(
                     'STORAGE_CHARGE' => $this->input->post('STORAGE_CHARGE'),
-                    'MODIFIED_DATE' => $this->input->post('MODIFIED_DATE'),
+                    'MODIFIED_DATE' => date("Y-m-d H:i:s"),
                     'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                    'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                     'IS_ACTIVE' => 1,
                 );
 

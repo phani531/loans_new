@@ -66,127 +66,98 @@ class Administration_employee_model extends CI_Model {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'IS_ACTIVE',
+                array('db' => 'IC_NO',
                     'dt' => 3,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'CREATED_DATE',
+                array('db' => 'STAFF_NO',
                     'dt' => 4,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'CREATED_BY',
-                    'dt' => 5,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ), array('db' => 'MODIFIED_DATE',
-                    'dt' => 6,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'MODIFIED_BY',
-                    'dt' => 7,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'IC_NO',
-                    'dt' => 8,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'STAFF_NO',
-                    'dt' => 9,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
                 array('db' => 'ADDRESS',
-                    'dt' => 10,
+                    'dt' => 5,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'MOBILE_NO',
-                    'dt' => 11,
+                    'dt' => 6,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'PHONE_NO',
-                    'dt' => 12,
+                    'dt' => 7,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'EMAIL_ID',
-                    'dt' => 13,
+                    'dt' => 8,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'GENDER',
-                    'dt' => 14,
+                    'dt' => 9,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'DESIGNATION_ID',
-                    'dt' => 15,
+                    'dt' => 10,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'ACTIVE_STATUS',
-                    'dt' => 16,
+                    'dt' => 11,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'BASIC_SALARY',
-                    'dt' => 17,
+                    'dt' => 12,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'LANGUAGE',
-                    'dt' => 18,
+                    'dt' => 13,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'EMPLOYEE_PIC_PATH',
-                    'dt' => 19,
+                    'dt' => 14,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'VIEW_OTHER_BRANCH_DETAILS',
-                    'dt' => 20,
+                    'dt' => 15,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'MULTIPLE_LOGINS',
-                    'dt' => 21,
+                    'dt' => 16,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'ROLE_ID',
-                    'dt' => 22,
+                    'dt' => 17,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
                 array('db' => 'EMP_ID',
-                    'dt' => 23,
+                    'dt' => 18,
                     'formatter' => function($d, $row) {
                         $returnString = "";
                         $returnString .= '<a href="' . site_url('administration_employee/edit/' . $d) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';

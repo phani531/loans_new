@@ -64,14 +64,8 @@ class Masters_cash_management_model extends CI_Model {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'CLIENT_ID',
-                    'dt' => 4,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
                 array('db' => 'CASHMANAGEMENT_ID',
-                    'dt' => 5,
+                    'dt' => 4,
                     'formatter' => function($d, $row) {
                         $returnString = "";
                         $returnString .= '<a href="' . site_url('masters_cash_management/edit/' . $row['CASHMANAGEMENT_ID']) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';

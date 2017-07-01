@@ -72,7 +72,7 @@ class Administration_comp_profile extends CI_Controller {
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
                 'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
                 'CLIENT_ID' => $this->input->post('CLIENT_ID'),
-                'IS_ACTIVE' => ($this->input->post('IS_ACTIVE') != "" && $this->input->post('IS_ACTIVE') != null)?$this->input->post('IS_ACTIVE'):0,
+                'IS_ACTIVE' => 1,
                 'OWNER_NAME' => $this->input->post('OWNER_NAME'),
                 'OFFICE_EXTENSION_NUMBER' => $this->input->post('OFFICE_EXTENSION_NUMBER'),
             );
@@ -134,7 +134,7 @@ class Administration_comp_profile extends CI_Controller {
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
                     'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
                     'CLIENT_ID' => $this->input->post('CLIENT_ID'),
-                    'IS_ACTIVE' => ($this->input->post('IS_ACTIVE') != "" && $this->input->post('IS_ACTIVE') != null)?$this->input->post('IS_ACTIVE'):0,
+                    'IS_ACTIVE' => 1,
                     'OWNER_NAME' => $this->input->post('OWNER_NAME'),
                     'OFFICE_EXTENSION_NUMBER' => $this->input->post('OFFICE_EXTENSION_NUMBER'),
                 );

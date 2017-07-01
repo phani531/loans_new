@@ -39,7 +39,6 @@ class Masters_agent_info extends CI_Controller {
 
         $this->form_validation->set_rules('AGENT_IDNO', 'AGENT IDNO', 'required');
         $this->form_validation->set_rules('AGENT_NAME', 'AGENT NAME', 'required');
-        $this->form_validation->set_rules('CLIENT_ID', 'CLIENT ID', 'required');
         $this->form_validation->set_rules('AGENT_COMMISSION_TYPE', 'AGENT COMMISSION TYPE', 'required');
         $this->form_validation->set_rules('AGENT_COMMISSION_AMOUNT', 'AGENT COMMISSION AMOUNT', 'integer');
         $this->form_validation->set_rules('AGENT_COMMISSION_PERCENTAGE', 'AGENT COMMISSION PERCENTAGE', 'integer');
@@ -60,7 +59,6 @@ class Masters_agent_info extends CI_Controller {
                 'AGENT_PIC_PATH' => $this->input->post('AGENT_PIC_PATH'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
                 'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                 'IS_ACTIVE' => 1,
             );
 
@@ -88,7 +86,6 @@ class Masters_agent_info extends CI_Controller {
 
             $this->form_validation->set_rules('AGENT_IDNO', 'AGENT IDNO', 'required');
             $this->form_validation->set_rules('AGENT_NAME', 'AGENT NAME', 'required');
-            $this->form_validation->set_rules('CLIENT_ID', 'CLIENT ID', 'required');
             $this->form_validation->set_rules('AGENT_COMMISSION_TYPE', 'AGENT COMMISSION TYPE', 'required');
             $this->form_validation->set_rules('AGENT_COMMISSION_AMOUNT', 'AGENT COMMISSION AMOUNT', 'integer');
             $this->form_validation->set_rules('AGENT_COMMISSION_PERCENTAGE', 'AGENT COMMISSION PERCENTAGE', 'integer');
@@ -109,7 +106,6 @@ class Masters_agent_info extends CI_Controller {
                     'AGENT_PIC_PATH' => $this->input->post('AGENT_PIC_PATH'),
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
                     'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                    'CLIENT_ID' => $this->input->post('CLIENT_ID'),
                     'IS_ACTIVE' => 1,
                 );
 

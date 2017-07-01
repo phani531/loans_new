@@ -16,7 +16,6 @@
                             <th>BANK CODE</th>
                             <th>BANK NAME</th>
                             <th>BANK BRANCH</th>
-                            <th>CLIENT ID</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
