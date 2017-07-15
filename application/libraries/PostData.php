@@ -33,6 +33,24 @@ class PostData {
         return $return_array;
     }
 
+    /**
+     * Function to prepare insert data
+     * 
+     * @param type $data
+     * 
+     * @return array $return_array
+     */
+    public function getRolePost($data) {
+        $return_array = array();
+        if (!empty($data)) {
+            $return_array = array(
+                "ROLE_NAME" => $data['ROLE_NAME'],
+                "CREATED_DATE" => date("Y-m-d H:i:s")
+            );
+        }
+        return $return_array;
+    }
+
 }
 ?>
 

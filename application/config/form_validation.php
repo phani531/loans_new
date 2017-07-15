@@ -44,4 +44,12 @@ $config = array(
             'rules' => 'trim|required|min_length[1]|max_length[100]|callback_namefield'
         ),
     )
+    ,
+    "role_form" => array(
+        array(
+            'field' => 'ROLE_NAME',
+            'label' => 'Role name',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|callback_namefield'
+        ),
+    )
 );

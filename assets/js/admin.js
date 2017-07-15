@@ -17,6 +17,7 @@ var admin = function () {
     function init() {
         initAdminAjaxDataTable();
         initClientFormValidation();
+        initRoleFormValidation();
         initDeleteIndividualRow();
     }
 
@@ -39,10 +40,6 @@ var admin = function () {
             errorElement: 'label',
             errorClass: 'error',
             focusInvalid: false,
-            invalidHandler: function (event, validator) { //display error alert on form submit   
-                $('.alert-danger', $('.login-form')).show();
-            }
-            ,
             highlight: function (e) {
                 $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
             }
@@ -57,18 +54,43 @@ var admin = function () {
             }
             ,
             errorPlacement: function (error, element) {
-                if (element.is(':file')) {
-                    error.insertAfter(element.parent().parent());
-                } else if (element.is("select")) {
-                    error.insertAfter(element.nextAll());
-                } else if (element.is("textarea") && element.attr('name') == "rules") {
-                    error.insertAfter(element.nextAll());
-                } else {
-                    error.insertAfter(element);
-                }
+                error.insertAfter(element);
             }
         }
         );
+    }
+
+    /**
+     * FUnction validate role form
+     * @returns {undefined}
+     */
+    function initRoleFormValidation() {
+        $("#role_form").validate({
+            rules: {
+                ROLE_NAME: {
+                    namefield: true
+                }
+            },
+            errorElement: 'label',
+            errorClass: 'error',
+            focusInvalid: false,
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            }
+            ,
+            unhighlight: function (element) { // <-- fires when element is valid
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-info');
+            }
+            ,
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+                $(e).remove();
+            }
+            ,
+            errorPlacement: function (error, element) {
+                error.insertAfter(element);
+            }
+        });
     }
 
     /**
