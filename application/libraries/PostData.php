@@ -21,14 +21,17 @@ class PostData {
      * 
      * @return array $return_array
      */
-    public function getClientPost($data) {
+    public function getClientPost($data, $edit_flag = false) {
         $return_array = array();
         if (!empty($data)) {
             $return_array = array(
                 "CLIENT_CODE" => $data['CLIENT_CODE'],
-                "CLIENT_NAME" => $data['CLIENT_NAME'],
-                "CREATED_DATE" => date("Y-m-d H:i:s")
+                "CLIENT_NAME" => $data['CLIENT_NAME']
             );
+            if (!$edit_flag)
+                $return_array['CREATED_DATE'] = date("Y-m-d H:i:s");
+            else
+                $return_array['MODIFIED_DATE'] = date("Y-m-d H:i:s");
         }
         return $return_array;
     }
@@ -40,13 +43,16 @@ class PostData {
      * 
      * @return array $return_array
      */
-    public function getRolePost($data) {
+    public function getRolePost($data, $edit_flag = false) {
         $return_array = array();
         if (!empty($data)) {
             $return_array = array(
-                "ROLE_NAME" => $data['ROLE_NAME'],
-                "CREATED_DATE" => date("Y-m-d H:i:s")
+                "ROLE_NAME" => $data['ROLE_NAME']
             );
+            if (!$edit_flag)
+                $return_array['CREATED_DATE'] = date("Y-m-d H:i:s");
+            else
+                $return_array['MODIFIED_DATE'] = date("Y-m-d H:i:s");
         }
         return $return_array;
     }

@@ -39,8 +39,8 @@ class Role extends CI_Controller {
         $postData = $this->input->post(NULL, TRUE);
         if (!empty($postData)) {
             if ($this->form_validation->run("role_form") == TRUE) {
-                $client_post_data = $this->postdata->getRolePost($postData);
-                $client_info_id = $this->Role_model->add_role($postData);
+                $role_post_data = $this->postdata->getRolePost($postData);
+                $client_info_id = $this->Role_model->add_role($role_post_data);
                 redirect("role/index");
             } else {
                 $data['_view'] = 'role/add';
@@ -62,7 +62,8 @@ class Role extends CI_Controller {
         $data['role'] = $this->Role_model->get_role($ROLE_ID);
         if (isset($postData) && !empty($postData)) {
             if ($this->form_validation->run("role_form") == TRUE) {
-                $this->Role_model->update_role($ROLE_ID, $postData);
+                $role_post_data = $this->postdata->getRolePost($postData, TRUE);
+                $this->Role_model->update_role($ROLE_ID, $role_post_data);
                 redirect('role/index');
             } else {
                 $data['_view'] = 'role/edit';

@@ -11,3 +11,5 @@
 ALTER table roles modify column IS_ACTIVE tinyint(1) DEFAULT 1 COMMENT 'Row is active or not 1-Active, 0-In active';
 
 ALTER table roles add column CREATED_DATE datetime DEFAULT NULL COMMENT 'Row is active or not 1-Active, 0-In active';
+
+ALTER table roles add column MODIFIED_DATE datetime DEFAULT NULL COMMENT 'Row is active or not 1-Active, 0-In active';

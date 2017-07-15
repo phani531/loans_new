@@ -44,7 +44,7 @@ class Client_info extends CI_Controller {
         if (!empty($postData)) {
             if ($this->form_validation->run("client_info_add_form") == TRUE) {
                 $client_post_data = $this->postdata->getClientPost($postData);
-                $client_info_id = $this->Client_info_model->add_client_info($postData);
+                $client_info_id = $this->Client_info_model->add_client_info($client_post_data);
                 redirect("client_info/index");
             } else {
                 $data['_view'] = 'client_info/add';
@@ -65,7 +65,8 @@ class Client_info extends CI_Controller {
         $data['client_info'] = $this->Client_info_model->get_client_info($CLIENT_ID);
         if (isset($postData) && !empty($postData)) {
             if ($this->form_validation->run("client_info_edit_form") == TRUE) {
-                $this->Client_info_model->update_client_info($CLIENT_ID, $postData);
+                $client_post_data = $this->postdata->getClientPost($postData, TRUE);
+                $this->Client_info_model->update_client_info($CLIENT_ID, $client_post_data);
                 redirect('client_info/index');
             } else {
                 $data['_view'] = 'client_info/edit';
