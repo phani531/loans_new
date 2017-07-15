@@ -16,10 +16,58 @@ var admin = function () {
 
     function init() {
         initAdminAjaxDataTable();
+        initClientFormValidation();
     }
 
     function ajaxInit() {
 
+    }
+
+    /**
+     * Function to validate form
+     * 
+     * @return boolean true or false
+     */
+    function initClientFormValidation() {
+        $("#client_info_add_form").validate({
+            rules: {
+                CLIENT_NAME: {
+                    namefield: true
+                }
+            },
+            errorElement: 'label',
+            errorClass: 'error',
+            focusInvalid: false,
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+                $('.alert-danger', $('.login-form')).show();
+            }
+            ,
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            }
+            ,
+            unhighlight: function (element) { // <-- fires when element is valid
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-info');
+            }
+            ,
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+                $(e).remove();
+            }
+            ,
+            errorPlacement: function (error, element) {
+                if (element.is(':file')) {
+                    error.insertAfter(element.parent().parent());
+                } else if (element.is("select")) {
+                    error.insertAfter(element.nextAll());
+                } else if (element.is("textarea") && element.attr('name') == "rules") {
+                    error.insertAfter(element.nextAll());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        }
+        );
     }
 
     /**
@@ -56,4 +104,5 @@ var admin = function () {
             });
         });
     }
-}();
+}
+();

@@ -9,7 +9,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="<?php echo base_url('resources/css/bootstrap.min.css'); ?>">
-        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                          ?>
+        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                 ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>">
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/ionicons.min.css'); ?>">
@@ -20,7 +20,13 @@
         <link rel="stylesheet" href="<?php echo site_url('resources/css/_all-skins.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/dataTables/dataTables.bootstrap.min.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/dataTables/dataTables.tableTools.css" />
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/custom.css" />
         <script>
+            var NAME_FIELD = <?php echo NAME_FIELD; ?>;
+            var NAME_WITH_SPACE = <?php echo NAME_WITH_SPACE; ?>;
+            var ALPHA_NUMERIC = <?php echo ALPHA_NUMERIC; ?>;
+            var NUMERIC = <?php echo NUMERIC; ?>;
+            var ZIPCODE_FIELD = <?php echo ZIPCODE_FIELD; ?>;
             var SITEURL = '<?php echo base_url(); ?>';
         </script>
     </head>
@@ -424,11 +430,13 @@
         <!-- AdminLTE for demo purposes -->
         <script src="<?php echo site_url('resources/js/demo.js'); ?>"></script>
         <script src="<?php echo base_url(); ?>assets/js/bootstrap-datepicker.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/fileupload/bootstrap-filestyle.min.js"></script>
         <script src="https://almsaeedstudio.com/themes/AdminLTE/plugins/select2/select2.full.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/dataTables/jquery.dataTables.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/dataTables/dataTables.bootstrap.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/validations.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/admin.js"></script>
 
         <!-- ./wrapper -->
