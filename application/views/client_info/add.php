@@ -14,7 +14,7 @@
                             'name' => 'CLIENT_CODE',
                             'id' => 'CLIENT_CODE',
                             'value' => set_value('CLIENT_CODE'),
-                            'maxlength' => '20',
+                            'maxlength' => '50',
                             "class" => "form-control required"
                         );
 
@@ -31,7 +31,7 @@
                             'name' => 'CLIENT_NAME',
                             'id' => 'CLIENT_NAME',
                             'value' => set_value('CLIENT_NAME'),
-                            'maxlength' => '20',
+                            'maxlength' => '50',
                             "class" => "form-control required"
                         );
 
