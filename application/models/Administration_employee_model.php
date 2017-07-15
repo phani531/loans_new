@@ -60,7 +60,7 @@ class Administration_employee_model extends CI_Model {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'CLIENT_ID',
+                array('db' => 'CLIENT_NAME',
                     'dt' => 2,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
@@ -108,75 +108,60 @@ class Administration_employee_model extends CI_Model {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'DESIGNATION_ID',
+                array('db' => 'DESIGNATION_NAME',
                     'dt' => 10,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'ACTIVE_STATUS',
+                array('db' => 'BASIC_SALARY',
                     'dt' => 11,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'BASIC_SALARY',
+                array('db' => 'LANGUAGE',
                     'dt' => 12,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'LANGUAGE',
+                array('db' => 'VIEW_OTHER_BRANCH_DETAILS',
                     'dt' => 13,
                     'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
+                        return (!empty($d) && $d == 1) ? "Yes" : "No";
                     }
                 ),
-                array('db' => 'EMPLOYEE_PIC_PATH',
+                array('db' => 'ROLE_NAME',
                     'dt' => 14,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'VIEW_OTHER_BRANCH_DETAILS',
+                array('db' => 'EMP_ID',
                     'dt' => 15,
                     'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'MULTIPLE_LOGINS',
-                    'dt' => 16,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'ROLE_ID',
-                    'dt' => 17,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'EMP_ID',
-                    'dt' => 18,
-                    'formatter' => function($d, $row) {
                         $returnString = "";
-                        $returnString .= '<a href="' . site_url('administration_employee/edit/' . $d) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';
-                        $returnString .= '<a href="' . site_url('administration_employee/remove/' . $d) . '" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>';
+                        $returnString .= '<a href="' . site_url('administration_employee/edit/' . $d) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>&nbsp;&nbsp;';
+                        $returnString .= '<a data-href="' . site_url('administration_employee/remove') . '" data-table-name="admin_emp_table" data-id=' . $d . ' data-desc="You will be perminently deleting this client." data-message= "Are you sure to delete?" class="btn btn-danger btn-xs delete-row"><span class="fa fa-trash"></span> Delete</a>';
                         return $returnString;
                     }
                 )
             );
             $join = "";
+            $join .= " JOIN client_info ci ON ci.CLIENT_ID = ae.CLIENT_ID AND ci.IS_ACTIVE = 1";
+            $join .= " JOIN roles r ON r.ROLE_ID = ae.ROLE_ID AND ae.IS_ACTIVE = 1";
+            $join .= " JOIN administration_designation ad ON ad.DESIGNATION_ID = ae.DESIGNATION_ID AND ad.IS_ACTIVE = 1";
             $where = "";
 
-            $query_columns_array = array("EMP_ID, EMP_NAME, CLIENT_ID, IS_ACTIVE, CREATED_DATE, CREATED_BY, MODIFIED_DATE, MODIFIED_BY, IC_NO, STAFF_NO, ADDRESS, MOBILE_NO, PHONE_NO, EMAIL_ID, GENDER, DESIGNATION_ID, ACTIVE_STATUS, BASIC_SALARY, LANGUAGE, EMPLOYEE_PIC_PATH, VIEW_OTHER_BRANCH_DETAILS, MULTIPLE_LOGINS, ROLE_ID");
+            $query_columns_array = array("EMP_ID, EMP_NAME, ae.CLIENT_ID, IC_NO, STAFF_NO, ADDRESS, MOBILE_NO, PHONE_NO, EMAIL_ID, GENDER, ACTIVE_STATUS, BASIC_SALARY, LANGUAGE, EMPLOYEE_PIC_PATH, VIEW_OTHER_BRANCH_DETAILS, MULTIPLE_LOGINS, ROLE_NAME, CLIENT_NAME, DESIGNATION_NAME");
 
             $custom_where = array();
-            $where .= "";
+            $where .= " WHERE ae.IS_ACTIVE = 1";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
-            $sql_query = 'SELECT $query_columns from administration_employees' . $join . $where;
+            $sql_query = 'SELECT $query_columns from administration_employees ae' . $join . $where;
             $result = datatable::simple($request, $sql_details, $sql_query, $query_columns, $columns);
             $start = $_REQUEST['start'];
             return $result;
@@ -202,11 +187,7 @@ class Administration_employee_model extends CI_Model {
     function update_administration_employee($EMP_ID, $params) {
         $this->db->where('EMP_ID', $EMP_ID);
         $response = $this->db->update('administration_employees', $params);
-        if ($response) {
-            return "administration_employee updated successfully";
-        } else {
-            return "Error occuring while updating administration_employee";
-        }
+        return $response;
     }
 
     /*
@@ -214,12 +195,7 @@ class Administration_employee_model extends CI_Model {
      */
 
     function delete_administration_employee($EMP_ID) {
-        $response = $this->db->delete('administration_employees', array('EMP_ID' => $EMP_ID));
-        if ($response) {
-            return "administration_employee deleted successfully";
-        } else {
-            return "Error occuring while deleting administration_employee";
-        }
+        return $this->db->where(array('EMP_ID' => $EMP_ID))->update('administration_employees', array("IS_ACTIVE" => 0));
     }
 
 }

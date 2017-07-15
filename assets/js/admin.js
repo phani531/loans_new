@@ -19,12 +19,95 @@ var admin = function () {
         initClientFormValidation();
         initRoleFormValidation();
         initAdminCompProfileValidation();
+        initAdminDesignationFormValidation();
+        initAdminEmployeeFormValidation();
         initDeleteIndividualRow();
         initDatePicker();
     }
 
     function ajaxInit() {
 
+    }
+
+    /**
+     * Function to validate admin employee form
+     * @returns {undefined}
+     */
+    function initAdminEmployeeFormValidation() {
+        $("#admin_employee_form").validate({
+            rules: {
+                EMP_NAME: {
+                    namefield: true
+                },
+                IC_NO: {
+                    alphanumeric: true
+                },
+                STAFF_NO: {
+                    alphanumeric: true
+                },
+                MOBILE_NO: {
+                    numeric: true
+                },
+                PHONE_NO: {
+                    numeric: true
+                },
+                EMAIL_ID: {
+                    email: true
+                },
+                BASIC_SALARY: {
+                    numeric: true
+                },
+                LANGUAGE: {
+                    namefield: true
+                }
+            },
+            errorElement: 'label',
+            errorClass: 'error',
+            focusInvalid: false,
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            unhighlight: function (element) { // <-- fires when element is valid
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-info');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element);
+            }
+        });
+    }
+
+    /**
+     * Function to validate admin designation form validation
+     * @returns {undefined}
+     */
+    function initAdminDesignationFormValidation() {
+        $("#admin_design_form").validate({
+            rules: {
+                DESIGNATION_NAME: {
+                    namefield: true
+                },
+            },
+            errorElement: 'label',
+            errorClass: 'error',
+            focusInvalid: false,
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            unhighlight: function (element) { // <-- fires when element is valid
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-info');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element);
+            }
+        });
     }
 
     /**

@@ -111,7 +111,7 @@ class CI_Controller {
      * @return boolean true or false
      */
     function alphanumeric($str) {
-        $this->form_validation->set_message('namefield', 'Please enter a valid %s');
+        $this->form_validation->set_message('alphanumeric', 'Please enter a valid %s');
         return (!preg_match(ALPHA_NUMERIC . "i", $str)) ? FALSE : TRUE;
     }
 
@@ -123,7 +123,7 @@ class CI_Controller {
      * @return boolean true or false
      */
     function numberfield($str) {
-        $this->form_validation->set_message('namefield', 'Please enter a valid %s');
+        $this->form_validation->set_message('numberfield', 'Please enter a valid %s');
         return (!preg_match(NUMERIC . "i", $str)) ? FALSE : TRUE;
     }
 

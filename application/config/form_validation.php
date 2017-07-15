@@ -119,4 +119,63 @@ $config = array(
             'rules' => 'trim|required|min_length[1]|max_length[100]|callback_namefield'
         ),
     ),
+    "admin_design_form" => array(
+        array(
+            'field' => 'DESIGNATION_NAME',
+            'label' => 'Designation name',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|callback_namefield'
+        ),
+    ),
+    "admin_employee_form" => array(
+        array(
+            'field' => 'EMP_NAME',
+            'label' => 'Employee name',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|callback_namefield'
+        ),
+        array(
+            'field' => 'IC_NO',
+            'label' => 'IC no',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|callback_alphanumeric'
+        ),
+        array(
+            'field' => 'STAFF_NO',
+            'label' => 'Staff no',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|callback_alphanumeric'
+        ),
+        array(
+            'field' => 'MOBILE_NO',
+            'label' => 'Mobile no',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|callback_numberfield'
+        ),
+        array(
+            'field' => 'PHONE_NO',
+            'label' => 'Phone no',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|callback_numberfield'
+        ),
+        array(
+            'field' => 'EMAIL_ID',
+            'label' => 'Email Id',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|valid_email'
+        ),
+        array(
+            'field' => 'BASIC_SALARY',
+            'label' => 'Basic salary',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|numeric'
+        ),
+        array(
+            'field' => 'LANGUAGE',
+            'label' => 'Language',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|callback_namefield'
+        ),
+        array(
+            'field' => 'EMPLOYEE_PIC_PATH',
+            'label' => 'Employee pic path',
+            'rules' => 'trim|required|min_length[1]|max_length[100]'
+        ),
+        array(
+            'field' => 'ROLE_ID',
+            'label' => 'Role',
+            'rules' => 'trim|required|min_length[1]|max_length[100]'
+        ),
+    ),
 );

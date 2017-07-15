@@ -23,7 +23,7 @@ class Administration_designation_model extends CI_Model {
      * Function to get all administration designation data
      */
     function get_all_administration_designation_data() {
-        return $this->db->get('administration_designation')->result_array();
+        return $this->db->where(array("IS_ACTIVE" => 1))->get('administration_designation')->result_array();
     }
 
     /**
@@ -68,8 +68,8 @@ class Administration_designation_model extends CI_Model {
                     'dt' => 3,
                     'formatter' => function($d, $row) {
                         $returnString = "";
-                        $returnString .= '<a href="' . site_url('administration_designation/edit/' . $row['DESIGNATION_ID']) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';
-                        $returnString .= '<a href="' . site_url('administration_designation/remove/' . $row['DESIGNATION_ID']) . '" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>';
+                        $returnString .= '<a href="' . site_url('administration_designation/edit/' . $row['DESIGNATION_ID']) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>&nbsp;&nbsp;';
+                        $returnString .= '<a data-href="' . site_url('administration_designation/remove') . '" data-table-name="employee_designation_table" data-id=' . $row["DESIGNATION_ID"] . ' data-desc="You will be perminently deleting this client." data-message= "Are you sure to delete?" class="btn btn-danger btn-xs delete-row"><span class="fa fa-trash"></span> Delete</a>';
                         return $returnString;
                     }
                 )
@@ -80,7 +80,7 @@ class Administration_designation_model extends CI_Model {
             $query_columns_array = array("DESIGNATION_ID", "DESIGNATION_NAME", "DESIGNATION_DESC");
 
             $custom_where = array();
-            $where .= "";
+            $where .= " WHERE IS_ACTIVE = 1";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
@@ -122,12 +122,7 @@ class Administration_designation_model extends CI_Model {
      */
 
     function delete_administration_designation($DESIGNATION_ID) {
-        $response = $this->db->delete('administration_designation', array('DESIGNATION_ID' => $DESIGNATION_ID));
-        if ($response) {
-            return "administration_designation deleted successfully";
-        } else {
-            return "Error occuring while deleting administration_designation";
-        }
+        return $this->db->where(array('DESIGNATION_ID' => $DESIGNATION_ID))->update('administration_designation', array("IS_ACTIVE" => 0));
     }
 
 }

@@ -9,27 +9,18 @@
             </div>
 
             <div class="box-body no-padding table-responsive">
-                <table class="table table-striped table-bordered admin-datatable" id="employee_designation_table" data-href="<?php echo base_url(); ?>administration_designation/getAllAdminDesignationDetails">
-                    <thead>
-                        <tr>
-                            <th>DESIGNATION ID</th>
-                            <th>DESIGNATION NAME</th>
-                            <th>DESIGNATION DESC</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <?php /* foreach ($administration_designation as $a) { ?>
-                      <tr>
-                      <td><?php echo $a['DESIGNATION_ID']; ?></td>
-                      <td><?php echo $a['DESIGNATION_NAME']; ?></td>
-                      <td><?php echo $a['DESIGNATION_DESC']; ?></td>
-                      <td>
-                      <a href="<?php echo site_url('administration_designation/edit/' . $a['DESIGNATION_ID']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>
-                      <a href="<?php echo site_url('administration_designation/remove/' . $a['DESIGNATION_ID']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
-                      </td>
-                      </tr>
-                      <?php } */ ?>
-                </table>
+                <div class="col-md-12"> 
+                    <table class="table table-striped table-bordered admin-datatable" id="employee_designation_table" data-href="<?php echo base_url(); ?>administration_designation/getAllAdminDesignationDetails">
+                        <thead>
+                            <tr>
+                                <th>DESIGNATION ID</th>
+                                <th>DESIGNATION NAME</th>
+                                <th>DESIGNATION DESC</th>
+                                <th class="text-center">ACTIONS</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

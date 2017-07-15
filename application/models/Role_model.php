@@ -86,7 +86,7 @@ class Role_model extends CI_Model {
      */
 
     function get_all_roles() {
-        return $this->db->get('roles')->result_array();
+        return $this->db->where(array("IS_ACTIVE" => 1))->get('roles')->result_array();
     }
 
     /*

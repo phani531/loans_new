@@ -103,6 +103,71 @@ class PostData {
         return $return_array;
     }
 
+    /**
+     * Function to get admin designation data
+     * 
+     * @param array $data
+     * @param bolean $edit_flag
+     * 
+     * @return type
+     */
+    function getAdminiDesignData($data, $edit_flag = false) {
+        $return_array = array();
+        if (!empty($data)) {
+            $return_array = array(
+                "DESIGNATION_NAME" => $data['DESIGNATION_NAME'],
+                "DESIGNATION_DESC" => $data['DESIGNATION_DESC']
+            );
+            if (!$edit_flag)
+                $return_array['CREATED_DATE'] = date("Y-m-d H:i:s");
+            else
+                $return_array['MODIFIED_DATE'] = date("Y-m-d H:i:s");
+        }
+        return $return_array;
+    }
+
+    /**
+     * Function to get admin employee data
+     * 
+     * @param array $data
+     * @param bolean $edit_flag
+     * 
+     * @return type
+     */
+    function getAdminiEmployeeData($data, $edit_flag = false) {
+        $return_array = array();
+        if (!empty($data)) {
+            $return_array = array(
+                'EMP_NAME' => $data['EMP_NAME'],
+                'CLIENT_ID' => $data['CLIENT_ID'],
+                'IS_ACTIVE' => 1,
+                'IC_NO' => $data['IC_NO'],
+                'STAFF_NO' => $data['STAFF_NO'],
+                'ADDRESS' => $data['ADDRESS'],
+                'MOBILE_NO' => $data['MOBILE_NO'],
+                'PHONE_NO' => $data['PHONE_NO'],
+                'EMAIL_ID' => $data['EMAIL_ID'],
+                'GENDER' => $data['GENDER'],
+                'DESIGNATION_ID' => $data['DESIGNATION_ID'],
+                'ACTIVE_STATUS' => (isset($data['ACTIVE_STATUS']) && $data['ACTIVE_STATUS'] != "") ? $data['ACTIVE_STATUS'] : 0,
+                'BASIC_SALARY' => $data['BASIC_SALARY'],
+                'LANGUAGE' => $data['LANGUAGE'],
+                'EMPLOYEE_PIC_PATH' => $data['EMPLOYEE_PIC_PATH'],
+                'VIEW_OTHER_BRANCH_DETAILS' => (isset($data['VIEW_OTHER_BRANCH_DETAILS']) && $data['VIEW_OTHER_BRANCH_DETAILS'] != "") ? $data['VIEW_OTHER_BRANCH_DETAILS'] : 0,
+                'MULTIPLE_LOGINS' => (isset($data['MULTIPLE_LOGINS']) && $data['MULTIPLE_LOGINS'] != "") ? $data['MULTIPLE_LOGINS'] : 0,
+                'ROLE_ID' => $data['ROLE_ID'],
+            );
+            if (!$edit_flag) {
+                $return_array['CREATED_DATE'] = date("Y-m-d H:i:s");
+                $return_array['CREATED_BY'] = isset($this->CI->session->userdata["EMP_DATA"]['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            } else {
+                $return_array['MODIFIED_DATE'] = date("Y-m-d H:i:s");
+                $return_array['MODIFIED_BY'] = isset($this->CI->session->userdata['EMP_DATA']['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            }
+        }
+        return $return_array;
+    }
+
 }
 ?>
 

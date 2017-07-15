@@ -11,6 +11,7 @@ class Administration_designation extends CI_Controller {
         parent::__construct();
         $this->load->model('Administration_designation_model');
         $this->load->helper(array("datatable"));
+        $this->load->library(array("form_validation", "PostData"));
     }
 
     /*
@@ -39,14 +40,16 @@ class Administration_designation extends CI_Controller {
      */
 
     function add() {
-        if (isset($_POST) && count($_POST) > 0) {
-            $params = array(
-                'DESIGNATION_NAME' => $this->input->post('DESIGNATION_NAME'),
-                'DESIGNATION_DESC' => $this->input->post('DESIGNATION_DESC'),
-            );
-
-            $administration_designation_id = $this->Administration_designation_model->add_administration_designation($params);
-            redirect('administration_designation/index');
+        $postData = $this->input->post(NULL, TRUE);
+        if (!empty($postData)) {
+            if ($this->form_validation->run("admin_design_form") == TRUE) {
+                $admin_data = $this->postdata->getAdminiDesignData($postData);
+                $administration_designation_id = $this->Administration_designation_model->add_administration_designation($admin_data);
+                redirect('administration_designation/index');
+            } else {
+                $data['_view'] = 'administration_designation/add';
+                $this->load->view('layouts/main', $data);
+            }
         } else {
             $data['_view'] = 'administration_designation/add';
             $this->load->view('layouts/main', $data);
@@ -58,39 +61,44 @@ class Administration_designation extends CI_Controller {
      */
 
     function edit($DESIGNATION_ID) {
+        $postData = $this->input->post(NULL, TRUE);
         // check if the administration_designation exists before trying to edit it
         $data['administration_designation'] = $this->Administration_designation_model->get_administration_designation($DESIGNATION_ID);
-
-        if (isset($data['administration_designation']['DESIGNATION_ID'])) {
-            if (isset($_POST) && count($_POST) > 0) {
-                $params = array(
-                    'DESIGNATION_NAME' => $this->input->post('DESIGNATION_NAME'),
-                    'DESIGNATION_DESC' => $this->input->post('DESIGNATION_DESC'),
-                );
-
-                $this->Administration_designation_model->update_administration_designation($DESIGNATION_ID, $params);
+        if (isset($postData) && !empty($postData)) {
+            if ($this->form_validation->run("admin_design_form") == TRUE) {
+                $admin_data = $this->postdata->getAdminiDesignData($postData, TRUE);
+                $this->Administration_designation_model->update_administration_designation($DESIGNATION_ID, $admin_data);
                 redirect('administration_designation/index');
             } else {
                 $data['_view'] = 'administration_designation/edit';
                 $this->load->view('layouts/main', $data);
             }
-        } else
-            show_error('The administration_designation you are trying to edit does not exist.');
+        } else {
+            $data['_view'] = 'administration_designation/edit';
+            $this->load->view('layouts/main', $data);
+        }
     }
 
     /*
      * Deleting administration_designation
      */
 
-    function remove($DESIGNATION_ID) {
-        $administration_designation = $this->Administration_designation_model->get_administration_designation($DESIGNATION_ID);
-
-        // check if the administration_designation exists before trying to delete it
+    function remove() {
+        $request = $_POST;
+        $administration_designation = $this->Administration_designation_model->get_administration_designation($request['id']);
+        // check if the client_info exists before trying to delete it
         if (isset($administration_designation['DESIGNATION_ID'])) {
-            $this->Administration_designation_model->delete_administration_designation($DESIGNATION_ID);
-            redirect('administration_designation/index');
-        } else
-            show_error('The administration_designation you are trying to delete does not exist.');
+            $status = $this->Administration_designation_model->delete_administration_designation($request['id']);
+            if ($status) {
+                echo json_encode(array("status" => "success", "message" => "You have successfully removed " . $administration_designation['DESIGNATION_NAME'] . "."));
+                exit;
+            }
+            echo json_encode(array("status" => "error", "message" => "Some thing went wrong."));
+            exit;
+        } else {
+            echo json_encode(array("status" => "error", "message" => "The administration designation you are trying to delete does not exist."));
+            exit;
+        }
     }
 
 }

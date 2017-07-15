@@ -9,8 +9,9 @@ class Administration_employee extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model(array('Administration_employee_model', 'Role_model'));
+        $this->load->model(array('Administration_employee_model', 'Role_model', 'Client_info_model', 'Administration_designation_model'));
         $this->load->helper(array("datatable"));
+        $this->load->library(array("form_validation", "PostData"));
     }
 
     /*
@@ -39,49 +40,21 @@ class Administration_employee extends CI_Controller {
      */
 
     function add() {
-        $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('IC_NO', 'IC NO', 'required');
-        $this->form_validation->set_rules('STAFF_NO', 'STAFF NO', 'required');
-        $this->form_validation->set_rules('EMP_NAME', 'EMP NAME', 'required');
-        $this->form_validation->set_rules('EMAIL_ID', 'EMAIL ID', 'valid_email');
-        $this->form_validation->set_rules('PHONE_NO', 'PHONE NO', 'numeric');
-        $this->form_validation->set_rules('MOBILE_NO', 'MOBILE NO', 'numeric');
-        $this->form_validation->set_rules('CLIENT_ID', 'CLIENT ID', 'required');
-
-        if ($this->form_validation->run()) {
-            $params = array(
-                'EMP_NAME' => $this->input->post('EMP_NAME'),
-                'CLIENT_ID' => $this->input->post('CLIENT_ID'),
-                'IS_ACTIVE' => 1,
-                'CREATED_DATE' => date("Y-m-d H:i:s"),
-                'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                'IC_NO' => $this->input->post('IC_NO'),
-                'STAFF_NO' => $this->input->post('STAFF_NO'),
-                'ADDRESS' => $this->input->post('ADDRESS'),
-                'MOBILE_NO' => $this->input->post('MOBILE_NO'),
-                'PHONE_NO' => $this->input->post('PHONE_NO'),
-                'EMAIL_ID' => $this->input->post('EMAIL_ID'),
-                'GENDER' => $this->input->post('GENDER'),
-                'DESIGNATION_ID' => $this->input->post('DESIGNATION_ID'),
-                'ACTIVE_STATUS' => $this->input->post('ACTIVE_STATUS'),
-                'BASIC_SALARY' => $this->input->post('BASIC_SALARY'),
-                'LANGUAGE' => $this->input->post('LANGUAGE'),
-                'EMPLOYEE_PIC_PATH' => $this->input->post('EMPLOYEE_PIC_PATH'),
-                'VIEW_OTHER_BRANCH_DETAILS' => $this->input->post('VIEW_OTHER_BRANCH_DETAILS'),
-                'MULTIPLE_LOGINS' => $this->input->post('MULTIPLE_LOGINS'),
-                'ROLE_ID' => $this->input->post('ROLE_ID'),
-            );
-
-            $administration_employee_id = $this->Administration_employee_model->add_administration_employee($params);
-            redirect('administration_employee/index');
+        $postData = $this->input->post(NULL, TRUE);
+        $data['all_client_info'] = $this->Client_info_model->get_all_client_info();
+        $data['all_administration_designation'] = $this->Administration_designation_model->get_all_administration_designation_data();
+        $data['all_roles'] = $this->Role_model->get_all_roles();
+        if (!empty($postData)) {
+            if ($this->form_validation->run("admin_employee_form") == TRUE) {
+                $emp_post_data = $this->postdata->getAdminiEmployeeData($postData);
+                $administration_employee_id = $this->Administration_employee_model->add_administration_employee($emp_post_data);
+                redirect('administration_employee/index');
+            } else {
+                $data['_view'] = 'administration_employee/add';
+                $this->load->view('layouts/main', $data);
+            }
         } else {
-            $this->load->model('Client_info_model');
-            $data['all_client_info'] = $this->Client_info_model->get_all_client_info();
-
-            $this->load->model('Administration_designation_model');
-            $data['all_administration_designation'] = $this->Administration_designation_model->get_all_administration_designation_data();
-            $data['all_roles'] = $this->Role_model->get_all_roles();
             $data['_view'] = 'administration_employee/add';
             $this->load->view('layouts/main', $data);
         }
@@ -92,73 +65,46 @@ class Administration_employee extends CI_Controller {
      */
 
     function edit($EMP_ID) {
-        // check if the administration_employee exists before trying to edit it
+        $postData = $this->input->post(NULL, TRUE);
+        $data['all_client_info'] = $this->Client_info_model->get_all_client_info();
+        $data['all_administration_designation'] = $this->Administration_designation_model->get_all_administration_designation_data();
+        $data['all_roles'] = $this->Role_model->get_all_roles();
         $data['administration_employee'] = $this->Administration_employee_model->get_administration_employee($EMP_ID);
-
-        if (isset($data['administration_employee']['EMP_ID'])) {
-            $this->load->library('form_validation');
-
-            $this->form_validation->set_rules('IC_NO', 'IC NO', 'required');
-            $this->form_validation->set_rules('STAFF_NO', 'STAFF NO', 'required');
-            $this->form_validation->set_rules('EMP_NAME', 'EMP NAME', 'required');
-            $this->form_validation->set_rules('EMAIL_ID', 'EMAIL ID', 'valid_email');
-            $this->form_validation->set_rules('PHONE_NO', 'PHONE NO', 'numeric');
-            $this->form_validation->set_rules('MOBILE_NO', 'MOBILE NO', 'numeric');
-            $this->form_validation->set_rules('CLIENT_ID', 'CLIENT ID', 'required');
-
-            if ($this->form_validation->run()) {
-                $params = array(
-                    'EMP_NAME' => $this->input->post('EMP_NAME'),
-                    'CLIENT_ID' => $this->input->post('CLIENT_ID'),
-                    'IS_ACTIVE' => 1,
-                    'MODIFIED_DATE' => date("Y-m-d H:i:s"),
-                    'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                    'IC_NO' => $this->input->post('IC_NO'),
-                    'STAFF_NO' => $this->input->post('STAFF_NO'),
-                    'ADDRESS' => $this->input->post('ADDRESS'),
-                    'MOBILE_NO' => $this->input->post('MOBILE_NO'),
-                    'PHONE_NO' => $this->input->post('PHONE_NO'),
-                    'EMAIL_ID' => $this->input->post('EMAIL_ID'),
-                    'GENDER' => $this->input->post('GENDER'),
-                    'DESIGNATION_ID' => $this->input->post('DESIGNATION_ID'),
-                    'ACTIVE_STATUS' => $this->input->post('ACTIVE_STATUS'),
-                    'BASIC_SALARY' => $this->input->post('BASIC_SALARY'),
-                    'LANGUAGE' => $this->input->post('LANGUAGE'),
-                    'EMPLOYEE_PIC_PATH' => $this->input->post('EMPLOYEE_PIC_PATH'),
-                    'VIEW_OTHER_BRANCH_DETAILS' => $this->input->post('VIEW_OTHER_BRANCH_DETAILS'),
-                    'MULTIPLE_LOGINS' => $this->input->post('MULTIPLE_LOGINS'),
-                    'ROLE_ID' => $this->input->post('ROLE_ID'),
-                );
-
-                $this->Administration_employee_model->update_administration_employee($EMP_ID, $params);
+        if (isset($postData) && !empty($postData)) {
+            if ($this->form_validation->run("admin_employee_form") == TRUE) {
+                $emp_post_data = $this->postdata->getAdminiEmployeeData($postData, TRUE);
+                $this->Administration_employee_model->update_administration_employee($EMP_ID, $emp_post_data);
                 redirect('administration_employee/index');
             } else {
-                $this->load->model('Client_info_model');
-                $data['all_client_info'] = $this->Client_info_model->get_all_client_info();
-
-                $this->load->model('Administration_designation_model');
-                $data['all_administration_designation'] = $this->Administration_designation_model->get_all_administration_designation_data();
-                $data['all_roles'] = $this->Role_model->get_all_roles();
                 $data['_view'] = 'administration_employee/edit';
                 $this->load->view('layouts/main', $data);
             }
-        } else
-            show_error('The administration_employee you are trying to edit does not exist.');
+        } else {
+            $data['_view'] = 'administration_employee/edit';
+            $this->load->view('layouts/main', $data);
+        }
     }
 
     /*
      * Deleting administration_employee
      */
 
-    function remove($EMP_ID) {
-        $administration_employee = $this->Administration_employee_model->get_administration_employee($EMP_ID);
-
-        // check if the administration_employee exists before trying to delete it
+    function remove() {
+        $request = $_POST;
+        $administration_employee = $this->Administration_employee_model->get_administration_employee($request['id']);
+        // check if the client_info exists before trying to delete it
         if (isset($administration_employee['EMP_ID'])) {
-            $this->Administration_employee_model->delete_administration_employee($EMP_ID);
-            redirect('administration_employee/index');
-        } else
-            show_error('The administration_employee you are trying to delete does not exist.');
+            $status = $this->Administration_employee_model->delete_administration_employee($request['id']);
+            if ($status) {
+                echo json_encode(array("status" => "success", "message" => "You have successfully removed " . $administration_employee['EMP_NAME'] . "."));
+                exit;
+            }
+            echo json_encode(array("status" => "error", "message" => "Some thing went wrong."));
+            exit;
+        } else {
+            echo json_encode(array("status" => "error", "message" => "The client_info you are trying to delete does not exist."));
+            exit;
+        }
     }
 
 }
