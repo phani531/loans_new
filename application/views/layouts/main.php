@@ -9,7 +9,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="<?php echo base_url('resources/css/bootstrap.min.css'); ?>">
-        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                    ?>
+        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                     ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>">
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/ionicons.min.css'); ?>">
@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/dataTables/dataTables.tableTools.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/custom.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/sweet-alert.css" />
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datepicker.css" />
         <script>
             var NAME_FIELD = <?php echo NAME_FIELD; ?>;
             var NAME_WITH_SPACE = <?php echo NAME_WITH_SPACE; ?>;

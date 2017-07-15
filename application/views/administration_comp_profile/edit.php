@@ -5,7 +5,7 @@
                 <h3 class="box-title">Edit</h3>
             </div>
             <?php echo validation_errors(); ?>
-            <?php echo form_open('administration_comp_profile/edit/' . $administration_comp_profile['BRANCH_ID'], array("class" => "form-horizontal")); ?>
+            <?php echo form_open('administration_comp_profile/edit/' . $administration_comp_profile['BRANCH_ID'], array("class" => "form-horizontal", "name" => "admin_comp_profile_form", "id" => "admin_comp_profile_form")); ?>
 
             <div class="box-body">
                 <div class="form-group">

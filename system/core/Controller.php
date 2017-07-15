@@ -103,4 +103,28 @@ class CI_Controller {
         return (!preg_match(NAME_FIELD . "i", $str)) ? FALSE : TRUE;
     }
 
+    /**
+     * Function to validate alpha numeric values
+     * 
+     * @param type $str
+     * 
+     * @return boolean true or false
+     */
+    function alphanumeric($str) {
+        $this->form_validation->set_message('namefield', 'Please enter a valid %s');
+        return (!preg_match(ALPHA_NUMERIC . "i", $str)) ? FALSE : TRUE;
+    }
+
+    /**
+     * Function to validate number field
+     * 
+     * @param type $str
+     * 
+     * @return boolean true or false
+     */
+    function numberfield($str) {
+        $this->form_validation->set_message('namefield', 'Please enter a valid %s');
+        return (!preg_match(NUMERIC . "i", $str)) ? FALSE : TRUE;
+    }
+
 }

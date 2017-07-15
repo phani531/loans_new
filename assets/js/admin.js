@@ -18,11 +18,83 @@ var admin = function () {
         initAdminAjaxDataTable();
         initClientFormValidation();
         initRoleFormValidation();
+        initAdminCompProfileValidation();
         initDeleteIndividualRow();
+        initDatePicker();
     }
 
     function ajaxInit() {
 
+    }
+
+    /**
+     * Function to validate admin company profile
+     * 
+     * @returns {undefined}
+     */
+    function initAdminCompProfileValidation() {
+        $("#admin_comp_profile_form").validate({
+            rules: {
+                BRANCH_NAME: {
+                    namefield: true
+                },
+                BRANCH_REG_NO: {
+                    alphanumeric: true
+                },
+                BRANCH_CODE: {
+                    alphanumeric: true
+                },
+                BRANCH_LICENCE_NO: {
+                    alphanumeric: true
+                },
+                BRANCH_OFFICE_NO: {
+                    numberfield: true
+                },
+                BRANCH_FAX_NO: {
+                    numberfield: true
+                },
+                BRANCH_EMAILID: {
+                    email: true
+                },
+                BRANCH_WEBSITE: {
+                    url: true
+                },
+                LAWYER_NAME: {
+                    namefield: true
+                },
+                LAWYER_OFFICE_NO: {
+                    numberfield: true
+                },
+                LAWYER_FAX_NO: {
+                    alphanumeric: true
+                },
+                LAWYER_EMAILID: {
+                    email: true
+                },
+                OWNER_NAME: {
+                    namefield: true
+                }
+            },
+            errorElement: 'label',
+            errorClass: 'error',
+            focusInvalid: false,
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            }
+            ,
+            unhighlight: function (element) { // <-- fires when element is valid
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-info');
+            }
+            ,
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+                $(e).remove();
+            }
+            ,
+            errorPlacement: function (error, element) {
+                error.insertAfter(element);
+            }
+        });
     }
 
     /**
@@ -225,6 +297,26 @@ var admin = function () {
                         })
                     }
                 });
+            });
+        });
+    }
+
+    /**
+     * Function to initialize date picker
+     * 
+     * @return result
+     */
+    function initDatePicker() {
+        $(".date-picker").each(function () {
+            var todayDate = new Date();
+            $(this).datepicker({
+                format: "yyyy-mm-dd",
+                endDate: todayDate,
+                autoclose: true,
+                forceParse: false,
+                defaultDate: true,
+                todayHighlight: true,
+                allowInputToggle: true,
             });
         });
     }

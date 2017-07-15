@@ -9,8 +9,9 @@ class Administration_comp_profile extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('Administration_comp_profile_model');
+        $this->load->model(array('Administration_comp_profile_model', 'Client_info_model'));
         $this->load->helper(array("datatable"));
+        $this->load->library(array("form_validation", "PostData"));
         $data['title'] = 'Administration';
     }
 
@@ -35,54 +36,18 @@ class Administration_comp_profile extends CI_Controller {
      */
 
     function add() {
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('BRANCH_FAX_NO', 'BRANCH FAX NO', 'numeric');
-        $this->form_validation->set_rules('BRANCH_OFFICE_NO', 'BRANCH OFFICE NO', 'numeric');
-        $this->form_validation->set_rules('BRANCH_LICENCE_NO', 'BRANCH LICENCE NO', 'required');
-        $this->form_validation->set_rules('BRANCH_REG_NO', 'BRANCH REG NO', 'required');
-        $this->form_validation->set_rules('BRANCH_CODE', 'BRANCH CODE', 'required');
-        $this->form_validation->set_rules('BRANCH_NAME', 'BRANCH NAME', 'required');
-        $this->form_validation->set_rules('BRANCH_TYPE', 'BRANCH TYPE', 'required');
-        $this->form_validation->set_rules('BRANCH_EMAILID', 'BRANCH EMAILID', 'valid_email');
-        $this->form_validation->set_rules('LAWYER_FAX_NO', 'LAWYER FAX NO', 'numeric');
-        $this->form_validation->set_rules('LAWYER_NAME', 'LAWYER NAME', 'required');
-        $this->form_validation->set_rules('LAWYER_OFFICE_NO', 'LAWYER OFFICE NO', 'numeric');
-
-        if ($this->form_validation->run()) {
-            $params = array(
-                'BRANCH_NAME' => $this->input->post('BRANCH_NAME'),
-                'BRANCH_TYPE' => $this->input->post('BRANCH_TYPE'),
-                'BRANCH_CODE' => $this->input->post('BRANCH_CODE'),
-                'BRANCH_REG_NO' => $this->input->post('BRANCH_REG_NO'),
-                'BRANCH_LICENCE_NO' => $this->input->post('BRANCH_LICENCE_NO'),
-                'BRANCH_ADDRESS' => $this->input->post('BRANCH_ADDRESS'),
-                'BRANCH_OFFICE_NO' => $this->input->post('BRANCH_OFFICE_NO'),
-                'BRANCH_FAX_NO' => $this->input->post('BRANCH_FAX_NO'),
-                'BRANCH_EMAILID' => $this->input->post('BRANCH_EMAILID'),
-                'BRANCH_WEBSITE' => $this->input->post('BRANCH_WEBSITE'),
-                'BRANCH_LOGO_PIC_PATH' => $this->input->post('BRANCH_LOGO_PIC_PATH'),
-                'LAWYER_NAME' => $this->input->post('LAWYER_NAME'),
-                'LAWYER_ADDRESS' => $this->input->post('LAWYER_ADDRESS'),
-                'LAWYER_OFFICE_NO' => $this->input->post('LAWYER_OFFICE_NO'),
-                'LAWYER_FAX_NO' => $this->input->post('LAWYER_FAX_NO'),
-                'LAWYER_EMAILID' => $this->input->post('LAWYER_EMAILID'),
-                'FINANCIAL_YEAR_FROM' => $this->input->post('FINANCIAL_YEAR_FROM'),
-                'FINANCIAL_YEAR_TO' => $this->input->post('FINANCIAL_YEAR_TO'),
-                'CREATED_DATE' => date("Y-m-d H:i:s"),
-                'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                'CLIENT_ID' => $this->input->post('CLIENT_ID'),
-                'IS_ACTIVE' => 1,
-                'OWNER_NAME' => $this->input->post('OWNER_NAME'),
-                'OFFICE_EXTENSION_NUMBER' => $this->input->post('OFFICE_EXTENSION_NUMBER'),
-            );
-
-            $administration_comp_profile_id = $this->Administration_comp_profile_model->add_administration_comp_profile($params);
-            redirect('administration_comp_profile/index');
+        $postData = $this->input->post(NULL, TRUE);
+        $data['all_client_info'] = $this->Client_info_model->get_all_client_info();
+        if (!empty($postData)) {
+            if ($this->form_validation->run("admin_comp_profile_form") == TRUE) {
+                $admin_comp_data = $this->postdata->getAdminCompProfileData($postData);
+                $administration_comp_profile_id = $this->Administration_comp_profile_model->add_administration_comp_profile($admin_comp_data);
+                redirect('administration_comp_profile/index');
+            } else {
+                $data['_view'] = 'administration_comp_profile/add';
+                $this->load->view('layouts/main', $data);
+            }
         } else {
-            $this->load->model('Client_info_model');
-            $data['all_client_info'] = $this->Client_info_model->get_all_client_info();
-
             $data['_view'] = 'administration_comp_profile/add';
             $this->load->view('layouts/main', $data);
         }

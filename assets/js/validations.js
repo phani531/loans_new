@@ -21,3 +21,10 @@ jQuery.validator.addMethod("numberfield", function (value, element) {
     $.validator.messages.numberfield = "Please enter a valid " + fieldName;
     return this.optional(element) || NUMERIC.test(value);
 }, $.validator.messages.numberfield);
+
+jQuery.validator.addMethod("alphanumeric", function (value, element) {
+    value = value.trim();
+    var fieldName = element.name.split("_").join(" ");
+    $.validator.messages.alphanumeric = "Please enter a valid " + fieldName;
+    return this.optional(element) || ALPHA_NUMERIC.test(value);
+}, $.validator.messages.alphanumeric);

@@ -92,7 +92,7 @@ class Client_info_model extends CI_Model {
      */
 
     function get_all_client_info() {
-        return $this->db->get('client_info')->result_array();
+        return $this->db->where(array("IS_ACTIVE" => 1))->get('client_info')->result_array();
     }
 
     /*
