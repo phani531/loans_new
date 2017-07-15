@@ -81,15 +81,22 @@ class Client_info extends CI_Controller {
      * Deleting client_info
      */
 
-    function remove($CLIENT_ID) {
-        $client_info = $this->Client_info_model->get_client_info($CLIENT_ID);
-
+    public function remove() {
+        $request = $_POST;
+        $client_info = $this->Client_info_model->get_client_info($request['id']);
         // check if the client_info exists before trying to delete it
         if (isset($client_info['CLIENT_ID'])) {
-            $this->Client_info_model->delete_client_info($CLIENT_ID);
-            redirect('client_info/index');
-        } else
-            show_error('The client_info you are trying to delete does not exist.');
+            $status = $this->Client_info_model->delete_client_info($request['id']);
+            if ($status) {
+                echo json_encode(array("status" => "success", "message" => "You have successfully removed " . $client_info['CLIENT_NAME'] . "."));
+                exit;
+            }
+            echo json_encode(array("status" => "error", "message" => "Some thing went wrong."));
+            exit;
+        } else {
+            echo json_encode(array("status" => "error", "message" => "The client_info you are trying to delete does not exist."));
+            exit;
+        }
     }
 
 }

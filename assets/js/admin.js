@@ -17,6 +17,7 @@ var admin = function () {
     function init() {
         initAdminAjaxDataTable();
         initClientFormValidation();
+        initDeleteIndividualRow();
     }
 
     function ajaxInit() {
@@ -98,9 +99,110 @@ var admin = function () {
                     }
                 },
                 "fnDrawCallback": function () {
-
+                    initDeleteIndividualRow();
                 },
                 "order": [0, "DESC"]
+            });
+        });
+    }
+
+    /**
+     * Function to delete indivisdual row
+     * 
+     * @return boolean true or false
+     */
+    function initDeleteIndividualRow() {
+        $(".delete-row").each(function () {
+            $(this).on("click", function () {
+                var url = $(this).data("href");
+                var deleteMessage = $(this).data("message");
+                var desc = $(this).data("desc");
+                var id = $(this).data("id");
+                var tableId = $(this).data("table-name");
+                swal({
+                    title: deleteMessage,
+                    text: desc,
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, delete",
+                    cancelButtonText: "No, cancel",
+                    confirmButtonClass: "confirm-btn",
+                    cancelButtonClass: "btn btn-default",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax(
+                                {
+                                    url: url,
+                                    type: 'POST',
+                                    data: {"id": id},
+                                    cache: false,
+                                    success: function (data) {
+                                    }
+                                }
+                        )
+                                .done(function (data) {
+                                    var isJSON = true;
+                                    try {
+                                        var jsonData = $.parseJSON(data);
+                                    } catch (err) {
+                                        isJSON = false;
+                                    }
+                                    if (isJSON) {
+                                        if (typeof (jsonData.status) != 'undefined' && jsonData.status == 'success') {
+                                            var message = jsonData.message;
+                                            if (typeof (jsonData.message) != 'undefined') {
+                                                swal({
+                                                    title: "Deleted",
+                                                    text: message,
+                                                    type: "success",
+                                                    showCancelButton: false,
+                                                    confirmButtonText: "Ok",
+                                                    confirmButtonClass: "yesok-btn",
+                                                },
+                                                        function (e) {
+                                                            $("#" + tableId).DataTable().draw();
+                                                        });
+                                            }
+                                        } else {
+                                            swal({
+                                                title: "Failed!",
+                                                text: jsonData.message,
+                                                type: "error",
+                                                confirmButtonText: "Ok",
+                                                confirmButtonClass: "yescancel-btn",
+                                            });
+                                        }
+                                    } else {
+                                        swal({
+                                            title: "Failed!",
+                                            text: "Something went wrong. Please try again!",
+                                            type: "error",
+                                            confirmButtonText: "Ok",
+                                            confirmButtonClass: "yescancel-btn",
+                                        });
+                                    }
+                                })
+                                .error(function (data) {
+                                    swal({
+                                        title: "Failed!",
+                                        text: "Something went wrong. Please try again!",
+                                        type: "error",
+                                        confirmButtonText: "Ok",
+                                        confirmButtonClass: "yescancel-btn",
+                                    });
+                                });
+                    } else {
+                        swal({
+                            title: "Cancelled",
+                            text: "The action has been cancelled.",
+                            type: "error",
+                            confirmButtonText: "Ok",
+                            confirmButtonClass: "yescancel-btn",
+                        })
+                    }
+                });
             });
         });
     }

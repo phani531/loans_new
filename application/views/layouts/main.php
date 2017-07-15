@@ -9,7 +9,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="<?php echo base_url('resources/css/bootstrap.min.css'); ?>">
-        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                 ?>
+        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                    ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>">
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/ionicons.min.css'); ?>">
@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/dataTables/dataTables.bootstrap.min.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/dataTables/dataTables.tableTools.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/custom.css" />
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/sweet-alert.css" />
         <script>
             var NAME_FIELD = <?php echo NAME_FIELD; ?>;
             var NAME_WITH_SPACE = <?php echo NAME_WITH_SPACE; ?>;
@@ -431,6 +432,7 @@
         <script src="<?php echo site_url('resources/js/demo.js'); ?>"></script>
         <script src="<?php echo base_url(); ?>assets/js/bootstrap-datepicker.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/sweet-alert.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/fileupload/bootstrap-filestyle.min.js"></script>
         <script src="https://almsaeedstudio.com/themes/AdminLTE/plugins/select2/select2.full.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/dataTables/jquery.dataTables.js"></script>

@@ -54,7 +54,7 @@ class Client_info_model extends CI_Model {
                     'formatter' => function($d, $row) {
                         $returnString = "";
                         $returnString .= '<a href="' . site_url('client_info/edit/' . $row['CLIENT_ID']) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>&nbsp;&nbsp;';
-                        $returnString .= '<a href="' . site_url('client_info/remove/' . $row['CLIENT_ID']) . '" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>';
+                        $returnString .= '<a data-href="' . site_url('client_info/remove') . '" data-table-name="client_info_add" data-id=' . $row["CLIENT_ID"] . ' data-desc="You will be perminently deleting this client." data-message= "Are you sure to delete?" class="btn btn-danger btn-xs delete-row"><span class="fa fa-trash"></span> Delete</a>';
                         return $returnString;
                     }
                 )
@@ -123,12 +123,7 @@ class Client_info_model extends CI_Model {
      */
 
     function delete_client_info($CLIENT_ID) {
-        $response = $this->db->delete('client_info', array('CLIENT_ID' => $CLIENT_ID));
-        if ($response) {
-            return "client_info deleted successfully";
-        } else {
-            return "Error occuring while deleting client_info";
-        }
+        return $this->db->where(array('CLIENT_ID' => $CLIENT_ID))->update('client_info', array('IS_ACTIVE' => 0));
     }
 
 }
