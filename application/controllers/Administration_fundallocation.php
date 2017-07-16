@@ -12,6 +12,9 @@ class Administration_fundallocation extends CI_Controller {
         $this->load->model(array('Administration_fundallocation_model', 'Administration_employee_model'));
         $this->load->helper(array("datatable"));
         $this->load->library(array("form_validation", "PostData"));
+        $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
+        if (empty($session_data))
+            redirect("login");
     }
 
     /*
@@ -41,7 +44,8 @@ class Administration_fundallocation extends CI_Controller {
 
     function add() {
         $postData = $this->input->post(NULL, TRUE);
-        $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
+        $conditions = array("IS_ACTIVE" => 1, "EMP_ID !=" => 1, "CREATED_BY" => $this->session->userdata['EMP_DATA']['EMP_ID']);
+        $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data($conditions);
         if (!empty($postData)) {
             if ($this->form_validation->run("admin_fund_form") == TRUE) {
                 $admin_fund_data = $this->postdata->getAdminFundPostData($postData);
@@ -65,7 +69,8 @@ class Administration_fundallocation extends CI_Controller {
         // check if the administration_fundallocation exists before trying to edit it
         $data['administration_fundallocation'] = $this->Administration_fundallocation_model->get_administration_fundallocation($FA_ID);
         $postData = $this->input->post(NULL, TRUE);
-        $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
+        $conditions = array("IS_ACTIVE" => 1, "EMP_ID !=" => 1, "CREATED_BY" => $this->session->userdata['EMP_DATA']['EMP_ID']);
+        $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data($conditions);
         if (isset($postData) && !empty($postData)) {
             if ($this->form_validation->run("admin_fund_form") == TRUE) {
                 $admin_fund_data = $this->postdata->getAdminFundPostData($postData, TRUE);

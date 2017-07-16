@@ -12,6 +12,9 @@ class Administration_login extends CI_Controller {
         $this->load->model(array('Administration_login_model', 'Administration_employee_model'));
         $this->load->helper(array("datatable"));
         $this->load->library(array("form_validation", "PostData"));
+        $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
+        if (empty($session_data))
+            redirect("login");
     }
 
     /*
@@ -41,7 +44,8 @@ class Administration_login extends CI_Controller {
 
     function add() {
         $postData = $this->input->post(NULL, TRUE);
-        $data['admin_employee_data'] = $this->Administration_employee_model->get_all_administration_employees_data();
+        $conditions = array("IS_ACTIVE" => 1, "EMP_ID !=" => 1, "CREATED_BY" => $this->session->userdata['EMP_DATA']['EMP_ID']);
+        $data['admin_employee_data'] = $this->Administration_employee_model->get_all_administration_employees_data($conditions);
         if (!empty($postData)) {
             if ($this->form_validation->run("admin_login_form") == TRUE) {
                 $client_post_data = $this->postdata->getAdminiLoginPostData($postData);

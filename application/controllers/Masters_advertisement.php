@@ -12,6 +12,9 @@ class Masters_advertisement extends CI_Controller {
         $this->load->model('Masters_advertisement_model');
         $this->load->helper(array("datatable"));
         $this->load->library('form_validation');
+        $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
+        if (empty($session_data))
+            redirect("login");
     }
 
     /*

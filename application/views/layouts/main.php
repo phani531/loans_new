@@ -11,7 +11,7 @@ $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->se
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="<?php echo base_url('resources/css/bootstrap.min.css'); ?>">
-        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                                   ?>
+        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                                        ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>">
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/ionicons.min.css'); ?>">
@@ -80,7 +80,7 @@ $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->se
                                             <a href="#" class="btn btn-default btn-flat">Profile</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="<?php echo site_url('login/logout'); ?>" class="btn btn-default btn-flat">Sign out</a>
+                                            <a data-href="<?php echo site_url('login/logout'); ?>" class="btn btn-default btn-flat sign-out">Sign out</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -153,7 +153,7 @@ $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->se
                             </ul>
                         </li>
                         <?php
-                        if (strtolower($session_data['ROLE_NAME']) == "super admin") {
+                        if ($session_data['ROLE_ID'] == 1) {
                             ?>
                             <li class="treeview">
                                 <a href="#">
@@ -238,7 +238,7 @@ $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->se
                                                     </a>
                                                 </li>-->
                         <?php
-                        if ($session_data['ROLE_NAME'] == "super admin") {
+                        if ($session_data['ROLE_ID'] == 1) {
                             ?>
                             <li class="treeview">
                                 <a href="#">

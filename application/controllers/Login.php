@@ -13,6 +13,9 @@ class Login extends CI_Controller {
     }
 
     public function index() {
+        $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
+        if (isset($session_data) && !empty($session_data))
+            redirect('administration_comp_profile/index');
         $this->load->view('layouts/login/loginHeader.php');
         $this->load->view('login_view');
         $this->load->view('layouts/login/loginFooter.php');

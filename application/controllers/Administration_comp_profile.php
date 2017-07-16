@@ -13,6 +13,9 @@ class Administration_comp_profile extends CI_Controller {
         $this->load->helper(array("datatable"));
         $this->load->library(array("form_validation", "PostData"));
         $data['title'] = 'Administration';
+        $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
+        if (empty($session_data))
+            redirect("login");
     }
 
     /*

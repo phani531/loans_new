@@ -23,7 +23,7 @@ class Administration_designation_model extends CI_Model {
      * Function to get all administration designation data
      */
     function get_all_administration_designation_data() {
-        return $this->db->where(array("IS_ACTIVE" => 1))->get('administration_designation')->result_array();
+        return $this->db->where(array("IS_ACTIVE" => 1, "DESIGNATION_ID !=" => 1))->get('administration_designation')->result_array();
     }
 
     /**
@@ -80,13 +80,17 @@ class Administration_designation_model extends CI_Model {
             $query_columns_array = array("DESIGNATION_ID", "DESIGNATION_NAME", "DESIGNATION_DESC");
 
             $custom_where = array();
-            $where .= " WHERE IS_ACTIVE = 1 AND CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
+            $where .= " WHERE IS_ACTIVE = 1 AND DESIGNATION_ID != 1 AND CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
             $sql_query = 'SELECT $query_columns from administration_designation' . $join . $where;
             $result = datatable::simple($request, $sql_details, $sql_query, $query_columns, $columns);
             $start = $_REQUEST['start'];
+            foreach ($result['data'] as &$res) {
+                $start++;
+                $res[0] = $start;
+            }
             return $result;
         } catch (Exception $e) {
             log_message("Error", $e->getMessage());

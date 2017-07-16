@@ -81,6 +81,10 @@ class Administration_login_model extends CI_Model {
             $sql_query = 'SELECT $query_columns from administration_logins al' . $join . $where;
             $result = datatable::simple($request, $sql_details, $sql_query, $query_columns, $columns);
             $start = $_REQUEST['start'];
+            foreach ($result['data'] as &$res) {
+                $start++;
+                $res[0] = $start;
+            }
             return $result;
         } catch (Exception $e) {
             log_message("Error", $e->getMessage());

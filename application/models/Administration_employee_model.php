@@ -24,8 +24,8 @@ class Administration_employee_model extends CI_Model {
      * 
      * @return type
      */
-    function get_all_administration_employees_data() {
-        return $this->db->where(array("IS_ACTIVE" => 1))->get('administration_employees')->result_array();
+    function get_all_administration_employees_data($conditions) {
+        return $this->db->where($conditions)->get('administration_employees')->result_array();
     }
 
     /**
@@ -157,13 +157,17 @@ class Administration_employee_model extends CI_Model {
             $query_columns_array = array("EMP_ID, EMP_NAME, ae.CLIENT_ID, IC_NO, STAFF_NO, ADDRESS, MOBILE_NO, PHONE_NO, EMAIL_ID, GENDER, ACTIVE_STATUS, BASIC_SALARY, LANGUAGE, EMPLOYEE_PIC_PATH, VIEW_OTHER_BRANCH_DETAILS, MULTIPLE_LOGINS, ROLE_NAME, CLIENT_NAME, DESIGNATION_NAME");
 
             $custom_where = array();
-            $where .= " WHERE ae.IS_ACTIVE = 1 AND ae.CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
+            $where .= " WHERE ae.IS_ACTIVE = 1 AND ae.EMP_ID != 1 AND ae.CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
             $sql_query = 'SELECT $query_columns from administration_employees ae' . $join . $where;
             $result = datatable::simple($request, $sql_details, $sql_query, $query_columns, $columns);
             $start = $_REQUEST['start'];
+            foreach ($result['data'] as &$res) {
+                $start++;
+                $res[0] = $start;
+            }
             return $result;
         } catch (Exception $e) {
             log_message("Error", $e->getMessage());

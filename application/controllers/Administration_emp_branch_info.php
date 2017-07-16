@@ -12,6 +12,9 @@ class Administration_emp_branch_info extends CI_Controller {
         $this->load->model(array('Administration_emp_branch_info_model', 'Administration_employee_model', 'Administration_comp_profile_model'));
         $this->load->helper(array("datatable"));
         $this->load->library(array("form_validation", "PostData"));
+        $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
+        if (empty($session_data))
+            redirect("login");
     }
 
     /*
@@ -41,7 +44,8 @@ class Administration_emp_branch_info extends CI_Controller {
 
     function add() {
         $postData = $this->input->post(NULL, TRUE);
-        $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
+        $conditions = array("IS_ACTIVE" => 1, "EMP_ID !=" => 1, "CREATED_BY" => $this->session->userdata['EMP_DATA']['EMP_ID']);
+        $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data($conditions);
         $data['all_administration_comp_profile'] = $this->Administration_comp_profile_model->get_all_administration_comp_profile_data();
         if (!empty($postData)) {
             if ($this->form_validation->run("admin_emp_branch_form") == TRUE) {
@@ -64,7 +68,8 @@ class Administration_emp_branch_info extends CI_Controller {
 
     function edit($ID) {
         $postData = $this->input->post(NULL, TRUE);
-        $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
+        $conditions = array("IS_ACTIVE" => 1, "EMP_ID !=" => 1, "CREATED_BY" => $this->session->userdata['EMP_DATA']['EMP_ID']);
+        $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data($conditions);
         $data['all_administration_comp_profile'] = $this->Administration_comp_profile_model->get_all_administration_comp_profile_data();
         // check if the administration_emp_branch_info exists before trying to edit it
         $data['administration_emp_branch_info'] = $this->Administration_emp_branch_info_model->get_administration_emp_branch_info($ID);

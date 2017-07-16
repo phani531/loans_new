@@ -12,7 +12,7 @@ class Login_Model extends CI_Model {
             "r.IS_ACTIVE" => 1,
         );
         $query = $this->db->where($conditions)
-                ->select("al.*, ae.EMP_NAME, date(ae.CREATED_DATE) as created_date,r.ROLE_NAME")
+                ->select("al.*, ae.EMP_NAME, date(ae.CREATED_DATE) as created_date,r.ROLE_NAME, r.ROLE_ID")
                 ->from("administration_logins al")
                 ->join("administration_employees ae", "ae.EMP_ID = al.EMP_ID")
                 ->join("roles r", "r.ROLE_ID = ae.ROLE_ID")

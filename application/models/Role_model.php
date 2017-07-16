@@ -59,13 +59,17 @@ class Role_model extends CI_Model {
             $query_columns_array = array("ROLE_ID", "ROLE_NAME");
 
             $custom_where = array();
-            $where .= " WHERE IS_ACTIVE = 1";
+            $where .= " WHERE IS_ACTIVE = 1 AND ROLE_ID != 1";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
             $sql_query = 'SELECT $query_columns from roles' . $join . $where;
             $result = datatable::simple($request, $sql_details, $sql_query, $query_columns, $columns);
             $start = $_REQUEST['start'];
+            foreach ($result['data'] as &$res) {
+                $start++;
+                $res[0] = $start;
+            }
             return $result;
         } catch (Exception $e) {
             log_message("ERROR", "Something went wrong with clients table - Message : " . $e->getMessage());
@@ -86,7 +90,7 @@ class Role_model extends CI_Model {
      */
 
     function get_all_roles() {
-        return $this->db->where(array("IS_ACTIVE" => 1))->get('roles')->result_array();
+        return $this->db->where(array("IS_ACTIVE" => 1, "ROLE_ID !=" => 1))->get('roles')->result_array();
     }
 
     /*

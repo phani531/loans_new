@@ -11,6 +11,9 @@ class Masters_state extends CI_Controller {
         parent::__construct();
         $this->load->model('Masters_state_model');
         $this->load->model('Client_info_model');
+        $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
+        if (empty($session_data))
+            redirect("login");
     }
 
     /*

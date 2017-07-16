@@ -10,6 +10,9 @@ class Masters_carat extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model(array('Client_info_model', 'Masters_carat_model'));
+        $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
+        if (empty($session_data))
+            redirect("login");
     }
 
     /*

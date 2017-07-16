@@ -11,6 +11,9 @@ class Administration_setting extends CI_Controller {
         parent::__construct();
         $this->load->model('Administration_setting_model');
         $this->load->helper(array("datatable"));
+        $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
+        if (empty($session_data))
+            redirect("login");
     }
 
     /*
@@ -65,14 +68,14 @@ class Administration_setting extends CI_Controller {
                 'HIRE_PURCHASE_LOAN_NO' => $this->input->post('HIRE_PURCHASE_LOAN_NO'),
                 'SECURITY_LOAN_NO' => $this->input->post('SECURITY_LOAN_NO'),
                 'CHEQUE_VS_LOAN' => $this->input->post('CHEQUE_VS_LOAN'),
-                'ALLOW_FUTURE_DATE' => ($this->input->post('ALLOW_FUTURE_DATE') != "" && $this->input->post('ALLOW_FUTURE_DATE') != null)?$this->input->post('ALLOW_FUTURE_DATE'):0,
-                    'CALCULATION_TYPE' => ($this->input->post('CALCULATION_TYPE') != "" && $this->input->post('CALCULATION_TYPE') != null)?$this->input->post('CALCULATION_TYPE'):0,
-                    'ADVANCE_LOAN' => ($this->input->post('ADVANCE_LOAN') != "" && $this->input->post('ADVANCE_LOAN') != null)?$this->input->post('ADVANCE_LOAN'):0,
-                    'STATEMENT' => ($this->input->post('STATEMENT') != "" && $this->input->post('STATEMENT') != null)?$this->input->post('STATEMENT'):0,
-                    'FLEXIBILITY_OF_INTEREST' => ($this->input->post('FLEXIBILITY_OF_INTEREST') != "" && $this->input->post('FLEXIBILITY_OF_INTEREST') != null)?$this->input->post('FLEXIBILITY_OF_INTEREST'):0,
-                    'INTEREST_TYPE' => ($this->input->post('INTEREST_TYPE') != "" && $this->input->post('INTEREST_TYPE') != null)?$this->input->post('INTEREST_TYPE'):0,
-                    'PAYMENT_MODE' => ($this->input->post('PAYMENT_MODE') != "" && $this->input->post('PAYMENT_MODE') != null)?$this->input->post('PAYMENT_MODE'):0,
-                    'GOLD_LOAN' => ($this->input->post('GOLD_LOAN') != "" && $this->input->post('GOLD_LOAN') != null)?$this->input->post('GOLD_LOAN'):0,
+                'ALLOW_FUTURE_DATE' => ($this->input->post('ALLOW_FUTURE_DATE') != "" && $this->input->post('ALLOW_FUTURE_DATE') != null) ? $this->input->post('ALLOW_FUTURE_DATE') : 0,
+                'CALCULATION_TYPE' => ($this->input->post('CALCULATION_TYPE') != "" && $this->input->post('CALCULATION_TYPE') != null) ? $this->input->post('CALCULATION_TYPE') : 0,
+                'ADVANCE_LOAN' => ($this->input->post('ADVANCE_LOAN') != "" && $this->input->post('ADVANCE_LOAN') != null) ? $this->input->post('ADVANCE_LOAN') : 0,
+                'STATEMENT' => ($this->input->post('STATEMENT') != "" && $this->input->post('STATEMENT') != null) ? $this->input->post('STATEMENT') : 0,
+                'FLEXIBILITY_OF_INTEREST' => ($this->input->post('FLEXIBILITY_OF_INTEREST') != "" && $this->input->post('FLEXIBILITY_OF_INTEREST') != null) ? $this->input->post('FLEXIBILITY_OF_INTEREST') : 0,
+                'INTEREST_TYPE' => ($this->input->post('INTEREST_TYPE') != "" && $this->input->post('INTEREST_TYPE') != null) ? $this->input->post('INTEREST_TYPE') : 0,
+                'PAYMENT_MODE' => ($this->input->post('PAYMENT_MODE') != "" && $this->input->post('PAYMENT_MODE') != null) ? $this->input->post('PAYMENT_MODE') : 0,
+                'GOLD_LOAN' => ($this->input->post('GOLD_LOAN') != "" && $this->input->post('GOLD_LOAN') != null) ? $this->input->post('GOLD_LOAN') : 0,
                 'A' => $this->input->post('A'),
                 'B' => $this->input->post('B'),
                 'C' => $this->input->post('C'),
@@ -129,14 +132,14 @@ class Administration_setting extends CI_Controller {
                     'HIRE_PURCHASE_LOAN_NO' => $this->input->post('HIRE_PURCHASE_LOAN_NO'),
                     'SECURITY_LOAN_NO' => $this->input->post('SECURITY_LOAN_NO'),
                     'CHEQUE_VS_LOAN' => $this->input->post('CHEQUE_VS_LOAN'),
-                    'ALLOW_FUTURE_DATE' => ($this->input->post('ALLOW_FUTURE_DATE') != "" && $this->input->post('ALLOW_FUTURE_DATE') != null)?$this->input->post('ALLOW_FUTURE_DATE'):0,
-                    'CALCULATION_TYPE' => ($this->input->post('CALCULATION_TYPE') != "" && $this->input->post('CALCULATION_TYPE') != null)?$this->input->post('CALCULATION_TYPE'):0,
-                    'ADVANCE_LOAN' => ($this->input->post('ADVANCE_LOAN') != "" && $this->input->post('ADVANCE_LOAN') != null)?$this->input->post('ADVANCE_LOAN'):0,
-                    'STATEMENT' => ($this->input->post('STATEMENT') != "" && $this->input->post('STATEMENT') != null)?$this->input->post('STATEMENT'):0,
-                    'FLEXIBILITY_OF_INTEREST' => ($this->input->post('FLEXIBILITY_OF_INTEREST') != "" && $this->input->post('FLEXIBILITY_OF_INTEREST') != null)?$this->input->post('FLEXIBILITY_OF_INTEREST'):0,
-                    'INTEREST_TYPE' => ($this->input->post('INTEREST_TYPE') != "" && $this->input->post('INTEREST_TYPE') != null)?$this->input->post('INTEREST_TYPE'):0,
-                    'PAYMENT_MODE' => ($this->input->post('PAYMENT_MODE') != "" && $this->input->post('PAYMENT_MODE') != null)?$this->input->post('PAYMENT_MODE'):0,
-                    'GOLD_LOAN' => ($this->input->post('GOLD_LOAN') != "" && $this->input->post('GOLD_LOAN') != null)?$this->input->post('GOLD_LOAN'):0,
+                    'ALLOW_FUTURE_DATE' => ($this->input->post('ALLOW_FUTURE_DATE') != "" && $this->input->post('ALLOW_FUTURE_DATE') != null) ? $this->input->post('ALLOW_FUTURE_DATE') : 0,
+                    'CALCULATION_TYPE' => ($this->input->post('CALCULATION_TYPE') != "" && $this->input->post('CALCULATION_TYPE') != null) ? $this->input->post('CALCULATION_TYPE') : 0,
+                    'ADVANCE_LOAN' => ($this->input->post('ADVANCE_LOAN') != "" && $this->input->post('ADVANCE_LOAN') != null) ? $this->input->post('ADVANCE_LOAN') : 0,
+                    'STATEMENT' => ($this->input->post('STATEMENT') != "" && $this->input->post('STATEMENT') != null) ? $this->input->post('STATEMENT') : 0,
+                    'FLEXIBILITY_OF_INTEREST' => ($this->input->post('FLEXIBILITY_OF_INTEREST') != "" && $this->input->post('FLEXIBILITY_OF_INTEREST') != null) ? $this->input->post('FLEXIBILITY_OF_INTEREST') : 0,
+                    'INTEREST_TYPE' => ($this->input->post('INTEREST_TYPE') != "" && $this->input->post('INTEREST_TYPE') != null) ? $this->input->post('INTEREST_TYPE') : 0,
+                    'PAYMENT_MODE' => ($this->input->post('PAYMENT_MODE') != "" && $this->input->post('PAYMENT_MODE') != null) ? $this->input->post('PAYMENT_MODE') : 0,
+                    'GOLD_LOAN' => ($this->input->post('GOLD_LOAN') != "" && $this->input->post('GOLD_LOAN') != null) ? $this->input->post('GOLD_LOAN') : 0,
                     'A' => $this->input->post('A'),
                     'B' => $this->input->post('B'),
                     'C' => $this->input->post('C'),

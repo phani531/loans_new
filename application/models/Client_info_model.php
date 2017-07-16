@@ -65,13 +65,17 @@ class Client_info_model extends CI_Model {
             $query_columns_array = array("CLIENT_ID", "CLIENT_CODE", "CLIENT_NAME");
 
             $custom_where = array();
-            $where .= " WHERE IS_ACTIVE = 1";
+            $where .= " WHERE IS_ACTIVE = 1 AND CLIENT_ID != 1 ";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
             $sql_query = 'SELECT $query_columns from client_info' . $join . $where;
             $result = datatable::simple($request, $sql_details, $sql_query, $query_columns, $columns);
             $start = $_REQUEST['start'];
+            foreach ($result['data'] as &$res) {
+                $start++;
+                $res[0] = $start;
+            }
             return $result;
         } catch (Exception $e) {
             log_message("ERROR", "Something went wrong with clients table - Message : " . $e->getMessage());
@@ -92,7 +96,7 @@ class Client_info_model extends CI_Model {
      */
 
     function get_all_client_info() {
-        return $this->db->where(array("IS_ACTIVE" => 1))->get('client_info')->result_array();
+        return $this->db->where(array("IS_ACTIVE" => 1, "CLIENT_ID != " => 1))->get('client_info')->result_array();
     }
 
     /*

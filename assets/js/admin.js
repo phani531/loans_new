@@ -24,12 +24,39 @@ var admin = function () {
         initAdminEmployeeBrnachFormValidation();
         initAdminLoginForm();
         initAdminFundForm();
+        initSignup();
         initDeleteIndividualRow();
         initDatePicker();
     }
 
     function ajaxInit() {
 
+    }
+
+    /**
+     * Function to signup
+     * @returns {undefined}
+     */
+    function initSignup() {
+        $(".sign-out").on("click", function () {
+            var message = "Are you sure to sign out?";
+            var desc = "Come back soon";
+            var logoutUrl = $(this).data("href");
+            swal({
+                title: message,
+                text: desc,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete",
+                cancelButtonText: "No, cancel",
+                confirmButtonClass: "confirm-btn",
+                cancelButtonClass: "btn btn-default",
+                closeOnConfirm: false,
+                allowOutsideClick: false
+            }, function () {
+                location.href = logoutUrl;
+            });
+        });
     }
 
     /**

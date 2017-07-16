@@ -12,6 +12,9 @@ class Role extends CI_Controller {
         $this->load->model(array('Role_model'));
         $this->load->helper(array('datatable'));
         $this->load->library(array('form_validation', 'PostData'));
+        $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
+        if (empty($session_data))
+            redirect("login");
     }
 
     /*
