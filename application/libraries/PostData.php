@@ -215,6 +215,33 @@ class PostData {
         return $return_array;
     }
 
+    /**
+     * Function to prepare admin fund post data
+     * 
+     * @param array $data
+     * @param boolean $edit_flag
+     * 
+     * @return type
+     */
+    function getAdminFundPostData($data, $edit_flag = false) {
+        $return_array = array();
+        if (!empty($data)) {
+            $return_array = array(
+                "FA_DATE" => $data['FA_DATE'],
+                "EMP_ID" => $data['EMP_ID'],
+                "Amount" => $data['Amount']
+            );
+            if (!$edit_flag) {
+                $return_array['CREATED_DATE'] = date("Y-m-d H:i:s");
+                $return_array['CREATED_BY'] = isset($this->CI->session->userdata["EMP_DATA"]['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            } else {
+                $return_array['MODIFIED_DATE'] = date("Y-m-d H:i:s");
+                $return_array['MODIFIED_BY'] = isset($this->CI->session->userdata['EMP_DATA']['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            }
+        }
+        return $return_array;
+    }
+
 }
 ?>
 

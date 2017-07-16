@@ -51,7 +51,7 @@ class Administration_fundallocation_model extends CI_Model {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'EMP_ID',
+                array('db' => 'EMP_NAME',
                     'dt' => 2,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
@@ -67,23 +67,24 @@ class Administration_fundallocation_model extends CI_Model {
                     'dt' => 4,
                     'formatter' => function($d, $row) {
                         $returnString = "";
-                        $returnString .= '<a href="' . site_url('administration_fundallocation/edit/' . $d) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';
-                        $returnString .= '<a href="' . site_url('administration_fundallocation/remove/' . $d) . '" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>';
+                        $returnString .= '<a href="' . site_url('administration_fundallocation/edit/' . $d) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>&nbsp;&nbsp;';
+                        $returnString .= '<a data-href="' . site_url('administration_fundallocation/remove') . '" data-table-name="admin_fund_table" data-id=' . $d . ' data-desc="You will be perminently deleting this client." data-message= "Are you sure to delete?" class="btn btn-danger btn-xs delete-row"><span class="fa fa-trash"></span> Delete</a>';
                         return $returnString;
                     }
                 )
             );
             $join = "";
+            $join .= " JOIN administration_employees ae ON ae.EMP_ID = af.EMP_ID AND ae.IS_ACTIVE = 1";
             $where = "";
 
-            $query_columns_array = array("FA_ID, FA_DATE, EMP_ID, Amount, IS_ACTIVE, CREATED_BY, CREATED_DATE, MODIFIED_DATE, MODIFIED_BY");
+            $query_columns_array = array("FA_ID, FA_DATE, Amount, EMP_NAME");
 
             $custom_where = array();
-            $where .= "";
+            $where .= " WHERE af.IS_ACTIVE = 1 ";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
-            $sql_query = 'SELECT $query_columns from administration_fundallocation' . $join . $where;
+            $sql_query = 'SELECT $query_columns from administration_fundallocation af' . $join . $where;
             $result = datatable::simple($request, $sql_details, $sql_query, $query_columns, $columns);
             $start = $_REQUEST['start'];
             return $result;
@@ -108,12 +109,7 @@ class Administration_fundallocation_model extends CI_Model {
 
     function update_administration_fundallocation($FA_ID, $params) {
         $this->db->where('FA_ID', $FA_ID);
-        $response = $this->db->update('administration_fundallocation', $params);
-        if ($response) {
-            return "administration_fundallocation updated successfully";
-        } else {
-            return "Error occuring while updating administration_fundallocation";
-        }
+        return $this->db->update('administration_fundallocation', $params);
     }
 
     /*
@@ -121,12 +117,7 @@ class Administration_fundallocation_model extends CI_Model {
      */
 
     function delete_administration_fundallocation($FA_ID) {
-        $response = $this->db->delete('administration_fundallocation', array('FA_ID' => $FA_ID));
-        if ($response) {
-            return "administration_fundallocation deleted successfully";
-        } else {
-            return "Error occuring while deleting administration_fundallocation";
-        }
+        return $this->db->where(array("FA_ID" => $FA_ID))->update('administration_fundallocation', array('IS_ACTIVE' => 0));
     }
 
 }

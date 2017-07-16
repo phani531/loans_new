@@ -8,18 +8,20 @@
                 </div>
             </div>
 
-            <div class="box-body no-padding table-responsive">
-                <table class="table table-striped table-bordered admin-datatable" data-href="<?php echo base_url(); ?>administration_fundallocation/getAllAdminFundallocations">
-                    <thead>
-                        <tr>
-                            <th>FA ID</th>
-                            <th>FA DATE</th>
-                            <th>EMP ID</th>
-                            <th>Amount</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                </table>
+            <div class="box-body no-padding">
+                <div class="col-md-12 table-responsive">
+                    <table class="table table-striped table-bordered admin-datatable" id="admin_fund_table" data-href="<?php echo base_url(); ?>administration_fundallocation/getAllAdminFundallocations">
+                        <thead>
+                            <tr>
+                                <th>FA ID</th>
+                                <th>FA DATE</th>
+                                <th>EMP ID</th>
+                                <th>Amount</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

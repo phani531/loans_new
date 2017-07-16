@@ -207,4 +207,11 @@ $config = array(
             'rules' => 'required'
         ),
     ),
+    "admin_fund_form" => array(
+        array(
+            'field' => 'Amount',
+            'label' => 'Amount',
+            'rules' => 'trim|required|numeric'
+        ),
+    )
 );

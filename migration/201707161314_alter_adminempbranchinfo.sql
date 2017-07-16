@@ -19,3 +19,5 @@ ALTER TABLE administration_logins ADD COLUMN CREATED_DATE datetime COMMENT 'Crea
 ALTER TABLE administration_logins ADD COLUMN MODIFIED_DATE datetime COMMENT 'Modified date of the row';
 
 ALTER TABLE administration_logins ADD COLUMN IS_ACTIVE tinyint(1) DEFAULT 1 COMMENT 'Modified date of the row';
+
+ALTER TABLE administration_fundallocation MODIFY COLUMN IS_ACTIVE tinyint(1) DEFAULT 1 COMMENT 'Active or not';

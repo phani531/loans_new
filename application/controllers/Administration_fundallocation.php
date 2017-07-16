@@ -11,6 +11,7 @@ class Administration_fundallocation extends CI_Controller {
         parent::__construct();
         $this->load->model(array('Administration_fundallocation_model', 'Administration_employee_model'));
         $this->load->helper(array("datatable"));
+        $this->load->library(array("form_validation", "PostData"));
     }
 
     /*
@@ -39,26 +40,18 @@ class Administration_fundallocation extends CI_Controller {
      */
 
     function add() {
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('Amount', 'Amount', 'numeric');
-
-        if ($this->form_validation->run()) {
-            $params = array(
-                'FA_DATE' => $this->input->post('FA_DATE'),
-                'EMP_ID' => $this->input->post('EMP_ID'),
-                'Amount' => $this->input->post('Amount'),
-                'IS_ACTIVE' => 1,
-                'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                'CREATED_DATE' => date("Y-m-d H:i:s"),
-            );
-
-            $administration_fundallocation_id = $this->Administration_fundallocation_model->add_administration_fundallocation($params);
-            redirect('administration_fundallocation/index');
+        $postData = $this->input->post(NULL, TRUE);
+        $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
+        if (!empty($postData)) {
+            if ($this->form_validation->run("admin_fund_form") == TRUE) {
+                $admin_fund_data = $this->postdata->getAdminFundPostData($postData);
+                $administration_fundallocation_id = $this->Administration_fundallocation_model->add_administration_fundallocation($admin_fund_data);
+                redirect('administration_fundallocation/index');
+            } else {
+                $data['_view'] = 'administration_fundallocation/add';
+                $this->load->view('layouts/main', $data);
+            }
         } else {
-            $this->load->model('Administration_employee_model');
-            $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
-
             $data['_view'] = 'administration_fundallocation/add';
             $this->load->view('layouts/main', $data);
         }
@@ -71,48 +64,42 @@ class Administration_fundallocation extends CI_Controller {
     function edit($FA_ID) {
         // check if the administration_fundallocation exists before trying to edit it
         $data['administration_fundallocation'] = $this->Administration_fundallocation_model->get_administration_fundallocation($FA_ID);
-
-        if (isset($data['administration_fundallocation']['FA_ID'])) {
-            $this->load->library('form_validation');
-
-            $this->form_validation->set_rules('Amount', 'Amount', 'numeric');
-
-            if ($this->form_validation->run()) {
-                $params = array(
-                    'FA_DATE' => $this->input->post('FA_DATE'),
-                    'EMP_ID' => $this->input->post('EMP_ID'),
-                    'Amount' => $this->input->post('Amount'),
-                    'IS_ACTIVE' => 1,
-                    'MODIFIED_DATE' => date("Y-m-d H:i:s"),
-                    'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                );
-
-                $this->Administration_fundallocation_model->update_administration_fundallocation($FA_ID, $params);
+        $postData = $this->input->post(NULL, TRUE);
+        $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
+        if (isset($postData) && !empty($postData)) {
+            if ($this->form_validation->run("admin_fund_form") == TRUE) {
+                $admin_fund_data = $this->postdata->getAdminFundPostData($postData, TRUE);
+                $this->Administration_fundallocation_model->update_administration_fundallocation($FA_ID, $admin_fund_data);
                 redirect('administration_fundallocation/index');
             } else {
-                $this->load->model('Administration_employee_model');
-                $data['all_administration_employees'] = $this->Administration_employee_model->get_all_administration_employees_data();
-
                 $data['_view'] = 'administration_fundallocation/edit';
                 $this->load->view('layouts/main', $data);
             }
-        } else
-            show_error('The administration_fundallocation you are trying to edit does not exist.');
+        } else {
+            $data['_view'] = 'administration_fundallocation/edit';
+            $this->load->view('layouts/main', $data);
+        }
     }
 
     /*
      * Deleting administration_fundallocation
      */
 
-    function remove($FA_ID) {
-        $administration_fundallocation = $this->Administration_fundallocation_model->get_administration_fundallocation($FA_ID);
-
-        // check if the administration_fundallocation exists before trying to delete it
+    function remove() {
+        $request = $_POST;
+        $administration_fundallocation = $this->Administration_fundallocation_model->get_administration_fundallocation($request['id']);
         if (isset($administration_fundallocation['FA_ID'])) {
-            $this->Administration_fundallocation_model->delete_administration_fundallocation($FA_ID);
-            redirect('administration_fundallocation/index');
-        } else
-            show_error('The administration_fundallocation you are trying to delete does not exist.');
+            $status = $this->Administration_fundallocation_model->delete_administration_fundallocation($request['id']);
+            if ($status) {
+                echo json_encode(array("status" => "success", "message" => "You have successfully removed " . $administration_fundallocation['FA_ID'] . "."));
+                exit;
+            }
+            echo json_encode(array("status" => "error", "message" => "Some thing went wrong."));
+            exit;
+        } else {
+            echo json_encode(array("status" => "error", "message" => "The client_info you are trying to delete does not exist."));
+            exit;
+        }
     }
 
 }
