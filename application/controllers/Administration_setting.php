@@ -83,7 +83,7 @@ class Administration_setting extends CI_Controller {
                 'H' => $this->input->post('H'),
                 'MAX_SMS_PER_WEEK' => $this->input->post('MAX_SMS_PER_WEEK'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
-                'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID']
+                'CREATED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID']
             );
 
             $administration_setting_id = $this->Administration_setting_model->add_administration_setting($params);
@@ -147,7 +147,7 @@ class Administration_setting extends CI_Controller {
                     'H' => $this->input->post('H'),
                     'MAX_SMS_PER_WEEK' => $this->input->post('MAX_SMS_PER_WEEK'),
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
-                    'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                    'MODIFIED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID'],
                 );
 
                 $this->Administration_setting_model->update_administration_setting($SETTINGS_ID, $params);

@@ -45,7 +45,7 @@ class Masters_state extends CI_Controller {
             $params = array(
                 'STATE_NAME' => $this->input->post('STATE_NAME'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
-                'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                'CREATED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID'],
                 'IS_ACTIVE' => 1,
             );
 
@@ -71,7 +71,7 @@ class Masters_state extends CI_Controller {
                 $params = array(
                     'STATE_NAME' => $this->input->post('STATE_NAME'),
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
-                    'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                    'MODIFIED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID'],
                     'IS_ACTIVE' => 1,
                 );
 

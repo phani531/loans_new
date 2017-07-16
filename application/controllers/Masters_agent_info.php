@@ -58,7 +58,7 @@ class Masters_agent_info extends CI_Controller {
                 'AGENT_COMMISSION_PERCENTAGE' => $this->input->post('AGENT_COMMISSION_PERCENTAGE'),
                 'AGENT_PIC_PATH' => $this->input->post('AGENT_PIC_PATH'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
-                'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                'CREATED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID'],
                 'IS_ACTIVE' => 1,
             );
 
@@ -105,7 +105,7 @@ class Masters_agent_info extends CI_Controller {
                     'AGENT_COMMISSION_PERCENTAGE' => $this->input->post('AGENT_COMMISSION_PERCENTAGE'),
                     'AGENT_PIC_PATH' => $this->input->post('AGENT_PIC_PATH'),
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
-                    'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                    'MODIFIED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID'],
                     'IS_ACTIVE' => 1,
                 );
 

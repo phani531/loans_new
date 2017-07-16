@@ -49,7 +49,7 @@ class Masters_document extends CI_Controller {
             $params = array(
                 'DOCUMENT_NAME' => $this->input->post('DOCUMENT_NAME'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
-                'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                'CREATED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID'],
                 'IS_ACTIVE' => 1,
                 'DOC_TYPE' => $this->input->post('DOC_TYPE'),
             );
@@ -80,7 +80,7 @@ class Masters_document extends CI_Controller {
                 $params = array(
                     'DOCUMENT_NAME' => $this->input->post('DOCUMENT_NAME'),
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
-                    'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                    'MODIFIED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID'],
                     'IS_ACTIVE' => 1,
                     'DOC_TYPE' => $this->input->post('DOC_TYPE'),
                 );

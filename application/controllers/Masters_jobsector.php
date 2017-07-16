@@ -46,7 +46,7 @@ class Masters_jobsector extends CI_Controller {
                 'JOBSECTOR_NAME' => $this->input->post('JOBSECTOR_NAME'),
                 'LOAN_TYPE' => $this->input->post('LOAN_TYPE'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
-                'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                'CREATED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID'],
                 'IS_ACTIVE' => 1,
             );
 
@@ -73,7 +73,7 @@ class Masters_jobsector extends CI_Controller {
                     'JOBSECTOR_NAME' => $this->input->post('JOBSECTOR_NAME'),
                     'LOAN_TYPE' => $this->input->post('LOAN_TYPE'),
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
-                    'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                    'MODIFIED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID'],
                     'IS_ACTIVE' => 1,
                 );
 

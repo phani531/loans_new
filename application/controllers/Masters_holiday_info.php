@@ -47,7 +47,7 @@ class Masters_holiday_info extends CI_Controller {
                 'HOLIDAY_FROM_DATE' => $this->input->post('HOLIDAY_FROM_DATE'),
                 'HOLIDAY_TO_DATE' => $this->input->post('HOLIDAY_TO_DATE'),
                 'CREATED_DATE' => date("Y-m-d H:i:s"),
-                'CREATED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                'CREATED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID'],
                 'IS_ACTIVE' => 1,
             );
 
@@ -75,7 +75,7 @@ class Masters_holiday_info extends CI_Controller {
                     'HOLIDAY_FROM_DATE' => $this->input->post('HOLIDAY_FROM_DATE'),
                     'HOLIDAY_TO_DATE' => $this->input->post('HOLIDAY_TO_DATE'),
                     'MODIFIED_DATE' => date("Y-m-d H:i:s"),
-                    'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
+                    'MODIFIED_BY' => $this->session->userdata['EMP_DATA']['EMP_ID'],
                     'IS_ACTIVE' => 1,
                 );
 
