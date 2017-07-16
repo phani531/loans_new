@@ -7,7 +7,6 @@
  * Author:  mahesh
  * Created: 16 Jul, 2017
  */
-ALTER TABLE administration_employees MODIFY COLUMN IS_ACTIVE tinyint(1) DEFAULT 1;
 
 INSERT INTO roles(ROLE_NAME, CREATED_DATE) values('Super Admin', NOW());
 
