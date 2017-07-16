@@ -58,78 +58,43 @@ class Administration_comp_profile extends CI_Controller {
      */
 
     function edit($BRANCH_ID) {
-        // check if the administration_comp_profile exists before trying to edit it
+        $postData = $this->input->post(NULL, TRUE);
+        $data['all_client_info'] = $this->Client_info_model->get_all_client_info();
         $data['administration_comp_profile'] = $this->Administration_comp_profile_model->get_administration_comp_profile($BRANCH_ID);
-
-        if (isset($data['administration_comp_profile']['BRANCH_ID'])) {
-            $this->load->library('form_validation');
-
-            $this->form_validation->set_rules('BRANCH_FAX_NO', 'BRANCH FAX NO', 'numeric');
-            $this->form_validation->set_rules('BRANCH_OFFICE_NO', 'BRANCH OFFICE NO', 'numeric');
-            $this->form_validation->set_rules('BRANCH_LICENCE_NO', 'BRANCH LICENCE NO', 'required');
-            $this->form_validation->set_rules('BRANCH_REG_NO', 'BRANCH REG NO', 'required');
-            $this->form_validation->set_rules('BRANCH_CODE', 'BRANCH CODE', 'required');
-            $this->form_validation->set_rules('BRANCH_NAME', 'BRANCH NAME', 'required');
-            $this->form_validation->set_rules('BRANCH_TYPE', 'BRANCH TYPE', 'required');
-            $this->form_validation->set_rules('BRANCH_EMAILID', 'BRANCH EMAILID', 'valid_email');
-            $this->form_validation->set_rules('LAWYER_FAX_NO', 'LAWYER FAX NO', 'numeric');
-            $this->form_validation->set_rules('LAWYER_NAME', 'LAWYER NAME', 'required');
-            $this->form_validation->set_rules('LAWYER_OFFICE_NO', 'LAWYER OFFICE NO', 'numeric');
-
-            if ($this->form_validation->run()) {
-                $params = array(
-                    'BRANCH_NAME' => $this->input->post('BRANCH_NAME'),
-                    'BRANCH_TYPE' => $this->input->post('BRANCH_TYPE'),
-                    'BRANCH_CODE' => $this->input->post('BRANCH_CODE'),
-                    'BRANCH_REG_NO' => $this->input->post('BRANCH_REG_NO'),
-                    'BRANCH_LICENCE_NO' => $this->input->post('BRANCH_LICENCE_NO'),
-                    'BRANCH_ADDRESS' => $this->input->post('BRANCH_ADDRESS'),
-                    'BRANCH_OFFICE_NO' => $this->input->post('BRANCH_OFFICE_NO'),
-                    'BRANCH_FAX_NO' => $this->input->post('BRANCH_FAX_NO'),
-                    'BRANCH_EMAILID' => $this->input->post('BRANCH_EMAILID'),
-                    'BRANCH_WEBSITE' => $this->input->post('BRANCH_WEBSITE'),
-                    'BRANCH_LOGO_PIC_PATH' => $this->input->post('BRANCH_LOGO_PIC_PATH'),
-                    'LAWYER_NAME' => $this->input->post('LAWYER_NAME'),
-                    'LAWYER_ADDRESS' => $this->input->post('LAWYER_ADDRESS'),
-                    'LAWYER_OFFICE_NO' => $this->input->post('LAWYER_OFFICE_NO'),
-                    'LAWYER_FAX_NO' => $this->input->post('LAWYER_FAX_NO'),
-                    'LAWYER_EMAILID' => $this->input->post('LAWYER_EMAILID'),
-                    'FINANCIAL_YEAR_FROM' => $this->input->post('FINANCIAL_YEAR_FROM'),
-                    'FINANCIAL_YEAR_TO' => $this->input->post('FINANCIAL_YEAR_TO'),
-                    'MODIFIED_DATE' => date("Y-m-d H:i:s"),
-                    'MODIFIED_BY' => $this->session->userdata['user']['LOGIN_ID'],
-                    'CLIENT_ID' => $this->input->post('CLIENT_ID'),
-                    'IS_ACTIVE' => 1,
-                    'OWNER_NAME' => $this->input->post('OWNER_NAME'),
-                    'OFFICE_EXTENSION_NUMBER' => $this->input->post('OFFICE_EXTENSION_NUMBER'),
-                );
-
-                $this->Administration_comp_profile_model->update_administration_comp_profile($BRANCH_ID, $params);
+        if (isset($postData) && !empty($postData)) {
+            if ($this->form_validation->run("admin_comp_profile_form") == TRUE) {
+                $admin_comp_data = $this->postdata->getAdminCompProfileData($postData, TRUE);
+                $this->Administration_comp_profile_model->update_administration_comp_profile($BRANCH_ID, $admin_comp_data);
                 redirect('administration_comp_profile/index');
             } else {
-                $this->load->model('Client_info_model');
-                $data['all_client_info'] = $this->Client_info_model->get_all_client_info();
-
                 $data['_view'] = 'administration_comp_profile/edit';
                 $this->load->view('layouts/main', $data);
             }
-        } else
-            show_error('The administration_comp_profile you are trying to edit does not exist.');
+        } else {
+            $data['_view'] = 'administration_comp_profile/edit';
+            $this->load->view('layouts/main', $data);
+        }
     }
 
     /*
      * Deleting administration_comp_profile
      */
 
-    function remove($BRANCH_ID) {
-        $administration_comp_profile = $this->Administration_comp_profile_model->get_administration_comp_profile($BRANCH_ID);
-
-        // check if the administration_comp_profile exists before trying to delete it
+    function remove() {
+        $request = $_POST;
+        $administration_comp_profile = $this->Administration_comp_profile_model->get_administration_comp_profile($request['id']);
         if (isset($administration_comp_profile['BRANCH_ID'])) {
-            $this->Administration_comp_profile_model->delete_administration_comp_profile($BRANCH_ID);
-            redirect('administration_comp_profile/index');
-        } else
-            show_error('The administration_comp_profile you are trying to delete does not exist.');
+            $status = $this->Administration_comp_profile_model->delete_administration_comp_profile($request['id']);
+            if ($status) {
+                echo json_encode(array("status" => "success", "message" => "You have successfully removed " . $administration_comp_profile['BRANCH_NAME'] . "."));
+                exit;
+            }
+            echo json_encode(array("status" => "error", "message" => "Some thing went wrong."));
+            exit;
+        } else {
+            echo json_encode(array("status" => "error", "message" => "The branch info you are trying to delete does not exist."));
+            exit;
+        }
     }
 
 }

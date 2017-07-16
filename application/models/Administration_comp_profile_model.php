@@ -60,7 +60,12 @@ class Administration_comp_profile_model extends CI_Model {
                 array('db' => 'BRANCH_TYPE',
                     'dt' => 2,
                     'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
+                        $return_string = "";
+                        if ($d == 1)
+                            $return_string .= "Money lender";
+                        else
+                            $return_string .= "Gold";
+                        return $return_string;
                     }
                 ),
                 array('db' => 'BRANCH_CODE',
@@ -111,69 +116,16 @@ class Administration_comp_profile_model extends CI_Model {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'BRANCH_LOGO_PIC_PATH',
-                    'dt' => 11,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'LAWYER_NAME',
-                    'dt' => 12,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'LAWYER_ADDRESS',
-                    'dt' => 13,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'LAWYER_OFFICE_NO',
-                    'dt' => 14,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'LAWYER_FAX_NO',
-                    'dt' => 15,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'LAWYER_EMAILID',
-                    'dt' => 16,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ), array('db' => 'FINANCIAL_YEAR_FROM',
-                    'dt' => 17,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'FINANCIAL_YEAR_TO',
-                    'dt' => 18,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'CREATED_DATE',
-                    'dt' => 19,
-                    'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
                 array(
                     'db' => 'BRANCH_ID',
-                    'dt' => 20,
+                    'dt' => 11,
                     'formatter' => function($d, $row) {
                         $returnString = "";
-                        $returnString .= '<a href="' . site_url('administration_comp_profile/edit/' . $row['BRANCH_ID']) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';
-                        $returnString .= '<a href="' . site_url('administration_comp_profile/remove/' . $row['BRANCH_ID']) . '" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>';
+                        $returnString .= '<a href="' . site_url('administration_comp_profile/edit/' . $row['BRANCH_ID']) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>&nbsp;&nbsp;';
+                        $returnString .= '<a data-href="' . site_url('administration_comp_profile/remove') . '" data-table-name="admin_comp_profile" data-id=' . $row["BRANCH_ID"] . ' data-desc="You will be perminently deleting this branch." data-message= "Are you sure to delete?" class="btn btn-danger btn-xs delete-row"><span class="fa fa-trash"></span> Delete</a>';
                         return $returnString;
                     }
-                ),
+                )
             );
 
             $join = "";
@@ -182,7 +134,7 @@ class Administration_comp_profile_model extends CI_Model {
             $query_columns_array = array("BRANCH_ID", "BRANCH_NAME", "BRANCH_TYPE", "BRANCH_CODE", "BRANCH_REG_NO", "BRANCH_LICENCE_NO", "BRANCH_ADDRESS", "BRANCH_OFFICE_NO", "BRANCH_FAX_NO", "BRANCH_EMAILID", "BRANCH_WEBSITE", "BRANCH_LOGO_PIC_PATH", "LAWYER_NAME", "LAWYER_ADDRESS", "LAWYER_OFFICE_NO", "LAWYER_FAX_NO", "LAWYER_EMAILID", "FINANCIAL_YEAR_FROM", "FINANCIAL_YEAR_TO", "CREATED_DATE", "CREATED_BY");
 
             $custom_where = array();
-            $where .= " WHERE CREATED_BY = " . $_SESSION['user']['LOGIN_ID'];
+            $where .= " WHERE IS_ACTIVE = 1 AND CREATED_BY = 1";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
@@ -224,12 +176,7 @@ class Administration_comp_profile_model extends CI_Model {
      */
 
     function delete_administration_comp_profile($BRANCH_ID) {
-        $response = $this->db->delete('administration_comp_profile', array('BRANCH_ID' => $BRANCH_ID));
-        if ($response) {
-            return "administration_comp_profile deleted successfully";
-        } else {
-            return "Error occuring while deleting administration_comp_profile";
-        }
+        return $this->db->where(array('BRANCH_ID' => $BRANCH_ID))->update('administration_comp_profile', array('IS_ACTIVE' => 0));
     }
 
 }
