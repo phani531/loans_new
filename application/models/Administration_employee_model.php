@@ -25,7 +25,7 @@ class Administration_employee_model extends CI_Model {
      * @return type
      */
     function get_all_administration_employees_data() {
-        return $this->db->get('administration_employees')->result_array();
+        return $this->db->where(array("IS_ACTIVE" => 1))->get('administration_employees')->result_array();
     }
 
     /**

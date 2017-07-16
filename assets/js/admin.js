@@ -21,12 +21,52 @@ var admin = function () {
         initAdminCompProfileValidation();
         initAdminDesignationFormValidation();
         initAdminEmployeeFormValidation();
+        initAdminEmployeeBrnachFormValidation();
+        initAdminLoginForm();
         initDeleteIndividualRow();
         initDatePicker();
     }
 
     function ajaxInit() {
 
+    }
+
+    /**
+     * Function to validate admin login form
+     * @returns {undefined}
+     */
+    function initAdminLoginForm() {
+        $("#admin_login_form").validate({
+            rules: {
+                LOGIN_USERNAME: {
+                    namefield: true
+                }
+            },
+            errorElement: 'label',
+            errorClass: 'error',
+            focusInvalid: false,
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            unhighlight: function (element) { // <-- fires when element is valid
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-info');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element);
+            }
+        });
+    }
+
+    /**
+     * Function to validate admin employee branch info
+     * @returns {undefined}
+     */
+    function initAdminEmployeeBrnachFormValidation() {
+        $("#admin_emp_branch_form").validate();
     }
 
     /**

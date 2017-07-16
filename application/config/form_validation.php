@@ -178,4 +178,33 @@ $config = array(
             'rules' => 'trim|required|min_length[1]|max_length[100]'
         ),
     ),
+    "admin_emp_branch_form" => array(
+        array(
+            'field' => 'EMP_ID',
+            'label' => 'Emp id',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'BRANCH_ID',
+            'label' => 'Branch id',
+            'rules' => 'required'
+        )
+    ),
+    "admin_login_form" => array(
+        array(
+            'field' => 'EMP_ID',
+            'label' => 'Emp id',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'LOGIN_USERNAME',
+            'label' => 'Login username',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|callback_namefield'
+        ),
+        array(
+            'field' => 'LOGIN_PASSWORD',
+            'label' => 'Login password',
+            'rules' => 'required'
+        ),
+    ),
 );

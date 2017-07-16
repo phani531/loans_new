@@ -45,7 +45,7 @@ class Administration_login_model extends CI_Model {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'EMP_ID',
+                array('db' => 'EMP_NAME',
                     'dt' => 1,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
@@ -57,33 +57,28 @@ class Administration_login_model extends CI_Model {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'LOGIN_PASSWORD',
+                array('db' => 'LOGIN_ID',
                     'dt' => 3,
                     'formatter' => function($d, $row) {
-                        return !empty($d) ? $d : "N/A";
-                    }
-                ),
-                array('db' => 'LOGIN_ID',
-                    'dt' => 4,
-                    'formatter' => function($d, $row) {
                         $returnString = "";
-                        $returnString .= '<a href="' . site_url('administration_login/edit/' . $d) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';
-                        $returnString .= '<a href="' . site_url('administration_login/remove/' . $d) . '" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>';
+                        $returnString .= '<a href="' . site_url('administration_login/edit/' . $d) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>&nbsp;&nbsp;';
+                        $returnString .= '<a data-href="' . site_url('administration_login/remove') . '" data-table-name="admin_login_table" data-id=' . $d . ' data-desc="You will be perminently deleting this login." data-message= "Are you sure to delete?" class="btn btn-danger btn-xs delete-row"><span class="fa fa-trash"></span> Delete</a>';
                         return $returnString;
                     }
                 )
             );
             $join = "";
+            $join .= " JOIN administration_employees ae ON ae.EMP_ID = al.EMP_ID AND ae.IS_ACTIVE = 1 ";
             $where = "";
 
-            $query_columns_array = array("LOGIN_ID, EMP_ID, LOGIN_USERNAME, LOGIN_PASSWORD");
+            $query_columns_array = array("LOGIN_ID, LOGIN_USERNAME, LOGIN_PASSWORD, EMP_NAME");
 
             $custom_where = array();
-            $where .= "";
+            $where .= " WHERE al.IS_ACTIVE = 1 ";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
-            $sql_query = 'SELECT $query_columns from administration_logins' . $join . $where;
+            $sql_query = 'SELECT $query_columns from administration_logins al' . $join . $where;
             $result = datatable::simple($request, $sql_details, $sql_query, $query_columns, $columns);
             $start = $_REQUEST['start'];
             return $result;
@@ -108,12 +103,7 @@ class Administration_login_model extends CI_Model {
 
     function update_administration_login($LOGIN_ID, $params) {
         $this->db->where('LOGIN_ID', $LOGIN_ID);
-        $response = $this->db->update('administration_logins', $params);
-        if ($response) {
-            return "administration_login updated successfully";
-        } else {
-            return "Error occuring while updating administration_login";
-        }
+        return $this->db->update('administration_logins', $params);
     }
 
     /*
@@ -121,12 +111,7 @@ class Administration_login_model extends CI_Model {
      */
 
     function delete_administration_login($LOGIN_ID) {
-        $response = $this->db->delete('administration_logins', array('LOGIN_ID' => $LOGIN_ID));
-        if ($response) {
-            return "administration_login deleted successfully";
-        } else {
-            return "Error occuring while deleting administration_login";
-        }
+        return $this->db->where(array('LOGIN_ID' => $LOGIN_ID))->update('administration_logins', array("IS_ACTIVE" => 0));
     }
 
 }

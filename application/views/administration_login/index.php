@@ -9,28 +9,15 @@
             </div>
 
             <div class="box-body no-padding table-responsive">
-                <table class="table table-striped table-bordered admin-datatable" data-href="<?php echo base_url(); ?>administration_login/getAllAdminLogins">
+                <table class="table table-striped table-bordered admin-datatable" data-href="<?php echo base_url(); ?>administration_login/getAllAdminLogins" id="admin_login_table">
                     <thead>
                         <tr>
                             <th>LOGIN ID</th>
                             <th>EMP ID</th>
                             <th>LOGIN USERNAME</th>
-                            <th>LOGIN PASSWORD</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <?php /* foreach ($administration_logins as $a) { ?>
-                      <tr>
-                      <td><?php echo $a['LOGIN_ID']; ?></td>
-                      <td><?php echo $a['EMP_ID']; ?></td>
-                      <td><?php echo $a['LOGIN_USERNAME']; ?></td>
-                      <td><?php echo $a['LOGIN_PASSWORD']; ?></td>
-                      <td>
-                      <a href="<?php echo site_url('administration_login/edit/' . $a['LOGIN_ID']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>
-                      <a href="<?php echo site_url('administration_login/remove/' . $a['LOGIN_ID']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
-                      </td>
-                      </tr>
-                      <?php } */ ?>
                 </table>
             </div>
         </div>

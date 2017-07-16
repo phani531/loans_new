@@ -33,25 +33,25 @@ class Administration_emp_branch_info_model extends CI_Model {
             $request['searchcolumns'] = array();
             $columns = array(
                 array(
-                    'db' => 'ID',
+                    'db' => 'aebi.ID',
                     'dt' => 'DT_RowId',
                     'formatter' => function( $d, $row ) {
                         return 'row_' . $d;
                     }
                 ),
-                array('db' => 'ID',
+                array('db' => 'aebi.ID',
                     'dt' => 0,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'EMP_ID',
+                array('db' => 'EMP_NAME',
                     'dt' => 1,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
                     }
                 ),
-                array('db' => 'BRANCH_ID',
+                array('db' => 'BRANCH_NAME',
                     'dt' => 2,
                     'formatter' => function($d, $row) {
                         return !empty($d) ? $d : "N/A";
@@ -61,23 +61,25 @@ class Administration_emp_branch_info_model extends CI_Model {
                     'dt' => 3,
                     'formatter' => function($d, $row) {
                         $returnString = "";
-                        $returnString .= '<a href="' . site_url('administration_emp_branch_info/edit/' . $d) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a><br>';
-                        $returnString .= '<a href="' . site_url('administration_emp_branch_info/remove/' . $d) . '" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>';
+                        $returnString .= '<a href="' . site_url('administration_emp_branch_info/edit/' . $d) . '" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>&nbsp;&nbsp;';
+                        $returnString .= '<a data-href="' . site_url('administration_emp_branch_info/remove') . '" data-table-name="admin_emp_branch_table" data-id=' . $d . ' data-desc="You will be perminently deleting this client." data-message= "Are you sure to delete?" class="btn btn-danger btn-xs delete-row"><span class="fa fa-trash"></span> Delete</a>';
                         return $returnString;
                     }
                 )
             );
             $join = "";
+            $join .= " JOIN administration_employees ae ON ae.EMP_ID = aebi.EMP_ID AND ae.IS_ACTIVE = 1";
+            $join .= " JOIN administration_comp_profile acp ON acp.BRANCH_ID = aebi.BRANCH_ID AND acp.IS_ACTIVE = 1";
             $where = "";
 
-            $query_columns_array = array("ID", "EMP_ID", "BRANCH_ID");
+            $query_columns_array = array("aebi.ID", "aebi.EMP_ID", "aebi.BRANCH_ID", "acp.BRANCH_NAME", "ae.EMP_NAME");
 
             $custom_where = array();
-            $where .= "";
+            $where .= " WHERE aebi.IS_ACTIVE = 1 ";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
-            $sql_query = 'SELECT $query_columns from administration_emp_branch_info' . $join . $where;
+            $sql_query = 'SELECT $query_columns from administration_emp_branch_info aebi' . $join . $where;
             $result = datatable::simple($request, $sql_details, $sql_query, $query_columns, $columns);
             $start = $_REQUEST['start'];
             return $result;
@@ -102,12 +104,7 @@ class Administration_emp_branch_info_model extends CI_Model {
 
     function update_administration_emp_branch_info($ID, $params) {
         $this->db->where('ID', $ID);
-        $response = $this->db->update('administration_emp_branch_info', $params);
-        if ($response) {
-            return "administration_emp_branch_info updated successfully";
-        } else {
-            return "Error occuring while updating administration_emp_branch_info";
-        }
+        return $this->db->update('administration_emp_branch_info', $params);
     }
 
     /*
@@ -115,12 +112,7 @@ class Administration_emp_branch_info_model extends CI_Model {
      */
 
     function delete_administration_emp_branch_info($ID) {
-        $response = $this->db->delete('administration_emp_branch_info', array('ID' => $ID));
-        if ($response) {
-            return "administration_emp_branch_info deleted successfully";
-        } else {
-            return "Error occuring while deleting administration_emp_branch_info";
-        }
+        return $this->db->where(array("ID" => $ID))->update('administration_emp_branch_info', array('IS_ACTIVE' => 0));
     }
 
 }

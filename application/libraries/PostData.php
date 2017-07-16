@@ -168,6 +168,53 @@ class PostData {
         return $return_array;
     }
 
+    /**
+     * Function to get admin emp branch info post data
+     * 
+     * @param array $data
+     * @param boolean $edit_flag
+     * 
+     * @return array $return_array
+     */
+    function getAdminEmpBrnachPostData($data, $edit_flag = false) {
+        $return_array = array();
+        if (!empty($data)) {
+            $return_array = array(
+                "EMP_ID" => $data['EMP_ID'],
+                "BRANCH_ID" => $data['BRANCH_ID']
+            );
+            if (!$edit_flag)
+                $return_array['CREATED_DATE'] = date("Y-m-d H:i:s");
+            else
+                $return_array['MODIFIED_DATE'] = date("Y-m-d H:i:s");
+        }
+        return $return_array;
+    }
+
+    /**
+     * Function to get admin login post data
+     * 
+     * @param array $data
+     * @param boolean $edit_flaf
+     * 
+     * @return array $return_array
+     */
+    function getAdminiLoginPostData($data, $edit_flag = false) {
+        $return_array = array();
+        if (!empty($data)) {
+            $return_array = array(
+                "EMP_ID" => $data['EMP_ID'],
+                "LOGIN_USERNAME" => $data['LOGIN_USERNAME'],
+                "LOGIN_PASSWORD" => md5($data['LOGIN_PASSWORD'])
+            );
+            if (!$edit_flag)
+                $return_array['CREATED_DATE'] = date("Y-m-d H:i:s");
+            else
+                $return_array['MODIFIED_DATE'] = date("Y-m-d H:i:s");
+        }
+        return $return_array;
+    }
+
 }
 ?>
 

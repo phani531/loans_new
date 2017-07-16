@@ -25,7 +25,7 @@ class Administration_comp_profile_model extends CI_Model {
      * return array result
      */
     function get_all_administration_comp_profile_data() {
-        return $this->db->get('administration_comp_profile')->row_array();
+        return $this->db->where(array("IS_ACTIVE" => 1))->get('administration_comp_profile')->result_array();
     }
 
     /*

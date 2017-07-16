@@ -9,8 +9,9 @@ class Administration_login extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('Administration_login_model');
+        $this->load->model(array('Administration_login_model', 'Administration_employee_model'));
         $this->load->helper(array("datatable"));
+        $this->load->library(array("form_validation", "PostData"));
     }
 
     /*
@@ -39,15 +40,17 @@ class Administration_login extends CI_Controller {
      */
 
     function add() {
-        if (isset($_POST) && count($_POST) > 0) {
-            $params = array(
-                'EMP_ID' => $this->input->post('EMP_ID'),
-                'LOGIN_USERNAME' => $this->input->post('LOGIN_USERNAME'),
-                'LOGIN_PASSWORD' => $this->input->post('LOGIN_PASSWORD'),
-            );
-
-            $administration_login_id = $this->Administration_login_model->add_administration_login($params);
-            redirect('administration_login/index');
+        $postData = $this->input->post(NULL, TRUE);
+        $data['admin_employee_data'] = $this->Administration_employee_model->get_all_administration_employees_data();
+        if (!empty($postData)) {
+            if ($this->form_validation->run("admin_login_form") == TRUE) {
+                $client_post_data = $this->postdata->getAdminiLoginPostData($postData);
+                $administration_login_id = $this->Administration_login_model->add_administration_login($client_post_data);
+                redirect('administration_login/index');
+            } else {
+                $data['_view'] = 'administration_login/add';
+                $this->load->view('layouts/main', $data);
+            }
         } else {
             $data['_view'] = 'administration_login/add';
             $this->load->view('layouts/main', $data);
@@ -59,40 +62,43 @@ class Administration_login extends CI_Controller {
      */
 
     function edit($LOGIN_ID) {
+        $postData = $this->input->post(NULL, TRUE);
         // check if the administration_login exists before trying to edit it
         $data['administration_login'] = $this->Administration_login_model->get_administration_login($LOGIN_ID);
-
-        if (isset($data['administration_login']['LOGIN_ID'])) {
-            if (isset($_POST) && count($_POST) > 0) {
-                $params = array(
-                    'EMP_ID' => $this->input->post('EMP_ID'),
-                    'LOGIN_USERNAME' => $this->input->post('LOGIN_USERNAME'),
-                    'LOGIN_PASSWORD' => $this->input->post('LOGIN_PASSWORD'),
-                );
-
-                $this->Administration_login_model->update_administration_login($LOGIN_ID, $params);
+        if (isset($postData) && !empty($postData)) {
+            if ($this->form_validation->run("admin_login_form") == TRUE) {
+                $client_post_data = $this->postdata->getAdminiLoginPostData($postData, TRUE);
+                $this->Administration_login_model->update_administration_login($CLIENT_ID, $client_post_data);
                 redirect('administration_login/index');
             } else {
                 $data['_view'] = 'administration_login/edit';
                 $this->load->view('layouts/main', $data);
             }
-        } else
-            show_error('The administration_login you are trying to edit does not exist.');
+        } else {
+            $data['_view'] = 'administration_login/edit';
+            $this->load->view('layouts/main', $data);
+        }
     }
 
     /*
      * Deleting administration_login
      */
 
-    function remove($LOGIN_ID) {
-        $administration_login = $this->Administration_login_model->get_administration_login($LOGIN_ID);
-
-        // check if the administration_login exists before trying to delete it
+    function remove() {
+        $request = $_POST;
+        $administration_login = $this->Administration_login_model->get_administration_login($request['id']);
         if (isset($administration_login['LOGIN_ID'])) {
-            $this->Administration_login_model->delete_administration_login($LOGIN_ID);
-            redirect('administration_login/index');
-        } else
-            show_error('The administration_login you are trying to delete does not exist.');
+            $status = $this->Administration_login_model->delete_administration_login($request['id']);
+            if ($status) {
+                echo json_encode(array("status" => "success", "message" => "You have successfully removed " . $administration_login['LOGIN_ID'] . "."));
+                exit;
+            }
+            echo json_encode(array("status" => "error", "message" => "Some thing went wrong."));
+            exit;
+        } else {
+            echo json_encode(array("status" => "error", "message" => "The administration login you are trying to delete does not exist."));
+            exit;
+        }
     }
 
 }
