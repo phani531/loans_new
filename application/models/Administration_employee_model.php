@@ -151,13 +151,13 @@ class Administration_employee_model extends CI_Model {
             $join = "";
             $join .= " JOIN client_info ci ON ci.CLIENT_ID = ae.CLIENT_ID AND ci.IS_ACTIVE = 1";
             $join .= " JOIN roles r ON r.ROLE_ID = ae.ROLE_ID AND ae.IS_ACTIVE = 1";
-            $join .= " JOIN administration_designation ad ON ad.DESIGNATION_ID = ae.DESIGNATION_ID AND ad.IS_ACTIVE = 1";
+            $join .= " JOIN administration_designation ad ON ad.DESIGNATION_ID = ae.DESIGNATION_ID AND ad.IS_ACTIVE = 1 AND ad.CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
             $where = "";
 
             $query_columns_array = array("EMP_ID, EMP_NAME, ae.CLIENT_ID, IC_NO, STAFF_NO, ADDRESS, MOBILE_NO, PHONE_NO, EMAIL_ID, GENDER, ACTIVE_STATUS, BASIC_SALARY, LANGUAGE, EMPLOYEE_PIC_PATH, VIEW_OTHER_BRANCH_DETAILS, MULTIPLE_LOGINS, ROLE_NAME, CLIENT_NAME, DESIGNATION_NAME");
 
             $custom_where = array();
-            $where .= " WHERE ae.IS_ACTIVE = 1";
+            $where .= " WHERE ae.IS_ACTIVE = 1 AND ae.CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));

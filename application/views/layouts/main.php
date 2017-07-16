@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php //print_r($_SESSION['user']);exit; ?>
+<?php
+$session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
+?>
 <html>
     <head>
         <meta charset="utf-8">
@@ -9,7 +11,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="<?php echo base_url('resources/css/bootstrap.min.css'); ?>">
-        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                     ?>
+        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                                   ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>">
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/ionicons.min.css'); ?>">
@@ -59,7 +61,7 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="<?php echo site_url('assets/img/user.png'); ?>" class="user-image" alt="User Image">
-                                    <span class="hidden-xs"><?php echo (isset($_SESSION['user'])) ? ucfirst($_SESSION['user']['LOGIN_USERNAME']) : 'GUEST'; ?></span>
+                                    <span class="hidden-xs"><?php echo (isset($session_data['EMP_NAME']) && $session_data['EMP_NAME'] != "") ? $session_data['EMP_NAME'] : 'GUEST'; ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
@@ -67,8 +69,9 @@
                                         <img src="<?php echo site_url('assets/img/user.png'); ?>" class="img-circle" alt="User Image">
 
                                         <p>
-                                            <?php echo (isset($_SESSION['user'])) ? ucfirst($_SESSION['user']['LOGIN_USERNAME']) : 'GUEST'; ?>
-                                            <small>Member since <?php echo (isset($_SESSION['user']) && isset($_SESSION['user']['created_date'])) ? date('M', strtotime($_SESSION['user']['created_date'])) . ' ' . date('Y', strtotime($_SESSION['user']['created_date'])) : date("Y-m-d H:i:s"); ?></small>
+                                            <?php echo (isset($session_data['EMP_NAME']) && $session_data['EMP_NAME'] != "") ? ucwords($session_data['EMP_NAME']) : 'GUEST'; ?>
+                                            <small>Member since <?php echo (isset($session_data['created_date']) && $session_data['created_date'] != "") ? $session_data['created_date'] : date("Y-m-d");
+                                            ?></small>
                                         </p>
                                     </li>
                                     <!-- Menu Footer-->
@@ -96,7 +99,7 @@
                             <img src="<?php echo site_url('assets/img/user.png'); ?>" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p><?php echo (isset($_SESSION['user'])) ? ucfirst($_SESSION['user']['LOGIN_USERNAME']) : 'GUEST'; ?>
+                            <p><?php echo (isset($session_data['EMP_NAME']) && $session_data['EMP_NAME'] != "") ? ucwords($session_data['EMP_NAME']) : 'GUEST'; ?>
                             </p><a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -149,23 +152,27 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-pie-chart"></i>
-                                <span>Client</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu" style="display: none;">
+                        <?php
+                        if (strtolower($session_data['ROLE_NAME']) == "super admin") {
+                            ?>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-pie-chart"></i>
+                                    <span>Client</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu" style="display: none;">
 
-                                <li>
-                                    <a href="<?php echo site_url('client_info/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Client Info</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                                    <li>
+                                        <a href="<?php echo site_url('client_info/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Client Info</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php } ?>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-pie-chart"></i>
@@ -225,142 +232,146 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="<?php echo site_url('form/index'); ?>">
-                                <i class="fa fa-th"></i> <span>Form</span>
-                            </a>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-pie-chart"></i>
-                                <span>Masters</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu" style="display: none;">
-                                <li>
-                                    <a href="<?php echo site_url('masters_advertisement/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Advertisement</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_agent_info/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Agent Info</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_carat/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Carat</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_cash_management/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Cash Management</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_cust_bank/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Cust Bank</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_cust_comp_info/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Cust Comp Info</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_daily_gold_price/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Daily Gold Price</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_document/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Document</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_holiday_info/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Holiday Info</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_housestatu/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Housestatu</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_jobsector/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Jobsector</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_loan_pay_term/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Loan Pay Term</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_locker_detail/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Locker Detail</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_locker_master/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Locker Master</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_orgtype/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Orgtype</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_ornament_desc/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Ornament Desc</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_ornament/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Ornament</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_race/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Race</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_state/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters State</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('masters_storage_fee/index'); ?>">
-                                        <i class="fa fa-th"></i> <span>Masters Storage Fee</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="<?php echo site_url('module/index'); ?>">
-                                <i class="fa fa-th"></i> <span>Module</span>
-                            </a>
-                        </li>
+                        <!--                        <li>
+                                                    <a href="<?php echo site_url('form/index'); ?>">
+                                                        <i class="fa fa-th"></i> <span>Form</span>
+                                                    </a>
+                                                </li>-->
+                        <?php
+                        if ($session_data['ROLE_NAME'] == "super admin") {
+                            ?>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-pie-chart"></i>
+                                    <span>Masters</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu" style="display: none;">
+                                    <li>
+                                        <a href="<?php echo site_url('masters_advertisement/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Advertisement</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_agent_info/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Agent Info</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_carat/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Carat</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_cash_management/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Cash Management</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_cust_bank/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Cust Bank</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_cust_comp_info/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Cust Comp Info</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_daily_gold_price/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Daily Gold Price</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_document/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Document</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_holiday_info/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Holiday Info</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_housestatu/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Housestatu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_jobsector/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Jobsector</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_loan_pay_term/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Loan Pay Term</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_locker_detail/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Locker Detail</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_locker_master/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Locker Master</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_orgtype/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Orgtype</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_ornament_desc/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Ornament Desc</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_ornament/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Ornament</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_race/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Race</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_state/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters State</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('masters_storage_fee/index'); ?>">
+                                            <i class="fa fa-th"></i> <span>Masters Storage Fee</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php } ?>
+                        <?php /*                       <li>
+                          <a href="<?php echo site_url('module/index'); ?>">
+                          <i class="fa fa-th"></i> <span>Module</span>
+                          </a>
+                          </li> */ ?>
                         <li>
                             <a href="<?php echo site_url('role/index'); ?>">
                                 <i class="fa fa-th"></i> <span>Role</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="<?php echo site_url('userrights_by_role/index'); ?>">
-                                <i class="fa fa-th"></i> <span>Userrights By Role</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo site_url('userrights_by_user/index'); ?>">
-                                <i class="fa fa-th"></i> <span>Userrights By User</span>
-                            </a>
-                        </li>
+                        <?php /* <li>
+                          <a href="<?php echo site_url('userrights_by_role/index'); ?>">
+                          <i class="fa fa-th"></i> <span>Userrights By Role</span>
+                          </a>
+                          </li>
+                          <li>
+                          <a href="<?php echo site_url('userrights_by_user/index'); ?>">
+                          <i class="fa fa-th"></i> <span>Userrights By User</span>
+                          </a>
+                          </li> */ ?>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

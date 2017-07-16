@@ -80,7 +80,7 @@ class Administration_designation_model extends CI_Model {
             $query_columns_array = array("DESIGNATION_ID", "DESIGNATION_NAME", "DESIGNATION_DESC");
 
             $custom_where = array();
-            $where .= " WHERE IS_ACTIVE = 1";
+            $where .= " WHERE IS_ACTIVE = 1 AND CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));

@@ -118,10 +118,13 @@ class PostData {
                 "DESIGNATION_NAME" => $data['DESIGNATION_NAME'],
                 "DESIGNATION_DESC" => $data['DESIGNATION_DESC']
             );
-            if (!$edit_flag)
+            if (!$edit_flag) {
                 $return_array['CREATED_DATE'] = date("Y-m-d H:i:s");
-            else
+                $return_array['CREATED_BY'] = isset($this->CI->session->userdata["EMP_DATA"]['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            } else {
                 $return_array['MODIFIED_DATE'] = date("Y-m-d H:i:s");
+                $return_array['MODIFIED_BY'] = isset($this->CI->session->userdata['EMP_DATA']['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            }
         }
         return $return_array;
     }
@@ -183,10 +186,13 @@ class PostData {
                 "EMP_ID" => $data['EMP_ID'],
                 "BRANCH_ID" => $data['BRANCH_ID']
             );
-            if (!$edit_flag)
+            if (!$edit_flag) {
                 $return_array['CREATED_DATE'] = date("Y-m-d H:i:s");
-            else
+                $return_array['CREATED_BY'] = isset($this->CI->session->userdata["EMP_DATA"]['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            } else {
                 $return_array['MODIFIED_DATE'] = date("Y-m-d H:i:s");
+                $return_array['MODIFIED_BY'] = isset($this->CI->session->userdata['EMP_DATA']['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            }
         }
         return $return_array;
     }
@@ -207,10 +213,13 @@ class PostData {
                 "LOGIN_USERNAME" => $data['LOGIN_USERNAME'],
                 "LOGIN_PASSWORD" => md5($data['LOGIN_PASSWORD'])
             );
-            if (!$edit_flag)
+            if (!$edit_flag) {
                 $return_array['CREATED_DATE'] = date("Y-m-d H:i:s");
-            else
+                $return_array['CREATED_BY'] = isset($this->CI->session->userdata["EMP_DATA"]['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            } else {
                 $return_array['MODIFIED_DATE'] = date("Y-m-d H:i:s");
+                $return_array['MODIFIED_BY'] = isset($this->CI->session->userdata['EMP_DATA']['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            }
         }
         return $return_array;
     }

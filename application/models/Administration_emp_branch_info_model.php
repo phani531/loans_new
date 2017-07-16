@@ -68,14 +68,14 @@ class Administration_emp_branch_info_model extends CI_Model {
                 )
             );
             $join = "";
-            $join .= " JOIN administration_employees ae ON ae.EMP_ID = aebi.EMP_ID AND ae.IS_ACTIVE = 1";
-            $join .= " JOIN administration_comp_profile acp ON acp.BRANCH_ID = aebi.BRANCH_ID AND acp.IS_ACTIVE = 1";
+            $join .= " JOIN administration_employees ae ON ae.EMP_ID = aebi.EMP_ID AND ae.IS_ACTIVE = 1 AND ae.CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
+            $join .= " JOIN administration_comp_profile acp ON acp.BRANCH_ID = aebi.BRANCH_ID AND acp.IS_ACTIVE = 1 AND acp.CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
             $where = "";
 
             $query_columns_array = array("aebi.ID", "aebi.EMP_ID", "aebi.BRANCH_ID", "acp.BRANCH_NAME", "ae.EMP_NAME");
 
             $custom_where = array();
-            $where .= " WHERE aebi.IS_ACTIVE = 1 ";
+            $where .= " WHERE aebi.IS_ACTIVE = 1 AND aebi.CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));

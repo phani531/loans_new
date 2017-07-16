@@ -6,17 +6,10 @@ class Login extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-
         // Load form helper library
-        $this->load->helper('form');
-
-
-        // Load form validation library
-        $this->load->library('form_validation');
-        // Load form validation library
-        $this->load->library('session');
-        // Load database
-        $this->load->model('login_model');
+        $this->load->helper(array("form"));
+        $this->load->library(array("form_validation", "session"));
+        $this->load->model(array("login_model"));
     }
 
     public function index() {
@@ -26,25 +19,19 @@ class Login extends CI_Controller {
     }
 
     public function process() {
-        $data = $this->input->post();
-        //print_r($data);
-        //$data['pass'] = $this->encrypt->sha1($data['pass']);
+        $data = $this->input->post(NULL, TRUE);
         $result = $this->login_model->check($data);
-        //print_r($result);exit;
-        if (count($result) >= 1) {
-            //declaring session
-            $this->session->set_userdata(array('user' => $result));
+        if (!empty($result)) {
+            $this->session->set_userdata("EMP_DATA", $result);
             redirect('administration_comp_profile/index');
         } else {
-            //$data['error'] = 'Your Account is Invalid';
             $this->session->set_flashdata('disp_msg', 'Your Account is Invalid');
             redirect('login/index');
         }
     }
 
     public function logout() {
-        //removing session
-        $this->session->unset_userdata('user');
+        $this->session->unset_userdata('EMP_DATA');
         redirect("Login");
     }
 

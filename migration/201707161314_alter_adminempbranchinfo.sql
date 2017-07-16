@@ -8,6 +8,18 @@
  * Created: 16 Jul, 2017
  */
 
+ALTER TABLE administration_designation ADD COLUMN CREATED_BY int(11) COMMENT 'Created date of the row';
+
+ALTER TABLE administration_designation ADD COLUMN MODIFIED_BY int(11) COMMENT 'Modified date of the row';
+
+ALTER TABLE administration_emp_branch_info ADD COLUMN CREATED_BY int(11) COMMENT 'Created date of the row';
+
+ALTER TABLE administration_emp_branch_info ADD COLUMN MODIFIED_BY int(11) COMMENT 'Modified date of the row';
+
+ALTER TABLE administration_logins ADD COLUMN CREATED_BY int(11) COMMENT 'Created date of the row';
+
+ALTER TABLE administration_logins ADD COLUMN MODIFIED_BY int(11) COMMENT 'Modified date of the row';
+
 ALTER TABLE administration_emp_branch_info ADD COLUMN CREATED_DATE datetime COMMENT 'Created date of the row';
 
 ALTER TABLE administration_emp_branch_info ADD COLUMN MODIFIED_DATE datetime COMMENT 'Modified date of the row';

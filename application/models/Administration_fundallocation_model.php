@@ -74,13 +74,13 @@ class Administration_fundallocation_model extends CI_Model {
                 )
             );
             $join = "";
-            $join .= " JOIN administration_employees ae ON ae.EMP_ID = af.EMP_ID AND ae.IS_ACTIVE = 1";
+            $join .= " JOIN administration_employees ae ON ae.EMP_ID = af.EMP_ID AND ae.IS_ACTIVE = 1 AND ae.CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
             $where = "";
 
             $query_columns_array = array("FA_ID, FA_DATE, Amount, EMP_NAME");
 
             $custom_where = array();
-            $where .= " WHERE af.IS_ACTIVE = 1 ";
+            $where .= " WHERE af.IS_ACTIVE = 1 AND af.CREATED_BY = " . $this->session->userdata["EMP_DATA"]['EMP_ID'];
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
