@@ -24,6 +24,8 @@ var admin = function () {
         initAdminEmployeeBrnachFormValidation();
         initAdminLoginForm();
         initAdminFundForm();
+        initStepsWizard();
+        initRelcopy();
         initSignup();
         initDeleteIndividualRow();
         initDatePicker();
@@ -31,6 +33,102 @@ var admin = function () {
 
     function ajaxInit() {
 
+    }
+
+    /**
+     * Function to initialize rel copy
+     * @returns {undefined}
+     */
+    function initRelcopy() {
+        $(".addMore").click(function () {
+            var l = $('#contactUl li').length;
+            var li = parseInt(l) + parseInt(1);
+            $("#contactUl").append('<li id="li_' + li + '"><a href="#contact_' + li + '" data-toggle="tab" aria-expanded="true">Contact ' + li + '<button type="button" onClick="closes(this.id);" class="pull-right btn-box-tool" id="' + li + '"><i class="fa fa-times"></i></button></a></li>');
+            $(".contactContent").append('<div class="tab-pane" id="contact_' + li + '" style="margin:10px;"></div>');
+            var a = $('#contact_' + l).html();
+            var b = $('#contact_' + li).html(a);
+        });
+
+        $(".addMoreReference").click(function () {
+            var l = $('#referenceUl li').length;
+            var li = parseInt(l) + parseInt(1);
+            $("#referenceUl").append('<li id="li_' + li + '"><a href="#reference_' + li + '" data-toggle="tab" aria-expanded="true">Reference ' + li + '<button type="button" onClick="closes(this.id);" class="pull-right btn-box-tool" id="' + li + '"><i class="fa fa-times"></i></button></a></li>');
+            $(".referenceContent").append('<div class="tab-pane" id="reference_' + li + '" style="margin:10px;"></div>');
+            var a = $('#reference_' + l).html();
+            var b = $('#reference_' + li).html(a);
+        });
+
+        $(".addMoreDocs").click(function () {
+            var li = parseInt(1) + parseInt(1);
+            $(".reference").after('<div id="docs_' + li + '" class="col-md-12"></div>');
+            var a = $('.reference').html();
+            var b = $('#docs_' + li).html(a);
+        });
+    }
+
+    /**
+     * Function to intialize steps wizard
+     * @returns {undefined}
+     */
+    function initStepsWizard() {
+        var form = $("#customer_info_creation_form").show();
+
+        form.steps({
+            headerTag: "h1",
+            bodyTag: "fieldset",
+            transitionEffect: "slideLeft",
+            onStepChanging: function (event, currentIndex, newIndex)
+            {
+                // Allways allow previous action even if the current form is not valid!
+                if (currentIndex > newIndex)
+                {
+                    return true;
+                }
+                // Forbid next action on "Warning" step if the user is to young
+                if (newIndex === 3 && Number($("#age-2").val()) < 18)
+                {
+                    return false;
+                }
+                // Needed in some cases if the user went back (clean up)
+                if (currentIndex < newIndex)
+                {
+                    // To remove error styles
+                    form.find(".body:eq(" + newIndex + ") label.error").remove();
+                    form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+                }
+                form.validate().settings.ignore = ":disabled,:hidden";
+                return form.valid();
+            },
+            onStepChanged: function (event, currentIndex, priorIndex)
+            {
+                // Used to skip the "Warning" step if the user is old enough.
+                if (currentIndex === 2 && Number($("#age-2").val()) >= 18)
+                {
+                    form.steps("next");
+                }
+                // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+                if (currentIndex === 2 && priorIndex === 3)
+                {
+                    form.steps("previous");
+                }
+            },
+            onFinishing: function (event, currentIndex)
+            {
+                form.validate().settings.ignore = ":disabled";
+                return form.valid();
+            },
+            onFinished: function (event, currentIndex)
+            {
+                alert("Submitted!");
+            }
+        }).validate({
+            errorPlacement: function errorPlacement(error, element) {
+                element.before(error);
+            },
+            rules: {
+                
+            }
+        });
     }
 
     /**

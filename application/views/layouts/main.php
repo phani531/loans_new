@@ -11,7 +11,7 @@ $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->se
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="<?php echo base_url('resources/css/bootstrap.min.css'); ?>">
-        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                                        ?>
+        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                                         ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>">
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/ionicons.min.css'); ?>">
@@ -25,6 +25,7 @@ $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->se
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/custom.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/sweet-alert.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datepicker.css" />
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.steps.css" />
         <script>
             var NAME_FIELD = <?php echo NAME_FIELD; ?>;
             var NAME_WITH_SPACE = <?php echo NAME_WITH_SPACE; ?>;
@@ -402,7 +403,7 @@ $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->se
             </div>
             <!-- /.content-wrapper -->
             <footer class="main-footer">
-                <strong>Copyrights By <a href="http://www.crudigniter.com/">FINMAN</a> 1.0 Beta</strong>
+                <strong>Copyrights By <a href="#">FINMAN</a> 1.0 Beta</strong>
             </footer>
 
             <!-- Control Sidebar -->
@@ -446,10 +447,12 @@ $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->se
         <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/sweet-alert.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/fileupload/bootstrap-filestyle.min.js"></script>
-        <script src="https://almsaeedstudio.com/themes/AdminLTE/plugins/select2/select2.full.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/select2.full.min.js"></script>
+        <!--<script src="https://almsaeedstudio.com/themes/AdminLTE/plugins/select2/select2.full.min.js"></script>-->
         <script src="<?php echo base_url(); ?>assets/js/dataTables/jquery.dataTables.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/dataTables/dataTables.bootstrap.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/jquery.steps.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/validations.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/admin.js"></script>
 

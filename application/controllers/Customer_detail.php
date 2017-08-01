@@ -38,7 +38,9 @@ class Customer_detail extends CI_Controller {
 
          */
         $data = array();
-        //echo "<pre>";print_r($_FILES);exit;
+        echo "<pre>";print_r($_FILES);
+        echo "<pre>"; print_r($_POST);
+        exit;
         if (!empty($_FILES['userFiles']['name'])) {
             $filesCount = count($_FILES['userFiles']['name']);
             for ($i = 0; $i < $filesCount; $i++) {
