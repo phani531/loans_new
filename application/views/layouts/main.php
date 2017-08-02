@@ -11,7 +11,7 @@ $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->se
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="<?php echo base_url('resources/css/bootstrap.min.css'); ?>">
-        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                                         ?>
+        <!-- Font Awesome --><?php //echo base_url('assets/css/font-awesome.min.css');                                                           ?>
         <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>">
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?php echo base_url('assets/css/ionicons.min.css'); ?>">
@@ -207,7 +207,7 @@ $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->se
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo site_url('customers/customerDetails'); ?>">
+                                    <a href="<?php echo site_url('customer_detail/add'); ?>">
                                         <i class="fa fa-th"></i> <span>Customers Creation</span>
                                     </a>
                                 </li>

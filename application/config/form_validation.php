@@ -213,5 +213,62 @@ $config = array(
             'label' => 'Amount',
             'rules' => 'trim|required|numeric'
         ),
+    ),
+    "customer_info_creation_form" => array(
+        array(
+            'field' => 'CUSTOMER_IDNO',
+            'label' => 'Customer id',
+            'rules' => 'trim|required|numeric'
+        ),
+        array(
+            'field' => 'CUSTOMER_NAME',
+            'label' => 'Customer name',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|callback_namefield'
+        ),
+        array(
+            'field' => 'APPLICATION_DATE',
+            'label' => 'Application date',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'AGENT_ID',
+            'label' => 'Agent id',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'APPLIED_BRANCH_ID',
+            'label' => 'Branch id',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'COMPANY_ID',
+            'label' => 'Company id',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'OCCUPATION_DEPT_NAME',
+            'label' => 'Occupation dept name',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'JOBSECTOR_ID',
+            'label' => 'Jobsector id',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'RACE_ID',
+            'label' => 'Race id',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'REFERENCE_NAME',
+            'label' => 'Reference name',
+            'rules' => 'trim|required|min_length[1]|max_length[100]|callback_namefield'
+        ),
+        array(
+            'field' => 'REFERENCE_IDNO',
+            'label' => 'Reference id no',
+            'rules' => 'trim|required'
+        ),
     )
 );

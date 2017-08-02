@@ -9,8 +9,8 @@ class Customer_detail extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('Customer_detail_model');
-        $this->load->model('file_model');
+        $this->load->model(array('Masters_cust_comp_info_model', 'Masters_cust_bank_model', 'Masters_race_model', 'file_model', 'Customer_detail_model', 'Masters_agent_info_model', 'Masters_advertisement_model', 'Administration_comp_profile_model'));
+        $this->load->library(array('form_validation'));
         $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
         if (empty($session_data))
             redirect("login");
@@ -32,15 +32,8 @@ class Customer_detail extends CI_Controller {
      */
 
     function add() {
-        $this->load->library('form_validation');
-        /*
-          Docs checklist upload code starts
-
-         */
         $data = array();
-        echo "<pre>";print_r($_FILES);
-        echo "<pre>"; print_r($_POST);
-        exit;
+        $postData = $this->input->post();
         if (!empty($_FILES['userFiles']['name'])) {
             $filesCount = count($_FILES['userFiles']['name']);
             for ($i = 0; $i < $filesCount; $i++) {
@@ -71,35 +64,6 @@ class Customer_detail extends CI_Controller {
                 $this->session->set_flashdata('statusMsg', $statusMsg);
             }
         }
-
-
-
-        /*
-          Docs checklist upload code ends
-
-         */
-
-        $this->form_validation->set_rules('CUSTOMER_TYPE', 'CUSTOMER TYPE', 'required');
-        $this->form_validation->set_rules('CUSTOMER_IDNO', 'CUSTOMER IDNO', 'required');
-        $this->form_validation->set_rules('CUSTOMER_NAME', 'CUSTOMER NAME', 'required');
-        $this->form_validation->set_rules('EMAIL_ID', 'EMAIL ID', 'required|valid_email');
-        $this->form_validation->set_rules('AGE', 'AGE', 'integer');
-        $this->form_validation->set_rules('CREDIT_LIMIT', 'CREDIT LIMIT', 'numeric');
-        $this->form_validation->set_rules('PRESENT_SALARY', 'PRESENT SALARY', 'numeric');
-        $this->form_validation->set_rules('SPOUSE_EMAILID', 'SPOUSE EMAILID', 'valid_email');
-        $this->form_validation->set_rules('SPOUSE_HOME_PHONE', 'SPOUSE HOME PHONE', 'integer');
-        $this->form_validation->set_rules('SPOUSE_NO_OF_CHILDREN', 'SPOUSE NO OF CHILDREN', 'integer');
-        $this->form_validation->set_rules('SPOUSE_AGE', 'SPOUSE AGE', 'integer');
-        $this->form_validation->set_rules('GUARANTER_EMAILID', 'GUARANTER EMAILID', 'valid_email');
-        $this->form_validation->set_rules('GUARANTER_HOME_PHONE', 'GUARANTER HOME PHONE', 'integer');
-        $this->form_validation->set_rules('GUARANTER_HAND_PHONE', 'GUARANTER HAND PHONE', 'integer');
-        $this->form_validation->set_rules('GUARANTER_AGE', 'GUARANTER AGE', 'numeric');
-        $this->form_validation->set_rules('GUARANTER_NO_OF_CHILDREN', 'GUARANTER NO OF CHILDREN', 'integer');
-        $this->form_validation->set_rules('GUARANTER_SALARY', 'GUARANTER SALARY', 'numeric');
-        $this->form_validation->set_rules('GUARANTER_OFFICE_PHONE1', 'GUARANTER OFFICE PHONE1', 'integer');
-        $this->form_validation->set_rules('GUARANTER_OFFICE_PHONE2', 'GUARANTER OFFICE PHONE2', 'integer');
-        $this->form_validation->set_rules('APPLICABLE_AMOUNT', 'APPLICABLE AMOUNT', 'numeric');
-        $this->form_validation->set_rules('APPLIED_AMOUNT', 'APPLIED AMOUNT', 'numeric');
 
         if ($this->form_validation->run()) {
 
@@ -216,30 +180,16 @@ class Customer_detail extends CI_Controller {
             $customer_detail_id = $this->Customer_detail_model->add_customer_detail($params);
             redirect('customers/customerDetails');
         } else {
-            $this->load->model('Masters_agent_info_model');
             $data['all_masters_agent_info'] = $this->Masters_agent_info_model->get_all_masters_agent_info();
-
-            $this->load->model('Masters_advertisement_model');
             $data['all_masters_advertisements'] = $this->Masters_advertisement_model->get_all_masters_advertisements();
-
-            $this->load->model('Administration_comp_profile_model');
             $data['all_administration_comp_profile'] = $this->Administration_comp_profile_model->get_all_administration_comp_profile();
-
-            $this->load->model('Masters_race_model');
             $data['all_masters_race'] = $this->Masters_race_model->get_all_masters_race();
-
-            $this->load->model('Masters_cust_bank_model');
             $data['all_masters_cust_bank'] = $this->Masters_cust_bank_model->get_all_masters_cust_bank();
             $data['all_masters_race'] = $this->Masters_race_model->get_all_masters_race();
-
-            $this->load->model('Masters_cust_comp_info_model');
             $data['all_masters_cust_comp_info'] = $this->Masters_cust_comp_info_model->get_all_masters_cust_comp_info();
             $data['all_masters_race'] = $this->Masters_race_model->get_all_masters_race();
             $data['all_masters_cust_comp_info'] = $this->Masters_cust_comp_info_model->get_all_masters_cust_comp_info();
-
-            // $data['_view'] = 'customer_detail/add';
             $data['_view'] = 'customer_detail/add';
-            //echo "<pre/>";print_r($data);exit;
             $this->load->view('layouts/main', $data);
         }
     }

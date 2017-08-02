@@ -21,21 +21,21 @@ and open the template in the editor.
 }
 
 @media (min-width: 768px){
-    .form-horizontal .control-label {
+    #customer_info_creation_form .form-horizontal .control-label {
         text-align:left;
     }
-    .btn-success{
+    #customer_info_creation_form .btn-success{
         margin-left:50px;
     }
-    .box.box-info {
+    #customer_info_creation_form .box.box-info {
         border-top-color: none;
         border-left-color: #00c0ef;
     }
-    .box-header.with-border{
+    #customer_info_creation_form .box-header.with-border{
         margin-bottom:10px;
     }
 }
-label {
+#customer_info_creation_form label {
     display: inline-block;
     max-width: 100%;
     margin-bottom: 5px;
@@ -43,31 +43,31 @@ label {
     padding: 0px;
     font-size: 12px;
 }
-.box{
+#customer_info_creation_form .box{
     box-shadow:0px 0px 0px 0px;
     border-top: none;
 }
-.form-control{
+#customer_info_creation_form .form-control{
     width:80%;
 }
-.profile-img-container {
+#customer_info_creation_form .profile-img-container {
     position: absolute;
     /*width:50%;*/
     /*border-radius:50%;*/
     overflow:hidden;
 }
 
-.profile-img-container img:hover {
+#customer_info_creation_form .profile-img-container img:hover {
     opacity: 0.5;
     z-index: 501;
 }
 
-.profile-img-container img:hover + i {
+#customer_info_creation_form .profile-img-container img:hover + i {
     display: block;
     z-index: 500;
 }
 
-.profile-img-container .icon-wrapper {
+#customer_info_creation_form .profile-img-container .icon-wrapper {
     position: absolute;
     bottom:0;
     left:0;
@@ -78,7 +78,7 @@ label {
     padding:5px;
 }
 
-input[type="file"] {
+#customer_info_creation_form input[type="file"] {
     opacity:0;
     position:absolute;
     top:0;
@@ -86,7 +86,7 @@ input[type="file"] {
     width:100%;
     height:100%;
 }
-.btn-box-tool{
+#customer_info_creation_form .btn-box-tool{
     border: 0px;
     margin-top:-5px;
 }

@@ -123,10 +123,18 @@ var admin = function () {
             }
         }).validate({
             errorPlacement: function errorPlacement(error, element) {
-                element.before(error);
+                element.after(error);
             },
             rules: {
-                
+                CUSTOMER_IDNO: {
+                    numberfield: true
+                },
+                CUSTOMER_NAME: {
+                    namefield: true
+                },
+                REFERENCE_NAME: {
+                    namefield: true
+                }
             }
         });
     }
