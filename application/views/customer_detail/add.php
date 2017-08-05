@@ -1,4 +1,4 @@
-<form id="customer_info_creation_form" name="customer_info_creation_form" class="form-horizontal" enctype="multipart/form-data" action="<?php echo base_url(); ?>customer_detail/add">
+<form id="customer_info_creation_form" name="customer_info_creation_form" class="form-horizontal" enctype="multipart/form-data" action="<?php echo base_url(); ?>customer_detail/add" method="post">
     <h1>Customer Info</h1>
     <fieldset>
         <div class="row box">
@@ -18,76 +18,117 @@
                             <!-- /.box-body -->
                         </div>
                         <div class="col-md-12 col-md-offset-1">
-                            <!-- <div class="form-group">
-                <label for="CUSTOMER_TYPE" class="col-md-4 control-label">TYPE</label>
-               
-                <div class="col-md-8">
-                   <select name="CUSTOMER_TYPE" class="form-control">
-                      <option value="">select</option>
-                            <?php
-                            $CUSTOMER_TYPE_values = array(
-                                '1' => 'Individual',
-                                '2' => 'Company',
-                            );
-
-                            foreach ($CUSTOMER_TYPE_values as $value => $display_text) {
-                                $selected = ($value == $this->input->post('CUSTOMER_TYPE')) ? ' selected="selected"' : "";
-
-                                echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-                            }
+                            <?php /*
+                              $CUSTOMER_TYPE_values = array(
+                              '1' => 'Individual',
+                              '2' => 'Company',
+                              );
+                              $name_value = set_value("CUSTOMER_TYPE");
+                              $js = 'id="CUSTOMER_TYPE" class="form-control required"';
+                              echo form_dropdown('CUSTOMER_TYPE', $CUSTOMER_TYPE_values, $name_value, $js);
+                              echo form_error("CUSTOMER_TYPE"); */
                             ?>
-                   </select>
-                </div>
-             </div>-->
 
                             <div class="form-group">
                                 <label for="CUSTOMER_IDNO" class="col-md-4 control-label">ID NO</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="CUSTOMER_IDNO" value="<?php echo $this->input->post('CUSTOMER_IDNO'); ?>" class="form-control required" id="CUSTOMER_IDNO" />
+                                    <?php
+                                    $CUSTOMER_IDNO = array(
+                                        'name' => 'CUSTOMER_IDNO',
+                                        'id' => 'CUSTOMER_IDNO',
+                                        'value' => set_value('CUSTOMER_IDNO'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control required"
+                                    );
+
+                                    echo form_input($CUSTOMER_IDNO);
+                                    echo form_error("CUSTOMER_IDNO");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="CUSTOMER_NAME" class="col-md-4 control-label">NAME</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="CUSTOMER_NAME" value="<?php echo $this->input->post('CUSTOMER_NAME'); ?>" class="form-control required" id="CUSTOMER_NAME" />
+                                    <?php
+                                    $CUSTOMER_NAME = array(
+                                        'name' => 'CUSTOMER_NAME',
+                                        'id' => 'CUSTOMER_NAME',
+                                        'value' => set_value('CUSTOMER_NAME'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control required"
+                                    );
+
+                                    echo form_input($CUSTOMER_NAME);
+                                    echo form_error("CUSTOMER_NAME");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="DOB" class="col-md-4 control-label">DOB</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="DOB" value="<?php echo $this->input->post('DOB'); ?>" class="form-control date-picker" id="DOB" readonly/>
+                                    <?php
+                                    $DOB = array(
+                                        'name' => 'DOB',
+                                        'id' => 'DOB',
+                                        'value' => set_value('DOB'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control date-picker dob-class"
+                                    );
+
+                                    echo form_input($DOB);
+                                    echo form_error("DOB");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="AGE" class="col-md-4 control-label">AGE</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="AGE" value="<?php echo $this->input->post('AGE'); ?>" class="form-control" id="AGE" readonly/>
+                                    <?php
+                                    $AGE = array(
+                                        'name' => 'AGE',
+                                        'id' => 'AGE',
+                                        'value' => set_value('AGE'),
+                                        'maxlength' => '50',
+                                        'readonly' => true,
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($AGE);
+                                    echo form_error("AGE");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GENDER" class="col-md-4 control-label">GENDER</label>
                                 <div class="col-md-8">
-                                    <select name="GENDER" class="form-control">
-                                        <option value="">select</option>
-                                        <?php
-                                        $GENDER_values = array(
-                                            '1' => 'Male',
-                                            '2' => 'Female',
-                                        );
-
-                                        foreach ($GENDER_values as $value => $display_text) {
-                                            $selected = ($value == $this->input->post('GENDER')) ? ' selected="selected"' : "";
-
-                                            echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-                                        }
-                                        ?>
-                                    </select>
+                                    <?php
+                                    $name_value = set_value("GENDER");
+                                    $GENDER_values = array(
+                                        '' => "Select",
+                                        '1' => 'Male',
+                                        '2' => 'Female',
+                                    );
+                                    $js = 'id="GENDER" class="form-control"';
+                                    echo form_dropdown('GENDER', $GENDER_values, $name_value, $js);
+                                    echo form_error("GENDER");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="EMAIL_ID" class="col-md-4 control-label">EMAIL ID</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="EMAIL_ID" value="<?php echo $this->input->post('EMAIL_ID'); ?>" class="form-control" id="EMAIL_ID" />
+                                    <?php
+                                    $EMAIL_ID = array(
+                                        'name' => 'EMAIL_ID',
+                                        'id' => 'EMAIL_ID',
+                                        'value' => set_value('EMAIL_ID'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($EMAIL_ID);
+                                    echo form_error("EMAIL_ID");
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -97,117 +138,188 @@
                         <div class="form-group">
                             <label for="FILE_NO" class="col-md-4 control-label">FILE NO</label>
                             <div class="col-md-8">
-                                <input type="text" name="FILE_NO" value="<?php echo $this->input->post('FILE_NO'); ?>" class="form-control" id="FILE_NO" />
+                                <?php
+                                $FILE_NO = array(
+                                    'name' => 'FILE_NO',
+                                    'id' => 'FILE_NO',
+                                    'value' => set_value('FILE_NO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($FILE_NO);
+                                echo form_error("FILE_NO");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="OLDIC_NO" class="col-md-4 control-label">OLD IC NO</label>
                             <div class="col-md-8">
-                                <input type="text" name="OLDIC_NO" value="<?php echo $this->input->post('OLDIC_NO'); ?>" class="form-control" id="OLDIC_NO" />
+                                <?php
+                                $OLDIC_NO = array(
+                                    'name' => 'OLDIC_NO',
+                                    'id' => 'OLDIC_NO',
+                                    'value' => set_value('OLDIC_NO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($OLDIC_NO);
+                                echo form_error("OLDIC_NO");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="NON_ICNO" class="col-md-4 control-label">NON IC NO</label>
                             <div class="col-md-8">
-                                <input type="text" name="NON_ICNO" value="<?php echo $this->input->post('NON_ICNO'); ?>" class="form-control" id="NON_ICNO" />
+                                <?php
+                                $NON_ICNO = array(
+                                    'name' => 'NON_ICNO',
+                                    'id' => 'NON_ICNO',
+                                    'value' => set_value('NON_ICNO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($NON_ICNO);
+                                echo form_error("NON_ICNO");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="APPLICATION_DATE" class="col-md-4 control-label">APPLICATION DATE</label>
                             <div class="col-md-8">
-                                <input type="text" name="APPLICATION_DATE" value="<?php echo $this->input->post('APPLICATION_DATE'); ?>" class="form-control required date-picker" id="APPLICATION_DATE" />
+                                <?php
+                                $APPLICATION_DATE = array(
+                                    'name' => 'APPLICATION_DATE',
+                                    'id' => 'APPLICATION_DATE',
+                                    'value' => set_value('APPLICATION_DATE'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control required date-picker"
+                                );
+
+                                echo form_input($APPLICATION_DATE);
+                                echo form_error("APPLICATION_DATE");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="AGENT_ID" class="col-md-4 control-label">AGENT ID</label>
                             <div class="col-md-8">
-                                <select name="AGENT_ID" class="form-control required">
-                                    <option value="">select masters_agent_info</option>
-                                    <?php
-                                    foreach ($all_masters_agent_info as $masters_agent_info) {
-                                        $selected = ($masters_agent_info['AGENT_ID'] == $this->input->post('AGENT_ID')) ? ' selected="selected"' : "";
-
-                                        echo '<option value="' . $masters_agent_info['AGENT_ID'] . '" ' . $selected . '>' . $masters_agent_info['AGENT_NAME'] . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                <?php
+                                $agent_optins = array("" => "Select");
+                                foreach ($all_masters_agent_info as $masters_agent_info) {
+                                    $agent_optins[$masters_agent_info['AGENT_ID']] = $masters_agent_info['AGENT_NAME'];
+                                }
+                                $name_value = set_value("AGENT_ID");
+                                $js = 'id="AGENT_ID" class="form-control required"';
+                                echo form_dropdown('AGENT_ID', $agent_optins, $name_value, $js);
+                                echo form_error("AGENT_ID");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="VEHICLE_NO" class="col-md-4 control-label">VEHICLE NO</label>
                             <div class="col-md-8">
-                                <input type="text" name="VEHICLE_NO" value="<?php echo $this->input->post('VEHICLE_NO'); ?>" class="form-control" id="VEHICLE_NO" />
+                                <?php
+                                $VEHICLE_NO = array(
+                                    'name' => 'VEHICLE_NO',
+                                    'id' => 'VEHICLE_NO',
+                                    'value' => set_value('VEHICLE_NO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($VEHICLE_NO);
+                                echo form_error("VEHICLE_NO");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="RELATED_TO_EMP" class="col-md-4 control-label">RELATED TO EMP</label>
                             <div class="col-md-8">
-                                <input type="text" name="RELATED_TO_EMP" value="<?php echo $this->input->post('RELATED_TO_EMP'); ?>" class="form-control" id="RELATED_TO_EMP" />
+                                <?php
+                                $RELATED_TO_EMP = array(
+                                    'name' => 'RELATED_TO_EMP',
+                                    'id' => 'RELATED_TO_EMP',
+                                    'value' => set_value('RELATED_TO_EMP'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($RELATED_TO_EMP);
+                                echo form_error("RELATED_TO_EMP");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="ADVERTISEMENT_ID" class="col-md-4 control-label">ADVERTISEMENT</label>
                             <div class="col-md-8">
-                                <select name="ADVERTISEMENT_ID" class="form-control">
-                                    <option value="">select masters_advertisement</option>
-                                    <?php
-                                    foreach ($all_masters_advertisements as $masters_advertisement) {
-                                        $selected = ($masters_advertisement['ADVERTISEMENT_ID'] == $this->input->post('ADVERTISEMENT_ID')) ? ' selected="selected"' : "";
-
-                                        echo '<option value="' . $masters_advertisement['ADVERTISEMENT_ID'] . '" ' . $selected . '>' . $masters_advertisement['ADVERTISEMENT_NAME'] . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                <?php
+                                $adv_options = array("" => "Select");
+                                foreach ($all_masters_advertisements as $masters_advertisement) {
+                                    $adv_options[$masters_advertisement['ADVERTISEMENT_ID']] = $masters_advertisement['ADVERTISEMENT_NAME'];
+                                }
+                                $name_value = set_value("ADVERTISEMENT_ID");
+                                $js = 'id="ADVERTISEMENT_ID" class="form-control"';
+                                echo form_dropdown('ADVERTISEMENT_ID', $adv_options, $name_value, $js);
+                                echo form_error("ADVERTISEMENT_ID");
+                                ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="HOUSESTATUS_ID" class="col-md-4 control-label">HOUSE STATUS</label>
                             <div class="col-md-8">
-                                <select name="HOUSESTATUS_ID" class="form-control">
-                                    <option value="">select</option>
-                                    <?php
-                                    $HOUSESTATUS_ID_values = array(
-                                        '1' => 'Own',
-                                        '2' => 'Rented',
-                                    );
+                                <?php
+                                $HOUSESTATUS_ID_values = array(
+                                    '' => "Select",
+                                    '1' => 'Own',
+                                    '2' => 'Rented',
+                                );
 
-                                    foreach ($HOUSESTATUS_ID_values as $value => $display_text) {
-                                        $selected = ($value == $this->input->post('HOUSESTATUS_ID')) ? ' selected="selected"' : "";
-
-                                        echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                $name_value = set_value("HOUSESTATUS_ID");
+                                $js = 'id="HOUSESTATUS_ID" class="form-control"';
+                                echo form_dropdown('HOUSESTATUS_ID', $HOUSESTATUS_ID_values, $name_value, $js);
+                                echo form_error("HOUSESTATUS_ID");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="MARTIAL_STATUS" class="col-md-4 control-label">MARTIAL STATUS</label>
                             <div class="col-md-8">
-                                <select name="MARTIAL_STATUS" class="form-control">
-                                    <option value="">select</option>
-                                    <?php
-                                    $MARTIAL_STATUS_values = array(
-                                        '1' => 'Unmarried',
-                                        '2' => 'Married',
-                                        '3' => 'Divorced',
-                                        '4' => 'Widowed',
-                                    );
+                                <?php
+                                $MARTIAL_STATUS_values = array(
+                                    '' => "Select",
+                                    '1' => 'Unmarried',
+                                    '2' => 'Married',
+                                    '3' => 'Divorced',
+                                    '4' => 'Widowed',
+                                );
 
-                                    foreach ($MARTIAL_STATUS_values as $value => $display_text) {
-                                        $selected = ($value == $this->input->post('MARTIAL_STATUS')) ? ' selected="selected"' : "";
-
-                                        echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                $name_value = set_value("MARTIAL_STATUS");
+                                $js = 'id="MARTIAL_STATUS" class="form-control"';
+                                echo form_dropdown('MARTIAL_STATUS', $MARTIAL_STATUS_values, $name_value, $js);
+                                echo form_error("MARTIAL_STATUS");
+                                ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="APPLIED_BRANCH_ID" class="col-md-4 control-label">APPLIED BRANCH</label>
                             <div class="col-md-8">
-                                <input type="text" name="APPLIED_BRANCH_ID" value="<?php echo $this->input->post('APPLIED_BRANCH_ID'); ?>" class="form-control required" id="APPLIED_BRANCH_ID" />
+                                <?php
+                                $APPLIED_BRANCH_ID = array(
+                                    'name' => 'APPLIED_BRANCH_ID',
+                                    'id' => 'APPLIED_BRANCH_ID',
+                                    'value' => set_value('APPLIED_BRANCH_ID'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control required"
+                                );
+
+                                echo form_input($APPLIED_BRANCH_ID);
+                                echo form_error("APPLIED_BRANCH_ID");
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -228,67 +340,133 @@
                         <div class="form-group">
                             <label for="COMPANY_ID" class="col-md-4 control-label">COMPANY</label>
                             <div class="col-md-8">
-                                <select name="COMPANY_ID" class="form-control required">
-                                    <option value="">select administration_comp_profile</option>
-                                    <?php
-                                    foreach ($all_administration_comp_profile as $administration_comp_profile) {
-                                        $selected = ($administration_comp_profile['BRANCH_ID'] == $this->input->post('COMPANY_ID')) ? ' selected="selected"' : "";
-
-                                        echo '<option value="' . $administration_comp_profile['BRANCH_ID'] . '" ' . $selected . '>' . $administration_comp_profile['BRANCH_NAME'] . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                <?php
+                                $options = array("" => "Select");
+                                foreach ($all_administration_comp_profile as $administration_comp_profile) {
+                                    $options[$administration_comp_profile['BRANCH_ID']] = $administration_comp_profile['BRANCH_NAME'];
+                                }
+                                $name_value = set_value("COMPANY_ID");
+                                $js = 'id="COMPANY_ID" class="form-control"';
+                                echo form_dropdown('COMPANY_ID', $MARTIAL_STATUS_values, $name_value, $js);
+                                echo form_error("COMPANY_ID");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="OCCUPATION_DEPT_NAME" class="col-md-4 control-label">OCCUPATION DEPT NAME</label>
                             <div class="col-md-8">
-                                <input type="text" name="OCCUPATION_DEPT_NAME" value="<?php echo $this->input->post('OCCUPATION_DEPT_NAME'); ?>" class="form-control required" id="OCCUPATION_DEPT_NAME" />
+                                <?php
+                                $OCCUPATION_DEPT_NAME = array(
+                                    'name' => 'OCCUPATION_DEPT_NAME',
+                                    'id' => 'OCCUPATION_DEPT_NAME',
+                                    'value' => set_value('OCCUPATION_DEPT_NAME'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control required"
+                                );
+
+                                echo form_input($OCCUPATION_DEPT_NAME);
+                                echo form_error("OCCUPATION_DEPT_NAME");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="RACE_ID" class="col-md-4 control-label">RACE ID</label>
                             <div class="col-md-8">
-                                <select name="RACE_ID" class="form-control">
-                                    <option value="">select masters_race</option>
-                                    <?php
-                                    foreach ($all_masters_race as $masters_race) {
-                                        $selected = ($masters_race['RACE_ID'] == $this->input->post('RACE_ID')) ? ' selected="selected"' : "";
-
-                                        echo '<option value="' . $masters_race['RACE_ID'] . '" ' . $selected . '>' . $masters_race['RACE_NAME'] . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                <?php
+                                $options = array("" => "Select");
+                                foreach ($all_masters_race as $masters_race) {
+                                    $options[$masters_race['RACE_ID']] = $masters_race['RACE_NAME'];
+                                }
+                                $name_value = set_value("RACE_ID");
+                                $js = 'id="RACE_ID" class="form-control required"';
+                                echo form_dropdown('RACE_ID', $options, $name_value, $js);
+                                echo form_error("RACE_ID");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="PRESENT_SALARY" class="col-md-4 control-label">PRESENT SALARY</label>
                             <div class="col-md-8">
-                                <input type="text" name="PRESENT_SALARY" value="<?php echo $this->input->post('PRESENT_SALARY'); ?>" class="form-control" id="PRESENT_SALARY" />
+                                <?php
+                                $PRESENT_SALARY = array(
+                                    'name' => 'PRESENT_SALARY',
+                                    'id' => 'PRESENT_SALARY',
+                                    'value' => set_value('PRESENT_SALARY'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($PRESENT_SALARY);
+                                echo form_error("PRESENT_SALARY");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="JOBSECTOR_ID" class="col-md-4 control-label">JOBSECTOR ID</label>
                             <div class="col-md-8">
-                                <input type="text" name="JOBSECTOR_ID" value="<?php echo $this->input->post('JOBSECTOR_ID'); ?>" class="form-control required" id="JOBSECTOR_ID" />
+                                <?php
+                                $JOBSECTOR_ID = array(
+                                    'name' => 'JOBSECTOR_ID',
+                                    'id' => 'JOBSECTOR_ID',
+                                    'value' => set_value('JOBSECTOR_ID'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control required"
+                                );
+
+                                echo form_input($JOBSECTOR_ID);
+                                echo form_error("JOBSECTOR_ID");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="YEARS_OR_SERVICE_YEARS" class="col-md-4 control-label">YEARS OR SERVICE YEARS</label>
                             <div class="col-md-8">
-                                <input type="text" name="YEARS_OR_SERVICE_YEARS" value="<?php echo $this->input->post('YEARS_OR_SERVICE_YEARS'); ?>" class="form-control" id="YEARS_OR_SERVICE_YEARS" />
+                                <?php
+                                $YEARS_OR_SERVICE_YEARS = array(
+                                    'name' => 'YEARS_OR_SERVICE_YEARS',
+                                    'id' => 'YEARS_OR_SERVICE_YEARS',
+                                    'value' => set_value('YEARS_OR_SERVICE_YEARS'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($YEARS_OR_SERVICE_YEARS);
+                                echo form_error("YEARS_OR_SERVICE_YEARS");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="YEARS_OR_SERVICE_MONTHS" class="col-md-4 control-label">YEARS OR SERVICE MONTHS</label>
                             <div class="col-md-8">
-                                <input type="text" name="YEARS_OR_SERVICE_MONTHS" value="<?php echo $this->input->post('YEARS_OR_SERVICE_MONTHS'); ?>" class="form-control" id="YEARS_OR_SERVICE_MONTHS" />
+                                <?php
+                                $YEARS_OR_SERVICE_MONTHS = array(
+                                    'name' => 'YEARS_OR_SERVICE_MONTHS',
+                                    'id' => 'YEARS_OR_SERVICE_MONTHS',
+                                    'value' => set_value('YEARS_OR_SERVICE_MONTHS'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($YEARS_OR_SERVICE_MONTHS);
+                                echo form_error("YEARS_OR_SERVICE_MONTHS");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="CREDIT_LIMIT" class="col-md-4 control-label">CREDIT LIMIT</label>
                             <div class="col-md-8">
-                                <input type="text" name="CREDIT_LIMIT" value="<?php echo $this->input->post('CREDIT_LIMIT'); ?>" class="form-control" id="CREDIT_LIMIT" />
+                                <?php
+                                $CREDIT_LIMIT = array(
+                                    'name' => 'CREDIT_LIMIT',
+                                    'id' => 'CREDIT_LIMIT',
+                                    'value' => set_value('CREDIT_LIMIT'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($CREDIT_LIMIT);
+                                echo form_error("CREDIT_LIMIT");
+                                ?>
                             </div>
                         </div>	
                     </div>
@@ -303,40 +481,84 @@
                         <div class="form-group">
                             <label for="BANK_ID" class="col-md-4 control-label">BANK ID</label>
                             <div class="col-md-8">
-                                <select name="BANK_ID" class="form-control">
-                                    <option value="">select masters_cust_bank</option>
-                                    <?php
-                                    foreach ($all_masters_cust_bank as $masters_cust_bank) {
-                                        $selected = ($masters_cust_bank['BANK_ID'] == $this->input->post('BANK_ID')) ? ' selected="selected"' : "";
-
-                                        echo '<option value="' . $masters_cust_bank['BANK_ID'] . '" ' . $selected . '>' . $masters_cust_bank['BANK_NAME'] . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                <?php
+                                $options = array("" => "Select");
+                                foreach ($all_masters_cust_bank as $masters_cust_bank) {
+                                    $options[$masters_race['BANK_ID']] = $masters_race['BANK_NAME'];
+                                }
+                                $name_value = set_value("BANK_ID");
+                                $js = 'id="BANK_ID" class="form-control"';
+                                echo form_dropdown('BANK_ID', $options, $name_value, $js);
+                                echo form_error("BANK_ID");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="BANK_ACCOUNTNO" class="col-md-4 control-label">BANK ACCOUNTNO</label>
                             <div class="col-md-8">
-                                <input type="text" name="BANK_ACCOUNTNO" value="<?php echo $this->input->post('BANK_ACCOUNTNO'); ?>" class="form-control" id="BANK_ACCOUNTNO" />
+                                <?php
+                                $BANK_ACCOUNTNO = array(
+                                    'name' => 'BANK_ACCOUNTNO',
+                                    'id' => 'BANK_ACCOUNTNO',
+                                    'value' => set_value('BANK_ACCOUNTNO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($BANK_ACCOUNTNO);
+                                echo form_error("BANK_ACCOUNTNO");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="BANK_ATM_CARD_NO" class="col-md-4 control-label">BANK ATM CARD NO</label>
                             <div class="col-md-8">
-                                <input type="text" name="BANK_ATM_CARD_NO" value="<?php echo $this->input->post('BANK_ATM_CARD_NO'); ?>" class="form-control" id="BANK_ATM_CARD_NO" />
+                                <?php
+                                $BANK_ATM_CARD_NO = array(
+                                    'name' => 'BANK_ATM_CARD_NO',
+                                    'id' => 'BANK_ATM_CARD_NO',
+                                    'value' => set_value('BANK_ATM_CARD_NO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($BANK_ATM_CARD_NO);
+                                echo form_error("BANK_ATM_CARD_NO");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="BANK_ATM_CARD_PIN_NO" class="col-md-4 control-label">BANK ATM CARD PIN NO</label>
                             <div class="col-md-8">
-                                <input type="text" name="BANK_ATM_CARD_PIN_NO" value="<?php echo $this->input->post('BANK_ATM_CARD_PIN_NO'); ?>" class="form-control" id="BANK_ATM_CARD_PIN_NO" />
+                                <?php
+                                $BANK_ATM_CARD_PIN_NO = array(
+                                    'name' => 'BANK_ATM_CARD_PIN_NO',
+                                    'id' => 'BANK_ATM_CARD_PIN_NO',
+                                    'value' => set_value('BANK_ATM_CARD_PIN_NO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($BANK_ATM_CARD_PIN_NO);
+                                echo form_error("BANK_ATM_CARD_PIN_NO");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="BANK_ATM_CARD_VALIDITY" class="col-md-4 control-label">BANK ATM CARD VALIDITY</label>
                             <div class="col-md-8">
-                                <input type="text" name="BANK_ATM_CARD_VALIDITY" value="<?php echo $this->input->post('BANK_ATM_CARD_VALIDITY'); ?>" class="form-control" id="BANK_ATM_CARD_VALIDITY" />
+                                <?php
+                                $BANK_ATM_CARD_VALIDITY = array(
+                                    'name' => 'BANK_ATM_CARD_VALIDITY',
+                                    'id' => 'BANK_ATM_CARD_VALIDITY',
+                                    'value' => set_value('BANK_ATM_CARD_VALIDITY'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($BANK_ATM_CARD_VALIDITY);
+                                echo form_error("BANK_ATM_CARD_VALIDITY");
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -362,75 +584,160 @@
                                         <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url(); ?>assets/default-user.png" alt="User profile picture">
                                     </div>
                                 </div>
-                                <!-- /.box-body -->
                             </div>
                         </div>
                         <div class="col-md-12" style="border-right:1px solid #00c0ef;">
-
                             <div class="form-group">
                                 <label for="SPOUSE_IDNO" class="col-md-4 control-label">ID NO</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="SPOUSE_IDNO" value="<?php echo $this->input->post('SPOUSE_IDNO'); ?>" class="form-control" id="SPOUSE_IDNO" />
+                                    <?php
+                                    $SPOUSE_IDNO = array(
+                                        'name' => 'SPOUSE_IDNO',
+                                        'id' => 'SPOUSE_IDNO',
+                                        'value' => set_value('SPOUSE_IDNO'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($SPOUSE_IDNO);
+                                    echo form_error("SPOUSE_IDNO");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="SPOUSE_NAME" class="col-md-4 control-label">NAME</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="SPOUSE_NAME" value="<?php echo $this->input->post('SPOUSE_NAME'); ?>" class="form-control" id="SPOUSE_NAME" />
+                                    <?php
+                                    $SPOUSE_NAME = array(
+                                        'name' => 'SPOUSE_NAME',
+                                        'id' => 'SPOUSE_NAME',
+                                        'value' => set_value('SPOUSE_NAME'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($SPOUSE_NAME);
+                                    echo form_error("SPOUSE_NAME");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="SPOUSE_FATHERS_NAME" class="col-md-4 control-label"> FATHERS NAME</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="SPOUSE_FATHERS_NAME" value="<?php echo $this->input->post('SPOUSE_FATHERS_NAME'); ?>" class="form-control" id="SPOUSE_FATHERS_NAME" />
+                                    <?php
+                                    $SPOUSE_FATHERS_NAME = array(
+                                        'name' => 'SPOUSE_FATHERS_NAME',
+                                        'id' => 'SPOUSE_FATHERS_NAME',
+                                        'value' => set_value('SPOUSE_FATHERS_NAME'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($SPOUSE_FATHERS_NAME);
+                                    echo form_error("SPOUSE_FATHERS_NAME");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="SPOUSE_MOTHERS_NAME" class="col-md-4 control-label"> MOTHERS NAME</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="SPOUSE_MOTHERS_NAME" value="<?php echo $this->input->post('SPOUSE_MOTHERS_NAME'); ?>" class="form-control" id="SPOUSE_MOTHERS_NAME" />
+                                    <?php
+                                    $SPOUSE_MOTHERS_NAME = array(
+                                        'name' => 'SPOUSE_MOTHERS_NAME',
+                                        'id' => 'SPOUSE_MOTHERS_NAME',
+                                        'value' => set_value('SPOUSE_MOTHERS_NAME'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($SPOUSE_MOTHERS_NAME);
+                                    echo form_error("SPOUSE_MOTHERS_NAME");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="SPOUSE_EMAILID" class="col-md-4 control-label">EMAIL ID</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="SPOUSE_EMAILID" value="<?php echo $this->input->post('SPOUSE_EMAILID'); ?>" class="form-control" id="SPOUSE_EMAILID" />
+                                    <?php
+                                    $SPOUSE_EMAILID = array(
+                                        'name' => 'SPOUSE_EMAILID',
+                                        'id' => 'SPOUSE_EMAILID',
+                                        'value' => set_value('SPOUSE_EMAILID'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($SPOUSE_EMAILID);
+                                    echo form_error("SPOUSE_EMAILID");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="SPOUSE_HOME_PHONE" class="col-md-4 control-label">HOME PHONE</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="SPOUSE_HOME_PHONE" value="<?php echo $this->input->post('SPOUSE_HOME_PHONE'); ?>" class="form-control" id="SPOUSE_HOME_PHONE" />
+                                    <?php
+                                    $SPOUSE_HOME_PHONE = array(
+                                        'name' => 'SPOUSE_HOME_PHONE',
+                                        'id' => 'SPOUSE_HOME_PHONE',
+                                        'value' => set_value('SPOUSE_HOME_PHONE'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($SPOUSE_HOME_PHONE);
+                                    echo form_error("SPOUSE_HOME_PHONE");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="SPOUSE_HAND_PHONE" class="col-md-4 control-label"> HAND PHONE</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="SPOUSE_HAND_PHONE" value="<?php echo $this->input->post('SPOUSE_HAND_PHONE'); ?>" class="form-control" id="SPOUSE_HAND_PHONE" />
+                                    <?php
+                                    $SPOUSE_HAND_PHONE = array(
+                                        'name' => 'SPOUSE_HAND_PHONE',
+                                        'id' => 'SPOUSE_HAND_PHONE',
+                                        'value' => set_value('SPOUSE_HAND_PHONE'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($SPOUSE_HAND_PHONE);
+                                    echo form_error("SPOUSE_HAND_PHONE");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="SPOUSE_ADDRESS" class="col-md-4 control-label"> ADDRESS</label>
                                 <div class="col-md-8">
-                                    <textarea name="SPOUSE_ADDRESS" class="form-control" id="SPOUSE_ADDRESS"><?php echo $this->input->post('SPOUSE_ADDRESS'); ?></textarea>
+                                    <?php
+                                    $SPOUSE_ADDRESS = array(
+                                        'name' => 'SPOUSE_ADDRESS',
+                                        'id' => 'SPOUSE_ADDRESS',
+                                        'value' => set_value('SPOUSE_ADDRESS'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_textarea($SPOUSE_ADDRESS);
+                                    echo form_error("SPOUSE_ADDRESS");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group" style="visibility:hidden;">
                                 <label for="SPOUSE_OFFICE_ADDRESS" class="col-md-4 control-label"> OFFICE ADDRESS</label>
                                 <div class="col-md-8">
-                                    <textarea  class="form-control" ></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group" style="visibility:hidden;">
-                                <label for="SPOUSE_OFFICE_ADDRESS" class="col-md-4 control-label"> OFFICE ADDRESS</label>
-                                <div class="col-md-8">
-                                    <textarea  class="form-control" ></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group" style="visibility:hidden;">
-                                <label for="SPOUSE_OFFICE_ADDRESS" class="col-md-4 control-label"> OFFICE ADDRESS</label>
-                                <div class="col-md-8">
-                                    <textarea  class="form-control" ></textarea>
+                                    <?php
+                                    $SPOUSE_OFFICE_ADDRESS = array(
+                                        'name' => 'SPOUSE_OFFICE_ADDRESS',
+                                        'id' => 'SPOUSE_OFFICE_ADDRESS',
+                                        'value' => set_value('SPOUSE_OFFICE_ADDRESS'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_textarea($SPOUSE_OFFICE_ADDRESS);
+                                    echo form_error("SPOUSE_OFFICE_ADDRESS");
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -445,54 +752,84 @@
                             <div class="form-group">
                                 <label for="SPOUSE_DOB" class="col-md-4 control-label">DOB</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="SPOUSE_DOB" value="<?php echo $this->input->post('SPOUSE_DOB'); ?>" class="form-control" id="SPOUSE_DOB" />
+                                    <?php
+                                    $SPOUSE_DOB = array(
+                                        'name' => 'SPOUSE_DOB',
+                                        'id' => 'SPOUSE_DOB',
+                                        'value' => set_value('SPOUSE_DOB'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control date-picker dob-class"
+                                    );
+
+                                    echo form_input($SPOUSE_DOB);
+                                    echo form_error("SPOUSE_DOB");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="SPOUSE_AGE" class="col-md-4 control-label">AGE</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="SPOUSE_AGE" value="<?php echo $this->input->post('SPOUSE_AGE'); ?>" class="form-control" id="SPOUSE_AGE" />
+                                    <?php
+                                    $SPOUSE_AGE = array(
+                                        'name' => 'SPOUSE_AGE',
+                                        'id' => 'SPOUSE_AGE',
+                                        'value' => set_value('SPOUSE_AGE'),
+                                        'maxlength' => '50',
+                                        'readonly' => true,
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($SPOUSE_AGE);
+                                    echo form_error("SPOUSE_AGE");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="SPOUSE_NO_OF_CHILDREN" class="col-md-4 control-label">NO OF CHILDREN</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="SPOUSE_NO_OF_CHILDREN" value="<?php echo $this->input->post('SPOUSE_NO_OF_CHILDREN'); ?>" class="form-control" id="SPOUSE_NO_OF_CHILDREN" />
+                                    <?php
+                                    $SPOUSE_NO_OF_CHILDREN = array(
+                                        'name' => 'SPOUSE_NO_OF_CHILDREN',
+                                        'id' => 'SPOUSE_NO_OF_CHILDREN',
+                                        'value' => set_value('SPOUSE_NO_OF_CHILDREN'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($SPOUSE_NO_OF_CHILDREN);
+                                    echo form_error("SPOUSE_NO_OF_CHILDREN");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="SPOUSE_GENDER" class="col-md-4 control-label"> GENDER</label>
                                 <div class="col-md-8">
-                                    <select name="SPOUSE_GENDER" class="form-control">
-                                        <option value="">select</option>
-                                        <?php
-                                        $SPOUSE_GENDER_values = array(
-                                            '1' => 'Male',
-                                            '2' => 'Female',
-                                        );
-
-                                        foreach ($SPOUSE_GENDER_values as $value => $display_text) {
-                                            $selected = ($value == $this->input->post('SPOUSE_GENDER')) ? ' selected="selected"' : "";
-
-                                            echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-                                        }
-                                        ?>
-                                    </select>
+                                    <?php
+                                    $SPOUSE_GENDER_values = array(
+                                        '' => "Select",
+                                        '1' => 'Male',
+                                        '2' => 'Female',
+                                    );
+                                    $name_value = set_value("SPOUSE_GENDER");
+                                    $js = 'id="SPOUSE_GENDER" class="form-control"';
+                                    echo form_dropdown('SPOUSE_GENDER', $SPOUSE_GENDER_values, $name_value, $js);
+                                    echo form_error("SPOUSE_GENDER");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="SPOUSE_RACE_ID" class="col-md-4 control-label"> RACE ID</label>
                                 <div class="col-md-8">
-                                    <select name="SPOUSE_RACE_ID" class="form-control required">
-                                        <option value="">select masters_race</option>
-                                        <?php
-                                        foreach ($all_masters_race as $masters_race) {
-                                            $selected = ($masters_race['RACE_ID'] == $this->input->post('SPOUSE_RACE_ID')) ? ' selected="selected"' : "";
-
-                                            echo '<option value="' . $masters_race['RACE_ID'] . '" ' . $selected . '>' . $masters_race['RACE_NAME'] . '</option>';
-                                        }
-                                        ?>
-                                    </select>
+                                    <?php
+                                    $options = array("" => "Select");
+                                    foreach ($all_masters_race as $masters_race) {
+                                        $options[$masters_race['RACE_ID']] = $masters_race['RACE_NAME'];
+                                    }
+                                    $name_value = set_value("SPOUSE_RACE_ID");
+                                    $js = 'id="SPOUSE_RACE_ID" class="form-control"';
+                                    echo form_dropdown('SPOUSE_RACE_ID', $options, $name_value, $js);
+                                    echo form_error("SPOUSE_RACE_ID");
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -508,58 +845,135 @@
                         <div class="form-group">
                             <label for="SPOUSE_COMPANY_NAME" class="col-md-4 control-label"> COMPANY NAME</label>
                             <div class="col-md-8">
-                                <select name="SPOUSE_COMPANY_NAME" class="form-control">
-                                    <option value="">select masters_cust_comp_info</option>
-                                    <?php
-                                    foreach ($all_masters_cust_comp_info as $masters_cust_comp_info) {
-                                        $selected = ($masters_cust_comp_info['COMPANY_ID'] == $this->input->post('SPOUSE_COMPANY_NAME')) ? ' selected="selected"' : "";
-
-                                        echo '<option value="' . $masters_cust_comp_info['COMPANY_ID'] . '" ' . $selected . '>' . $masters_cust_comp_info['COMPANY_NAME'] . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                <?php
+                                $options = array("" => "Select");
+                                foreach ($all_masters_cust_comp_info as $masters_cust_comp_info) {
+                                    $options[$masters_cust_comp_info['COMPANY_ID']] = $masters_cust_comp_info['COMPANY_NAME'];
+                                }
+                                $name_value = set_value("SPOUSE_COMPANY_NAME");
+                                $js = 'id="SPOUSE_COMPANY_NAME" class="form-control required"';
+                                echo form_dropdown('SPOUSE_COMPANY_NAME', $options, $name_value, $js);
+                                echo form_error("SPOUSE_COMPANY_NAME");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="SPOUSE_OCCUPATION_DEPT" class="col-md-4 control-label"> OCCUPATION DEPT</label>
                             <div class="col-md-8">
-                                <input type="text" name="SPOUSE_OCCUPATION_DEPT" value="<?php echo $this->input->post('SPOUSE_OCCUPATION_DEPT'); ?>" class="form-control" id="SPOUSE_OCCUPATION_DEPT" />
+                                <?php
+                                $SPOUSE_OCCUPATION_DEPT = array(
+                                    'name' => 'SPOUSE_OCCUPATION_DEPT',
+                                    'id' => 'SPOUSE_OCCUPATION_DEPT',
+                                    'value' => set_value('SPOUSE_OCCUPATION_DEPT'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($SPOUSE_OCCUPATION_DEPT);
+                                echo form_error("SPOUSE_OCCUPATION_DEPT");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="SPOUSE_YEARS_OF_SERVICE_YEAR" class="col-md-4 control-label"> YEARS OF SERVICE YEAR</label>
                             <div class="col-md-8">
-                                <input type="text" name="SPOUSE_YEARS_OF_SERVICE_YEAR" value="<?php echo $this->input->post('SPOUSE_YEARS_OF_SERVICE_YEAR'); ?>" class="form-control" id="SPOUSE_YEARS_OF_SERVICE_YEAR" />
+                                <?php
+                                $SPOUSE_YEARS_OF_SERVICE_YEAR = array(
+                                    'name' => 'SPOUSE_YEARS_OF_SERVICE_YEAR',
+                                    'id' => 'SPOUSE_YEARS_OF_SERVICE_YEAR',
+                                    'value' => set_value('SPOUSE_YEARS_OF_SERVICE_YEAR'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($SPOUSE_YEARS_OF_SERVICE_YEAR);
+                                echo form_error("SPOUSE_YEARS_OF_SERVICE_YEAR");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="SPOUSE_YEARS_OF_SERVICE_MONTH" class="col-md-4 control-label"> YEARS OF SERVICE MONTH</label>
                             <div class="col-md-8">
-                                <input type="text" name="SPOUSE_YEARS_OF_SERVICE_MONTH" value="<?php echo $this->input->post('SPOUSE_YEARS_OF_SERVICE_MONTH'); ?>" class="form-control" id="SPOUSE_YEARS_OF_SERVICE_MONTH" />
+                                <?php
+                                $SPOUSE_YEARS_OF_SERVICE_MONTH = array(
+                                    'name' => 'SPOUSE_YEARS_OF_SERVICE_MONTH',
+                                    'id' => 'SPOUSE_YEARS_OF_SERVICE_MONTH',
+                                    'value' => set_value('SPOUSE_YEARS_OF_SERVICE_MONTH'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($SPOUSE_YEARS_OF_SERVICE_MONTH);
+                                echo form_error("SPOUSE_YEARS_OF_SERVICE_MONTH");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="SPOUSE_SALARY" class="col-md-4 control-label"> SALARY</label>
                             <div class="col-md-8">
-                                <input type="text" name="SPOUSE_SALARY" value="<?php echo $this->input->post('SPOUSE_SALARY'); ?>" class="form-control" id="SPOUSE_SALARY" />
+                                <?php
+                                $SPOUSE_SALARY = array(
+                                    'name' => 'SPOUSE_SALARY',
+                                    'id' => 'SPOUSE_SALARY',
+                                    'value' => set_value('SPOUSE_SALARY'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($SPOUSE_SALARY);
+                                echo form_error("SPOUSE_SALARY");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="SPOUSE_OFFICE_PHONE1" class="col-md-4 control-label"> OFFICE PHONE1</label>
                             <div class="col-md-8">
-                                <input type="text" name="SPOUSE_OFFICE_PHONE1" value="<?php echo $this->input->post('SPOUSE_OFFICE_PHONE1'); ?>" class="form-control" id="SPOUSE_OFFICE_PHONE1" />
+                                <?php
+                                $SPOUSE_OFFICE_PHONE1 = array(
+                                    'name' => 'SPOUSE_OFFICE_PHONE1',
+                                    'id' => 'SPOUSE_OFFICE_PHONE1',
+                                    'value' => set_value('SPOUSE_OFFICE_PHONE1'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($SPOUSE_OFFICE_PHONE1);
+                                echo form_error("SPOUSE_OFFICE_PHONE1");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="SPOUSE_OFFICE_PHONE2" class="col-md-4 control-label"> OFFICE PHONE2</label>
                             <div class="col-md-8">
-                                <input type="text" name="SPOUSE_OFFICE_PHONE2" value="<?php echo $this->input->post('SPOUSE_OFFICE_PHONE2'); ?>" class="form-control" id="SPOUSE_OFFICE_PHONE2" />
+                                <?php
+                                $SPOUSE_OFFICE_PHONE2 = array(
+                                    'name' => 'SPOUSE_OFFICE_PHONE2',
+                                    'id' => 'SPOUSE_OFFICE_PHONE2',
+                                    'value' => set_value('SPOUSE_OFFICE_PHONE2'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($SPOUSE_OFFICE_PHONE2);
+                                echo form_error("SPOUSE_OFFICE_PHONE2");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="SPOUSE_OFFICE_ADDRESS" class="col-md-4 control-label"> OFFICE ADDRESS</label>
                             <div class="col-md-8">
-                                <textarea name="SPOUSE_OFFICE_ADDRESS" class="form-control" id="SPOUSE_OFFICE_ADDRESS"><?php echo $this->input->post('SPOUSE_OFFICE_ADDRESS'); ?></textarea>
+                                <?php
+                                $SPOUSE_OFFICE_ADDRESS = array(
+                                    'name' => 'SPOUSE_OFFICE_ADDRESS',
+                                    'id' => 'SPOUSE_OFFICE_ADDRESS',
+                                    'value' => set_value('SPOUSE_OFFICE_ADDRESS'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_textarea($SPOUSE_OFFICE_ADDRESS);
+                                echo form_error("SPOUSE_OFFICE_ADDRESS");
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -593,64 +1007,139 @@
                             <div class="form-group">
                                 <label for="GUARANTER_IDNO" class="col-md-4 control-label"> ID NO</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="GUARANTER_IDNO" value="<?php echo $this->input->post('GUARANTER_IDNO'); ?>" class="form-control" id="GUARANTER_IDNO" />
+                                    <?php
+                                    $GUARANTER_IDNO = array(
+                                        'name' => 'GUARANTER_IDNO',
+                                        'id' => 'GUARANTER_IDNO',
+                                        'value' => set_value('GUARANTER_IDNO'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($GUARANTER_IDNO);
+                                    echo form_error("GUARANTER_IDNO");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GUARANTER_NAME" class="col-md-4 control-label"> NAME</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="GUARANTER_NAME" value="<?php echo $this->input->post('GUARANTER_NAME'); ?>" class="form-control" id="GUARANTER_NAME" />
+                                    <?php
+                                    $GUARANTER_NAME = array(
+                                        'name' => 'GUARANTER_NAME',
+                                        'id' => 'GUARANTER_NAME',
+                                        'value' => set_value('GUARANTER_NAME'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($GUARANTER_NAME);
+                                    echo form_error("GUARANTER_NAME");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GUARANTER_FATHERS_NAME" class="col-md-4 control-label"> FATHERS NAME</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="GUARANTER_FATHERS_NAME" value="<?php echo $this->input->post('GUARANTER_FATHERS_NAME'); ?>" class="form-control" id="GUARANTER_FATHERS_NAME" />
+                                    <?php
+                                    $GUARANTER_FATHERS_NAME = array(
+                                        'name' => 'GUARANTER_FATHERS_NAME',
+                                        'id' => 'GUARANTER_FATHERS_NAME',
+                                        'value' => set_value('GUARANTER_FATHERS_NAME'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($GUARANTER_FATHERS_NAME);
+                                    echo form_error("GUARANTER_FATHERS_NAME");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GUARANTER_MOTHERS_NAME" class="col-md-4 control-label"> MOTHERS NAME</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="GUARANTER_MOTHERS_NAME" value="<?php echo $this->input->post('GUARANTER_MOTHERS_NAME'); ?>" class="form-control" id="GUARANTER_MOTHERS_NAME" />
+                                    <?php
+                                    $GUARANTER_MOTHERS_NAME = array(
+                                        'name' => 'GUARANTER_MOTHERS_NAME',
+                                        'id' => 'GUARANTER_MOTHERS_NAME',
+                                        'value' => set_value('GUARANTER_MOTHERS_NAME'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($GUARANTER_MOTHERS_NAME);
+                                    echo form_error("GUARANTER_MOTHERS_NAME");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GUARANTER_EMAILID" class="col-md-4 control-label"> EMAILID</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="GUARANTER_EMAILID" value="<?php echo $this->input->post('GUARANTER_EMAILID'); ?>" class="form-control" id="GUARANTER_EMAILID" />
+                                    <?php
+                                    $GUARANTER_EMAILID = array(
+                                        'name' => 'GUARANTER_EMAILID',
+                                        'id' => 'GUARANTER_EMAILID',
+                                        'value' => set_value('GUARANTER_EMAILID'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($GUARANTER_EMAILID);
+                                    echo form_error("GUARANTER_EMAILID");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GUARANTER_HOME_PHONE" class="col-md-4 control-label"> HOME PHONE</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="GUARANTER_HOME_PHONE" value="<?php echo $this->input->post('GUARANTER_HOME_PHONE'); ?>" class="form-control" id="GUARANTER_HOME_PHONE" />
+                                    <?php
+                                    $GUARANTER_HOME_PHONE = array(
+                                        'name' => 'GUARANTER_HOME_PHONE',
+                                        'id' => 'GUARANTER_HOME_PHONE',
+                                        'value' => set_value('GUARANTER_HOME_PHONE'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($GUARANTER_HOME_PHONE);
+                                    echo form_error("GUARANTER_HOME_PHONE");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GUARANTER_HAND_PHONE" class="col-md-4 control-label"> HAND PHONE</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="GUARANTER_HAND_PHONE" value="<?php echo $this->input->post('GUARANTER_HAND_PHONE'); ?>" class="form-control" id="GUARANTER_HAND_PHONE" />
+                                    <?php
+                                    $GUARANTER_HAND_PHONE = array(
+                                        'name' => 'GUARANTER_HAND_PHONE',
+                                        'id' => 'GUARANTER_HAND_PHONE',
+                                        'value' => set_value('GUARANTER_HAND_PHONE'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($GUARANTER_HAND_PHONE);
+                                    echo form_error("GUARANTER_HAND_PHONE");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GUARANTER_ADDRESS" class="col-md-4 control-label"> ADDRESS</label>
                                 <div class="col-md-8">
-                                    <textarea name="GUARANTER_ADDRESS" class="form-control" id="GUARANTER_ADDRESS"><?php echo $this->input->post('GUARANTER_ADDRESS'); ?></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group" style="visibility:hidden;">
-                                <label for="GUARANTER_ADDRESS" class="col-md-4 control-label"> ADDRESS</label>
-                                <div class="col-md-8">
-                                    <textarea class="form-control"> </textarea>
-                                </div>
-                            </div>
-                            <div class="form-group" style="visibility:hidden;">
-                                <label for="GUARANTER_ADDRESS" class="col-md-4 control-label"> ADDRESS</label>
-                                <div class="col-md-8">
-                                    <textarea class="form-control"> </textarea>
-                                </div>
-                            </div>
+                                    <?php
+                                    $GUARANTER_ADDRESS = array(
+                                        'name' => 'GUARANTER_ADDRESS',
+                                        'id' => 'GUARANTER_ADDRESS',
+                                        'value' => set_value('GUARANTER_ADDRESS'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
 
+                                    echo form_textarea($GUARANTER_ADDRESS);
+                                    echo form_error("GUARANTER_ADDRESS");
+                                    ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -663,54 +1152,84 @@
                             <div class="form-group">
                                 <label for="GUARANTER_DOB" class="col-md-4 control-label"> DOB</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="GUARANTER_DOB" value="<?php echo $this->input->post('GUARANTER_DOB'); ?>" class="form-control" id="GUARANTER_DOB" />
+                                    <?php
+                                    $GUARANTER_DOB = array(
+                                        'name' => 'GUARANTER_DOB',
+                                        'id' => 'GUARANTER_DOB',
+                                        'value' => set_value('GUARANTER_DOB'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control date-picker  dob-class"
+                                    );
+
+                                    echo form_input($GUARANTER_DOB);
+                                    echo form_error("GUARANTER_DOB");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GUARANTER_AGE" class="col-md-4 control-label"> AGE</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="GUARANTER_AGE" value="<?php echo $this->input->post('GUARANTER_AGE'); ?>" class="form-control" id="GUARANTER_AGE" />
+                                    <?php
+                                    $GUARANTER_AGE = array(
+                                        'name' => 'GUARANTER_AGE',
+                                        'id' => 'GUARANTER_AGE',
+                                        'value' => set_value('GUARANTER_AGE'),
+                                        'readonly' => true,
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($GUARANTER_AGE);
+                                    echo form_error("GUARANTER_AGE");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GUARANTER_NO_OF_CHILDREN" class="col-md-4 control-label"> NO OF CHILDREN</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="GUARANTER_NO_OF_CHILDREN" value="<?php echo $this->input->post('GUARANTER_NO_OF_CHILDREN'); ?>" class="form-control" id="GUARANTER_NO_OF_CHILDREN" />
+                                    <?php
+                                    $GUARANTER_NO_OF_CHILDREN = array(
+                                        'name' => 'GUARANTER_NO_OF_CHILDREN',
+                                        'id' => 'GUARANTER_NO_OF_CHILDREN',
+                                        'value' => set_value('GUARANTER_NO_OF_CHILDREN'),
+                                        'maxlength' => '50',
+                                        "class" => "form-control"
+                                    );
+
+                                    echo form_input($GUARANTER_NO_OF_CHILDREN);
+                                    echo form_error("GUARANTER_NO_OF_CHILDREN");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GUARANTER_GENDER" class="col-md-4 control-label"> GENDER</label>
                                 <div class="col-md-8">
-                                    <select name="GUARANTER_GENDER" class="form-control">
-                                        <option value="">select</option>
-                                        <?php
-                                        $GUARANTER_GENDER_values = array(
-                                            '1' => 'Male',
-                                            '2' => 'Female',
-                                        );
-
-                                        foreach ($GUARANTER_GENDER_values as $value => $display_text) {
-                                            $selected = ($value == $this->input->post('GUARANTER_GENDER')) ? ' selected="selected"' : "";
-
-                                            echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-                                        }
-                                        ?>
-                                    </select>
+                                    <?php
+                                    $GUARANTER_GENDER_values = array(
+                                        '' => "Select",
+                                        '1' => 'Male',
+                                        '2' => 'Female',
+                                    );
+                                    $name_value = set_value("GUARANTER_GENDER");
+                                    $js = 'id="GUARANTER_GENDER" class="form-control"';
+                                    echo form_dropdown('GUARANTER_GENDER', $GUARANTER_GENDER_values, $name_value, $js);
+                                    echo form_error("GUARANTER_GENDER");
+                                    ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="GUARANTER_RACE_ID" class="col-md-4 control-label"> RACE</label>
                                 <div class="col-md-8">
-                                    <select name="GUARANTER_RACE_ID" class="form-control">
-                                        <option value="">select masters_race</option>
-                                        <?php
-                                        foreach ($all_masters_race as $masters_race) {
-                                            $selected = ($masters_race['RACE_ID'] == $this->input->post('GUARANTER_RACE_ID')) ? ' selected="selected"' : "";
-
-                                            echo '<option value="' . $masters_race['RACE_ID'] . '" ' . $selected . '>' . $masters_race['RACE_NAME'] . '</option>';
-                                        }
-                                        ?>
-                                    </select>
+                                    <?php
+                                    $options = array("" => "Select");
+                                    foreach ($all_masters_race as $masters_race) {
+                                        $options[$masters_race['RACE_ID']] = $masters_race['RACE_NAME'];
+                                    }
+                                    $name_value = set_value("GUARANTER_RACE_ID");
+                                    $js = 'id="GUARANTER_RACE_ID" class="form-control"';
+                                    echo form_dropdown('GUARANTER_RACE_ID', $options, $name_value, $js);
+                                    echo form_error("GUARANTER_RACE_ID");
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -726,58 +1245,135 @@
                         <div class="form-group">
                             <label for="GUARANTER_COMPANY_NAME" class="col-md-4 control-label"> COMPANY NAME</label>
                             <div class="col-md-8">
-                                <select name="GUARANTER_COMPANY_NAME" class="form-control">
-                                    <option value="">select masters_cust_comp_info</option>
-                                    <?php
-                                    foreach ($all_masters_cust_comp_info as $masters_cust_comp_info) {
-                                        $selected = ($masters_cust_comp_info['COMPANY_ID'] == $this->input->post('GUARANTER_COMPANY_NAME')) ? ' selected="selected"' : "";
-
-                                        echo '<option value="' . $masters_cust_comp_info['COMPANY_ID'] . '" ' . $selected . '>' . $masters_cust_comp_info['COMPANY_NAME'] . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                <?php
+                                $options = array("" => "Select");
+                                foreach ($all_masters_cust_comp_info as $masters_cust_comp_info) {
+                                    $options[$masters_cust_comp_info['COMPANY_ID']] = $masters_cust_comp_info['COMPANY_NAME'];
+                                }
+                                $name_value = set_value("GUARANTER_COMPANY_NAME");
+                                $js = 'id="GUARANTER_COMPANY_NAME" class="form-control"';
+                                echo form_dropdown('GUARANTER_COMPANY_NAME', $options, $name_value, $js);
+                                echo form_error("GUARANTER_COMPANY_NAME");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="GUARANTER_OCCUPATION_DEPT" class="col-md-4 control-label"> OCCUPATION DEPT</label>
                             <div class="col-md-8">
-                                <input type="text" name="GUARANTER_OCCUPATION_DEPT" value="<?php echo $this->input->post('GUARANTER_OCCUPATION_DEPT'); ?>" class="form-control" id="GUARANTER_OCCUPATION_DEPT" />
+                                <?php
+                                $GUARANTER_OCCUPATION_DEPT = array(
+                                    'name' => 'GUARANTER_OCCUPATION_DEPT',
+                                    'id' => 'GUARANTER_OCCUPATION_DEPT',
+                                    'value' => set_value('GUARANTER_OCCUPATION_DEPT'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($GUARANTER_OCCUPATION_DEPT);
+                                echo form_error("GUARANTER_OCCUPATION_DEPT");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="GUARANTER_YEARS_OF_SERVICE_YEAR" class="col-md-4 control-label"> YEARS OF SERVICE YEAR</label>
                             <div class="col-md-8">
-                                <input type="text" name="GUARANTER_YEARS_OF_SERVICE_YEAR" value="<?php echo $this->input->post('GUARANTER_YEARS_OF_SERVICE_YEAR'); ?>" class="form-control" id="GUARANTER_YEARS_OF_SERVICE_YEAR" />
+                                <?php
+                                $GUARANTER_YEARS_OF_SERVICE_YEAR = array(
+                                    'name' => 'GUARANTER_YEARS_OF_SERVICE_YEAR',
+                                    'id' => 'GUARANTER_YEARS_OF_SERVICE_YEAR',
+                                    'value' => set_value('GUARANTER_YEARS_OF_SERVICE_YEAR'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($GUARANTER_YEARS_OF_SERVICE_YEAR);
+                                echo form_error("GUARANTER_YEARS_OF_SERVICE_YEAR");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="GUARANTER_YEARS_OF_SERVICE_MONTH" class="col-md-4 control-label"> YEARS OF SERVICE MONTH</label>
                             <div class="col-md-8">
-                                <input type="text" name="GUARANTER_YEARS_OF_SERVICE_MONTH" value="<?php echo $this->input->post('GUARANTER_YEARS_OF_SERVICE_MONTH'); ?>" class="form-control" id="GUARANTER_YEARS_OF_SERVICE_MONTH" />
+                                <?php
+                                $GUARANTER_YEARS_OF_SERVICE_MONTH = array(
+                                    'name' => 'GUARANTER_YEARS_OF_SERVICE_MONTH',
+                                    'id' => 'GUARANTER_YEARS_OF_SERVICE_MONTH',
+                                    'value' => set_value('GUARANTER_YEARS_OF_SERVICE_MONTH'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($GUARANTER_YEARS_OF_SERVICE_MONTH);
+                                echo form_error("GUARANTER_YEARS_OF_SERVICE_MONTH");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="GUARANTER_SALARY" class="col-md-4 control-label"> SALARY</label>
                             <div class="col-md-8">
-                                <input type="text" name="GUARANTER_SALARY" value="<?php echo $this->input->post('GUARANTER_SALARY'); ?>" class="form-control" id="GUARANTER_SALARY" />
+                                <?php
+                                $GUARANTER_SALARY = array(
+                                    'name' => 'GUARANTER_SALARY',
+                                    'id' => 'GUARANTER_SALARY',
+                                    'value' => set_value('GUARANTER_SALARY'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($GUARANTER_SALARY);
+                                echo form_error("GUARANTER_SALARY");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="GUARANTER_OFFICE_PHONE1" class="col-md-4 control-label"> OFFICE PHONE</label>
                             <div class="col-md-8">
-                                <input type="text" name="GUARANTER_OFFICE_PHONE1" value="<?php echo $this->input->post('GUARANTER_OFFICE_PHONE1'); ?>" class="form-control" id="GUARANTER_OFFICE_PHONE1" />
+                                <?php
+                                $GUARANTER_OFFICE_PHONE1 = array(
+                                    'name' => 'GUARANTER_OFFICE_PHONE1',
+                                    'id' => 'GUARANTER_OFFICE_PHONE1',
+                                    'value' => set_value('GUARANTER_OFFICE_PHONE1'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($GUARANTER_OFFICE_PHONE1);
+                                echo form_error("GUARANTER_OFFICE_PHONE1");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="GUARANTER_OFFICE_PHONE2" class="col-md-4 control-label"> OFFICE Alt PHONE</label>
                             <div class="col-md-8">
-                                <input type="text" name="GUARANTER_OFFICE_PHONE2" value="<?php echo $this->input->post('GUARANTER_OFFICE_PHONE2'); ?>" class="form-control" id="GUARANTER_OFFICE_PHONE2" />
+                                <?php
+                                $GUARANTER_OFFICE_PHONE2 = array(
+                                    'name' => 'GUARANTER_OFFICE_PHONE2',
+                                    'id' => 'GUARANTER_OFFICE_PHONE2',
+                                    'value' => set_value('GUARANTER_OFFICE_PHONE2'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_input($GUARANTER_OFFICE_PHONE2);
+                                echo form_error("GUARANTER_OFFICE_PHONE2");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="GUARANTER_OFFICE_ADDRESS" class="col-md-4 control-label"> OFFICE ADDRESS</label>
                             <div class="col-md-8">
-                                <textarea name="GUARANTER_OFFICE_ADDRESS" class="form-control" id="GUARANTER_OFFICE_ADDRESS"><?php echo $this->input->post('GUARANTER_OFFICE_ADDRESS'); ?></textarea>
+                                <?php
+                                $GUARANTER_OFFICE_ADDRESS = array(
+                                    'name' => 'GUARANTER_OFFICE_ADDRESS',
+                                    'id' => 'GUARANTER_OFFICE_ADDRESS',
+                                    'value' => set_value('GUARANTER_OFFICE_ADDRESS'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_textarea($GUARANTER_OFFICE_ADDRESS);
+                                echo form_error("GUARANTER_OFFICE_ADDRESS");
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -797,25 +1393,69 @@
                         <div class="form-group">
                             <label for="CUSTOMER_POPUP_NOTES" class="col-md-4 control-label">CUSTOMER POPUP NOTES</label>
                             <div class="col-md-8">
-                                <textarea name="CUSTOMER_POPUP_NOTES" class="form-control" id="CUSTOMER_POPUP_NOTES"><?php echo $this->input->post('CUSTOMER_POPUP_NOTES'); ?></textarea>
+                                <?php
+                                $CUSTOMER_POPUP_NOTES = array(
+                                    'name' => 'CUSTOMER_POPUP_NOTES',
+                                    'id' => 'CUSTOMER_POPUP_NOTES',
+                                    'value' => set_value('CUSTOMER_POPUP_NOTES'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_textarea($CUSTOMER_POPUP_NOTES);
+                                echo form_error("CUSTOMER_POPUP_NOTES");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="VERIFICATION_HR_INFO" class="col-md-4 control-label"> HR INFO</label>
                             <div class="col-md-8">
-                                <textarea name="VERIFICATION_HR_INFO" class="form-control" id="VERIFICATION_HR_INFO"><?php echo $this->input->post('VERIFICATION_HR_INFO'); ?></textarea>
+                                <?php
+                                $VERIFICATION_HR_INFO = array(
+                                    'name' => 'VERIFICATION_HR_INFO',
+                                    'id' => 'VERIFICATION_HR_INFO',
+                                    'value' => set_value('VERIFICATION_HR_INFO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_textarea($VERIFICATION_HR_INFO);
+                                echo form_error("VERIFICATION_HR_INFO");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="VERIFICATION_SPOUSE_INFO" class="col-md-4 control-label"> SPOUSE INFO</label>
                             <div class="col-md-8">
-                                <textarea name="VERIFICATION_SPOUSE_INFO" class="form-control" id="VERIFICATION_SPOUSE_INFO"><?php echo $this->input->post('VERIFICATION_SPOUSE_INFO'); ?></textarea>
+                                <?php
+                                $VERIFICATION_SPOUSE_INFO = array(
+                                    'name' => 'VERIFICATION_SPOUSE_INFO',
+                                    'id' => 'VERIFICATION_SPOUSE_INFO',
+                                    'value' => set_value('VERIFICATION_SPOUSE_INFO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_textarea($VERIFICATION_SPOUSE_INFO);
+                                echo form_error("VERIFICATION_SPOUSE_INFO");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="VERIFICATION_REFERENCE_INFO" class="col-md-4 control-label"> REFERENCE INFO</label>
                             <div class="col-md-8">
-                                <textarea name="VERIFICATION_REFERENCE_INFO" class="form-control" id="VERIFICATION_REFERENCE_INFO"><?php echo $this->input->post('VERIFICATION_REFERENCE_INFO'); ?></textarea>
+                                <?php
+                                $VERIFICATION_REFERENCE_INFO = array(
+                                    'name' => 'VERIFICATION_REFERENCE_INFO',
+                                    'id' => 'VERIFICATION_REFERENCE_INFO',
+                                    'value' => set_value('VERIFICATION_REFERENCE_INFO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_textarea($VERIFICATION_REFERENCE_INFO);
+                                echo form_error("VERIFICATION_REFERENCE_INFO");
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -823,20 +1463,53 @@
                         <div class="form-group">
                             <label for="VERIFICATION_OTHER_INFO" class="col-md-4 control-label"> OTHER INFO</label>
                             <div class="col-md-8">
-                                <textarea name="VERIFICATION_OTHER_INFO" class="form-control" id="VERIFICATION_OTHER_INFO"><?php echo $this->input->post('VERIFICATION_OTHER_INFO'); ?></textarea>
+                                <?php
+                                $VERIFICATION_OTHER_INFO = array(
+                                    'name' => 'VERIFICATION_OTHER_INFO',
+                                    'id' => 'VERIFICATION_OTHER_INFO',
+                                    'value' => set_value('VERIFICATION_OTHER_INFO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_textarea($VERIFICATION_OTHER_INFO);
+                                echo form_error("VERIFICATION_OTHER_INFO");
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="VERIFICATION_CTOS_INFO" class="col-md-4 control-label"> CTOS INFO</label>
                             <div class="col-md-8">
-                                <textarea name="VERIFICATION_CTOS_INFO" class="form-control" id="VERIFICATION_CTOS_INFO"><?php echo $this->input->post('VERIFICATION_CTOS_INFO'); ?></textarea>
+                                <?php
+                                $VERIFICATION_CTOS_INFO = array(
+                                    'name' => 'VERIFICATION_CTOS_INFO',
+                                    'id' => 'VERIFICATION_CTOS_INFO',
+                                    'value' => set_value('VERIFICATION_CTOS_INFO'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_textarea($VERIFICATION_CTOS_INFO);
+                                echo form_error("VERIFICATION_CTOS_INFO");
+                                ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="VERIFICATION_COMPLETED" class="col-md-4 control-label"> COMPLETED</label>
                             <div class="col-md-8">
-                                <input type="checkbox" name="VERIFICATION_COMPLETED" value="1"  id="VERIFICATION_COMPLETED" />
+                                <?php
+                                $VERIFICATION_COMPLETED = array(
+                                    'name' => 'VERIFICATION_COMPLETED',
+                                    'id' => 'VERIFICATION_COMPLETED',
+                                    'value' => set_value('VERIFICATION_COMPLETED'),
+                                    'maxlength' => '50',
+                                    "class" => "form-control"
+                                );
+
+                                echo form_checkbox($VERIFICATION_COMPLETED);
+                                echo form_error("VERIFICATION_COMPLETED");
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -865,46 +1538,123 @@
                                     <div class="form-group">
                                         <label for="CUSTOMER_POPUP_NOTES" class="col-md-4 control-label">Address</label>
                                         <div class="col-md-8">
-                                            <textarea name="Address" class="form-control" id="Address"><?php echo $this->input->post('Address'); ?></textarea>
+                                            <?php
+                                            $CONTACT_Address = array(
+                                                'name' => 'CONTACT_Address[]',
+                                                'id' => 'CONTACT_Address',
+                                                'value' => set_value('CONTACT_Address'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_textarea($CONTACT_Address);
+                                            echo form_error("CONTACT_Address");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="City" class="col-md-4 control-label"> City</label>
+                                        <label for="CONTACT_City" class="col-md-4 control-label"> City</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="City" class="form-control" id="City">
+                                            <?php
+                                            $CONTACT_City = array(
+                                                'name' => 'CONTACT_City[]',
+                                                'id' => 'CONTACT_City',
+                                                'value' => set_value('CONTACT_City'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($CONTACT_City);
+                                            echo form_error("CONTACT_City");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="State" class="col-md-4 control-label"> State</label>
+                                        <label for="CONTACT_State" class="col-md-4 control-label"> State</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="State" class="form-control" id="State">
+                                            <?php
+                                            $CONTACT_State = array(
+                                                'name' => 'CONTACT_State[]',
+                                                'id' => 'CONTACT_State',
+                                                'value' => set_value('CONTACT_State'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($CONTACT_State);
+                                            echo form_error("CONTACT_State");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="code" class="col-md-4 control-label"> Post code</label>
+                                        <label for="CONTACT_code" class="col-md-4 control-label"> Post code</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="code" class="form-control">
+                                            <?php
+                                            $CONTACT_code = array(
+                                                'name' => 'CONTACT_code[]',
+                                                'id' => 'CONTACT_code',
+                                                'value' => set_value('CONTACT_code'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($CONTACT_code);
+                                            echo form_error("CONTACT_code");
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6" style="padding-left:30px;">
                                     <div class="form-group">
-                                        <label for="phone1" class="col-md-4 control-label"> Phone</label>
+                                        <label for="CONTACT_phone1" class="col-md-4 control-label"> Phone</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="phone1" class="form-control" id="phone1">
+                                            <?php
+                                            $CONTACT_phone1 = array(
+                                                'name' => 'CONTACT_phone1[]',
+                                                'id' => 'CONTACT_phone1',
+                                                'value' => set_value('CONTACT_phone1'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($CONTACT_phone1);
+                                            echo form_error("CONTACT_phone1");
+                                            ?>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="phone2" class="col-md-4 control-label"> Alt Phone</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="phone1" value=""  class="form-control" id="phone1" />
+                                            <?php
+                                            $CONTACT_alt_phone = array(
+                                                'name' => 'CONTACT_alt_phone[]',
+                                                'id' => 'CONTACT_alt_phone',
+                                                'value' => set_value('CONTACT_alt_phone'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($CONTACT_alt_phone);
+                                            echo form_error("CONTACT_alt_phone");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="fax" class="col-md-4 control-label"> Fax</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="fax" class="form-control" id="fax">
+                                            <?php
+                                            $CONTACT_fax = array(
+                                                'name' => 'CONTACT_fax[]',
+                                                'id' => 'CONTACT_fax',
+                                                'value' => set_value('CONTACT_fax'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($CONTACT_fax);
+                                            echo form_error("CONTACT_fax");
+                                            ?>
                                         </div>
                                     </div>
 
@@ -937,69 +1687,190 @@
                                     <div class="form-group">
                                         <label for="REFERENCE_NAME" class="col-md-4 control-label">REFERENCE NAME</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="REFERENCE_NAME" value="<?php echo $this->input->post('REFERENCE_NAME'); ?>" class="form-control required" id="REFERENCE_NAME" />
+                                            <?php
+                                            $REFERENCE_NAME = array(
+                                                'name' => 'REFERENCE_NAME[]',
+                                                'id' => 'REFERENCE_NAME',
+                                                'value' => set_value('REFERENCE_NAME'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control required"
+                                            );
+
+                                            echo form_input($REFERENCE_NAME);
+                                            echo form_error("REFERENCE_NAME");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="REFERENCE_IDNO" class="col-md-4 control-label">REFERENCE IDNO</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="REFERENCE_IDNO" value="<?php echo $this->input->post('REFERENCE_IDNO'); ?>" class="form-control required" id="REFERENCE_IDNO" />
+                                            <?php
+                                            $REFERENCE_IDNO = array(
+                                                'name' => 'REFERENCE_IDNO[]',
+                                                'id' => 'REFERENCE_IDNO',
+                                                'value' => set_value('REFERENCE_IDNO'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control required"
+                                            );
+
+                                            echo form_input($REFERENCE_IDNO);
+                                            echo form_error("REFERENCE_IDNO");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="REFERENCE_RELATION" class="col-md-4 control-label">REFERENCE RELATION</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="REFERENCE_RELATION" value="<?php echo $this->input->post('REFERENCE_RELATION'); ?>" class="form-control" id="REFERENCE_RELATION" />
+                                            <?php
+                                            $REFERENCE_RELATION = array(
+                                                'name' => 'REFERENCE_RELATION[]',
+                                                'id' => 'REFERENCE_RELATION',
+                                                'value' => set_value('REFERENCE_RELATION'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($REFERENCE_RELATION);
+                                            echo form_error("REFERENCE_RELATION");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="ADDRESS_KEY" class="col-md-4 control-label">ADDRESS KEY</label>
+                                        <label for="REFERECE_ADDRESS_KEY" class="col-md-4 control-label">ADDRESS KEY</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="ADDRESS_KEY" value="<?php echo $this->input->post('ADDRESS_KEY'); ?>" class="form-control" id="ADDRESS_KEY" />
+                                            <?php
+                                            $REFERECE_ADDRESS_KEY = array(
+                                                'name' => 'REFERECE_ADDRESS_KEY[]',
+                                                'id' => 'REFERECE_ADDRESS_KEY',
+                                                'value' => set_value('REFERECE_ADDRESS_KEY'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($REFERECE_ADDRESS_KEY);
+                                            echo form_error("REFERECE_ADDRESS_KEY");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="ACTUAL_ADDRESS" class="col-md-4 control-label">ACTUAL ADDRESS</label>
+                                        <label for="REFERECE_ACTUAL_ADDRESS" class="col-md-4 control-label">ACTUAL ADDRESS</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="ACTUAL_ADDRESS" value="<?php echo $this->input->post('ACTUAL_ADDRESS'); ?>" class="form-control" id="ACTUAL_ADDRESS" />
+                                            <?php
+                                            $REFERECE_ACTUAL_ADDRESS = array(
+                                                'name' => 'REFERECE_ACTUAL_ADDRESS[]',
+                                                'id' => 'REFERECE_ACTUAL_ADDRESS',
+                                                'value' => set_value('REFERECE_ACTUAL_ADDRESS'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_textarea($REFERECE_ACTUAL_ADDRESS);
+                                            echo form_error("REFERECE_ACTUAL_ADDRESS");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="CITY" class="col-md-4 control-label">CITY</label>
+                                        <label for="REFERECE_CITY" class="col-md-4 control-label">CITY</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="CITY" value="<?php echo $this->input->post('CITY'); ?>" class="form-control" id="CITY" />
+                                            <?php
+                                            $REFERECE_CITY = array(
+                                                'name' => 'REFERECE_CITY[]',
+                                                'id' => 'REFERECE_CITY',
+                                                'value' => set_value('REFERECE_CITY'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($REFERECE_CITY);
+                                            echo form_error("REFERECE_CITY");
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6" style="padding-left:30px;">
                                     <div class="form-group">
-                                        <label for="STATE_ID" class="col-md-4 control-label">STATE ID</label>
+                                        <label for="REFERECE_STATE_ID" class="col-md-4 control-label">STATE ID</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="STATE_ID" value="<?php echo $this->input->post('STATE_ID'); ?>" class="form-control" id="STATE_ID" />
+                                            <?php
+                                            $REFERECE_STATE_ID = array(
+                                                'name' => 'REFERECE_STATE_ID[]',
+                                                'id' => 'REFERECE_STATE_ID',
+                                                'value' => set_value('REFERECE_STATE_ID'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($REFERECE_STATE_ID);
+                                            echo form_error("REFERECE_STATE_ID");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="POSTCODE" class="col-md-4 control-label">POSTCODE</label>
+                                        <label for="REFERECE_POSTCODE" class="col-md-4 control-label">POSTCODE</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="POSTCODE" value="<?php echo $this->input->post('POSTCODE'); ?>" class="form-control" id="POSTCODE" />
+                                            <?php
+                                            $REFERECE_POSTCODE = array(
+                                                'name' => 'REFERECE_POSTCODE[]',
+                                                'id' => 'REFERECE_POSTCODE',
+                                                'value' => set_value('REFERECE_POSTCODE'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($REFERECE_POSTCODE);
+                                            echo form_error("REFERECE_POSTCODE");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="PHONE1" class="col-md-4 control-label">PHONE1</label>
+                                        <label for="REFERECE_PHONE1" class="col-md-4 control-label">PHONE1</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="PHONE1" value="<?php echo $this->input->post('PHONE1'); ?>" class="form-control" id="PHONE1" />
+                                            <?php
+                                            $REFERECE_PHONE1 = array(
+                                                'name' => 'REFERECE_PHONE1[]',
+                                                'id' => 'REFERECE_PHONE1',
+                                                'value' => set_value('REFERECE_PHONE1'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($REFERECE_PHONE1);
+                                            echo form_error("REFERECE_PHONE1");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="PHONE2" class="col-md-4 control-label">PHONE2</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="PHONE2" value="<?php echo $this->input->post('PHONE2'); ?>" class="form-control" id="PHONE2" />
+                                            <?php
+                                            $REFERECE_PHONE2 = array(
+                                                'name' => 'REFERECE_PHONE2[]',
+                                                'id' => 'REFERECE_PHONE2',
+                                                'value' => set_value('REFERECE_PHONE2'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($REFERECE_PHONE2);
+                                            echo form_error("REFERECE_PHONE2");
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="FAX" class="col-md-4 control-label">FAX</label>
                                         <div class="col-md-8">
-                                            <input type="text" name="FAX" value="<?php echo $this->input->post('FAX'); ?>" class="form-control" id="FAX" />
+                                            <?php
+                                            $REFERECE_FAX = array(
+                                                'name' => 'REFERECE_FAX[]',
+                                                'id' => 'REFERECE_FAX',
+                                                'value' => set_value('REFERECE_FAX'),
+                                                'maxlength' => '50',
+                                                "class" => "form-control"
+                                            );
+
+                                            echo form_input($REFERECE_FAX);
+                                            echo form_error("REFERECE_FAX");
+                                            ?>
                                         </div>
                                     </div>
 
@@ -1029,21 +1900,17 @@
                                 <label for="CUSTOMER_TYPE" class="col-md-4 control-label">Doc Name</label>
 
                                 <div class="col-md-6">
-                                    <select name="CUSTOMER_TYPE" class="form-control">
-                                        <option value="">select</option>
-                                        <?php
-                                        $doc_TYPE_values = array(
-                                            '1' => 'AAdhar',
-                                            '2' => 'Pan',
-                                        );
-
-                                        foreach ($doc_TYPE_values as $value => $display_text) {
-                                            $selected = ($value == $this->input->post('CUSTOMER_TYPE')) ? ' selected="selected"' : "";
-
-                                            echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-                                        }
-                                        ?>
-                                    </select>
+                                    <?php
+                                    $doc_TYPE_values = array(
+                                        '' => "Select",
+                                        '1' => 'AAdhar',
+                                        '2' => 'Pan',
+                                    );
+                                    $name_value = set_value("CUSTOMER_TYPE");
+                                    $js = 'id="CUSTOMER_TYPE" class="form-control"';
+                                    echo form_dropdown('CUSTOMER_TYPE', $doc_TYPE_values, $name_value, $js);
+                                    echo form_error("CUSTOMER_TYPE");
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -1052,7 +1919,6 @@
                                 <label for="CUSTOMER_TYPE" class="col-md-2 control-label">Upload</label>
                                 <div class="col-md-8">
                                     <input type="file" name="userFiles[]" style="position:relative;opacity:1;">
-                                                                                           <!--<input type="file" class="filestyle" name="userFiles[]" data-buttonname="btn-primary" id="docs_1" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">-->
                                 </div>
                             </div>
                         </div>

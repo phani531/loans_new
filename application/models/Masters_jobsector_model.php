@@ -75,7 +75,7 @@ class Masters_jobsector_model extends CI_Model {
             $query_columns_array = array("JOBSECTOR_ID, JOBSECTOR_NAME, LOAN_TYPE");
 
             $custom_where = array();
-            $where .= " WHERE CREATED_BY = " . $_SESSION['user']['LOGIN_ID'] . " AND   IS_ACTIVE = 1";
+            $where .= " WHERE CREATED_BY = " . $_SESSION['EMP_DATA']['LOGIN_ID'] . " AND   IS_ACTIVE = 1";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));

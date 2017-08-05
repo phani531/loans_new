@@ -137,7 +137,7 @@ class Masters_agent_info_model extends CI_Model {
             $query_columns_array = array("AGENT_ID, AGENT_IDNO, AGENT_NAME, AGENT_ADDRESS, AGENT_HOUSE_CTC_NO, AGENT_MOBILE_CTC_NO, AGENT_COMPANY_NAME, AGENT_COMPANY_ADDRESS, AGENT_COMPANY_CTC_NO, AGENT_COMMISSION_TYPE, AGENT_COMMISSION_AMOUNT, AGENT_COMMISSION_PERCENTAGE, IS_ACTIVE");
 
             $custom_where = array();
-            $where .= " WHERE CREATED_BY = " . $_SESSION['user']['LOGIN_ID'] . " AND IS_ACTIVE = 1";
+            $where .= " WHERE CREATED_BY = " . $_SESSION['EMP_DATA']['LOGIN_ID'] . " AND IS_ACTIVE = 1";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));

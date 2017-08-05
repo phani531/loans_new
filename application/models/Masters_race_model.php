@@ -20,7 +20,7 @@ class Masters_race_model extends CI_Model {
      * @return type
      */
     function getAllMastersRaceData($request, $user_data) {
-        try {
+       try {
             $sql_details = array('user' => $this->db->username, 'pass' => $this->db->password, 'db' => $this->db->database, 'host' => $this->db->hostname);
             $request['searchcolumns'] = array();
 
@@ -61,7 +61,7 @@ class Masters_race_model extends CI_Model {
             $query_columns_array = array("RACE_ID, RACE_NAME");
 
             $custom_where = array();
-            $where .= " WHERE CREATED_BY = " . $_SESSION['user']['LOGIN_ID'] . " AND   IS_ACTIVE = 1";
+            $where .= " WHERE CREATED_BY = " . $_SESSION['EMP_DATA']['LOGIN_ID'] . " AND   IS_ACTIVE = 1";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
@@ -88,7 +88,7 @@ class Masters_race_model extends CI_Model {
      */
 
     function get_all_masters_race() {
-        return $this->db->get('masters_race')->result_array();
+        return $this->db->where(array("IS_ACTIVE" => 1))->get('masters_race')->result_array();
     }
 
     /*

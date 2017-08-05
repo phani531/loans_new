@@ -25,6 +25,7 @@ var admin = function () {
         initAdminLoginForm();
         initAdminFundForm();
         initStepsWizard();
+        initAgeCaluculator();
         initRelcopy();
         initSignup();
         initDeleteIndividualRow();
@@ -33,6 +34,26 @@ var admin = function () {
 
     function ajaxInit() {
 
+    }
+
+    /**
+     * Function to caluculate the age
+     * @returns {undefined}
+     */
+    function initAgeCaluculator() {
+        $(".dob-class").on("change", function () {
+            var dob = $(this).val();
+            dob = new Date(dob);
+            var today = new Date();
+            var age = Math.floor((today - dob) / (365.25 * 24 * 60 * 60 * 1000));
+            var age_id = $(this).attr("id");
+            if (age_id == "DOB")
+                $("#AGE").val(age);
+            else if (age_id == "SPOUSE_DOB")
+                $("#SPOUSE_AGE").val(age);
+            else if (age_id == "GUARANTER_DOB")
+                $("#GUARANTER_AGE").val(age);
+        });
     }
 
     /**
@@ -119,7 +140,14 @@ var admin = function () {
             },
             onFinished: function (event, currentIndex)
             {
-                alert("Submitted!");
+                $('.actions > ul > li:nth-child(3)').addClass("disabled");
+                $('.actions > ul > li:nth-child(3)').attr("style", 'display:none');
+                getLocalTime();
+                var form = $(this);
+                // Submit form input
+                form.submit();
+                $(this).addClass("text-center");
+                $(this).html('<img src="' + SITEURL + 'assets/images/loading.gif" alt="Loading...">');
             }
         }).validate({
             errorPlacement: function errorPlacement(error, element) {

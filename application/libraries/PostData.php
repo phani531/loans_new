@@ -251,6 +251,114 @@ class PostData {
         return $return_array;
     }
 
+    function getAdminCustProfileData($data, $edit_flag = false) {
+        $return_array = array();
+        if (!empty($data)) {
+            $return_array = array(
+                'CUSTOMER_TYPE' => (isset($data['CUSTOMER_TYPE']) && $data['CUSTOMER_TYPE'] != "") ? $data['CUSTOMER_TYPE'] : "",
+                'CUSTOMER_PIC_PATH' => (isset($data['CUSTOMER_PIC_PATH']) && $data['CUSTOMER_PIC_PATH'] != "") ? $data['CUSTOMER_PIC_PATH'] : "",
+                'CUSTOMER_IDNO' => (isset($data['CUSTOMER_IDNO']) && $data['CUSTOMER_IDNO'] != "") ? $data['CUSTOMER_IDNO'] : "",
+                'CUSTOMER_NAME' => (isset($data['CUSTOMER_NAME']) && $data['CUSTOMER_NAME'] != "") ? $data['CUSTOMER_NAME'] : "",
+                'FILE_NO' => (isset($data['FILE_NO']) && $data['FILE_NO'] != "") ? $data['FILE_NO'] : "",
+                'OLDIC_NO' => (isset($data['OLDIC_NO']) && $data['OLDIC_NO'] != "") ? $data['OLDIC_NO'] : "",
+                'NON_ICNO' => (isset($data['NON_ICNO']) && $data['NON_ICNO'] != "") ? $data['NON_ICNO'] : "",
+                'APPLICATION_DATE' => (isset($data['APPLICATION_DATE']) && $data['APPLICATION_DATE'] != "") ? $data['APPLICATION_DATE'] : "",
+                'AGENT_ID' => (isset($data['AGENT_ID']) && $data['AGENT_ID'] != "") ? $data['AGENT_ID'] : "",
+                'VEHICLE_NO' => (isset($data['VEHICLE_NO']) && $data['VEHICLE_NO'] != "") ? $data['VEHICLE_NO'] : "",
+                'RELATED_TO_EMP' => (isset($data['RELATED_TO_EMP']) && $data['RELATED_TO_EMP'] != "") ? $data['RELATED_TO_EMP'] : "",
+                'ADVERTISEMENT_ID' => (isset($data['ADVERTISEMENT_ID']) && $data['ADVERTISEMENT_ID'] != "") ? $data['ADVERTISEMENT_ID'] : "",
+                'DOB' => (isset($data['DOB']) && $data['DOB'] != "") ? $data['DOB'] : "",
+                'AGE' => (isset($data['AGE']) && $data['AGE'] != "") ? $data['AGE'] : "",
+                'GENDER' => (isset($data['GENDER']) && $data['GENDER'] != "") ? $data['GENDER'] : "",
+                'HOUSESTATUS_ID' => (isset($data['HOUSESTATUS_ID']) && $data['HOUSESTATUS_ID'] != "") ? $data['HOUSESTATUS_ID'] : "",
+                'MARTIAL_STATUS' => (isset($data['MARTIAL_STATUS']) && $data['MARTIAL_STATUS'] != "") ? $data['MARTIAL_STATUS'] : "",
+                'EMAIL_ID' => (isset($data['EMAIL_ID']) && $data['EMAIL_ID'] != "") ? $data['EMAIL_ID'] : "",
+                'APPLIED_BRANCH_ID' => (isset($data['APPLIED_BRANCH_ID']) && $data['APPLIED_BRANCH_ID'] != "") ? $data['APPLIED_BRANCH_ID'] : "",
+                'COMPANY_ID' => (isset($data['COMPANY_ID']) && $data['COMPANY_ID'] != "") ? $data['COMPANY_ID'] : "",
+                'OCCUPATION_DEPT_NAME' => (isset($data['OCCUPATION_DEPT_NAME']) && $data['OCCUPATION_DEPT_NAME'] != "") ? $data['OCCUPATION_DEPT_NAME'] : "",
+                'RACE_ID' => (isset($data['RACE_ID']) && $data['RACE_ID'] != "") ? $data['RACE_ID'] : "",
+                'PRESENT_SALARY' => (isset($data['PRESENT_SALARY']) && $data['PRESENT_SALARY'] != "") ? $data['PRESENT_SALARY'] : "",
+                'JOBSECTOR_ID' => (isset($data['JOBSECTOR_ID']) && $data['JOBSECTOR_ID'] != "") ? $data['JOBSECTOR_ID'] : "",
+                'YEARS_OR_SERVICE_YEARS' => (isset($data['YEARS_OR_SERVICE_YEARS']) && $data['YEARS_OR_SERVICE_YEARS'] != "") ? $data['YEARS_OR_SERVICE_YEARS'] : "",
+                'YEARS_OR_SERVICE_MONTHS' => (isset($data['YEARS_OR_SERVICE_MONTHS']) && $data['YEARS_OR_SERVICE_MONTHS'] != "") ? $data['YEARS_OR_SERVICE_MONTHS'] : "",
+                'CREDIT_LIMIT' => (isset($data['CREDIT_LIMIT']) && $data['CREDIT_LIMIT'] != "") ? $data['CREDIT_LIMIT'] : "",
+                'BANK_ID' => (isset($data['BANK_ID']) && $data['BANK_ID'] != "") ? $data['BANK_ID'] : "",
+                'BANK_ACCOUNTNO' => (isset($data['BANK_ACCOUNTNO']) && $data['BANK_ACCOUNTNO'] != "") ? $data['BANK_ACCOUNTNO'] : "",
+                'BANK_ATM_CARD_NO' => (isset($data['BANK_ATM_CARD_NO']) && $data['BANK_ATM_CARD_NO'] != "") ? $data['BANK_ATM_CARD_NO'] : "",
+                'BANK_ATM_CARD_PIN_NO' => (isset($data['BANK_ATM_CARD_PIN_NO']) && $data['BANK_ATM_CARD_PIN_NO'] != "") ? $data['BANK_ATM_CARD_PIN_NO'] : "",
+                'BANK_ATM_CARD_VALIDITY' => (isset($data['BANK_ATM_CARD_VALIDITY']) && $data['BANK_ATM_CARD_VALIDITY'] != "") ? $data['BANK_ATM_CARD_VALIDITY'] : "",
+                'INTERNET_BANKING_USER_NAME' => (isset($data['INTERNET_BANKING_USER_NAME']) && $data['INTERNET_BANKING_USER_NAME'] != "") ? $data['INTERNET_BANKING_USER_NAME'] : "",
+                'INTERNET_BANKING_PASSWORD' => (isset($data['INTERNET_BANKING_PASSWORD']) && $data['INTERNET_BANKING_PASSWORD'] != "") ? $data['INTERNET_BANKING_PASSWORD'] : "",
+                'MONEY_DEPOSIT_BANK_ID' => (isset($data['MONEY_DEPOSIT_BANK_ID']) && $data['MONEY_DEPOSIT_BANK_ID'] != "") ? $data['MONEY_DEPOSIT_BANK_ID'] : "",
+                'MONEY_DEPOSIT_ACCOUNT_NO' => (isset($data['MONEY_DEPOSIT_ACCOUNT_NO']) && $data['MONEY_DEPOSIT_ACCOUNT_NO'] != "") ? $data['MONEY_DEPOSIT_ACCOUNT_NO'] : "",
+                'MONEY_DEPOSIT_ACCOUNT_HOLDER_NAME' => (isset($data['MONEY_DEPOSIT_ACCOUNT_HOLDER_NAME']) && $data['MONEY_DEPOSIT_ACCOUNT_HOLDER_NAME'] != "") ? $data['MONEY_DEPOSIT_ACCOUNT_HOLDER_NAME'] : "",
+                'SPOUSE_PIC_PATH' => (isset($data['SPOUSE_PIC_PATH']) && $data['SPOUSE_PIC_PATH'] != "") ? $data['SPOUSE_PIC_PATH'] : "",
+                'SPOUSE_IDNO' => (isset($data['SPOUSE_IDNO']) && $data['SPOUSE_IDNO'] != "") ? $data['SPOUSE_IDNO'] : "",
+                'SPOUSE_NAME' => (isset($data['SPOUSE_NAME']) && $data['SPOUSE_NAME'] != "") ? $data['SPOUSE_NAME'] : "",
+                'SPOUSE_FATHERS_NAME' => (isset($data['SPOUSE_FATHERS_NAME']) && $data['SPOUSE_FATHERS_NAME'] != "") ? $data['SPOUSE_FATHERS_NAME'] : "",
+                'SPOUSE_MOTHERS_NAME' => (isset($data['SPOUSE_MOTHERS_NAME']) && $data['SPOUSE_MOTHERS_NAME'] != "") ? $data['SPOUSE_MOTHERS_NAME'] : "",
+                'SPOUSE_EMAILID' => (isset($data['SPOUSE_EMAILID']) && $data['SPOUSE_EMAILID'] != "") ? $data['SPOUSE_EMAILID'] : "",
+                'SPOUSE_HOME_PHONE' => (isset($data['SPOUSE_HOME_PHONE']) && $data['SPOUSE_HOME_PHONE'] != "") ? $data['SPOUSE_HOME_PHONE'] : "",
+                'SPOUSE_HAND_PHONE' => (isset($data['SPOUSE_HAND_PHONE']) && $data['SPOUSE_HAND_PHONE'] != "") ? $data['SPOUSE_HAND_PHONE'] : "",
+                'SPOUSE_ADDRESS' => (isset($data['SPOUSE_ADDRESS']) && $data['SPOUSE_ADDRESS'] != "") ? $data['SPOUSE_ADDRESS'] : "",
+                'SPOUSE_DOB' => (isset($data['SPOUSE_DOB']) && $data['SPOUSE_DOB'] != "") ? $data['SPOUSE_DOB'] : "",
+                'SPOUSE_AGE' => (isset($data['SPOUSE_AGE']) && $data['SPOUSE_AGE'] != "") ? $data['SPOUSE_AGE'] : "",
+                'SPOUSE_NO_OF_CHILDREN' => (isset($data['SPOUSE_NO_OF_CHILDREN']) && $data['SPOUSE_NO_OF_CHILDREN'] != "") ? $data['SPOUSE_NO_OF_CHILDREN'] : "",
+                'SPOUSE_GENDER' => (isset($data['SPOUSE_GENDER']) && $data['SPOUSE_GENDER'] != "") ? $data['SPOUSE_GENDER'] : "",
+                'SPOUSE_RACE_ID' => (isset($data['SPOUSE_RACE_ID']) && $data['SPOUSE_RACE_ID'] != "") ? $data['SPOUSE_RACE_ID'] : "",
+                'SPOUSE_COMPANY_NAME' => (isset($data['SPOUSE_COMPANY_NAME']) && $data['SPOUSE_COMPANY_NAME'] != "") ? $data['SPOUSE_COMPANY_NAME'] : "",
+                'SPOUSE_OCCUPATION_DEPT' => (isset($data['SPOUSE_OCCUPATION_DEPT']) && $data['SPOUSE_OCCUPATION_DEPT'] != "") ? $data['SPOUSE_OCCUPATION_DEPT'] : "",
+                'SPOUSE_YEARS_OF_SERVICE_YEAR' => (isset($data['SPOUSE_YEARS_OF_SERVICE_YEAR']) && $data['SPOUSE_YEARS_OF_SERVICE_YEAR'] != "") ? $data['SPOUSE_YEARS_OF_SERVICE_YEAR'] : "",
+                'SPOUSE_YEARS_OF_SERVICE_MONTH' => (isset($data['SPOUSE_YEARS_OF_SERVICE_MONTH']) && $data['SPOUSE_YEARS_OF_SERVICE_MONTH'] != "") ? $data['SPOUSE_YEARS_OF_SERVICE_MONTH'] : "",
+                'SPOUSE_SALARY' => (isset($data['SPOUSE_SALARY']) && $data['SPOUSE_SALARY'] != "") ? $data['SPOUSE_SALARY'] : "",
+                'SPOUSE_OFFICE_PHONE1' => (isset($data['SPOUSE_OFFICE_PHONE1']) && $data['SPOUSE_OFFICE_PHONE1'] != "") ? $data['SPOUSE_OFFICE_PHONE1'] : "",
+                'SPOUSE_OFFICE_PHONE2' => (isset($data['SPOUSE_OFFICE_PHONE2']) && $data['SPOUSE_OFFICE_PHONE2'] != "") ? $data['SPOUSE_OFFICE_PHONE2'] : "",
+                'SPOUSE_OFFICE_ADDRESS' => (isset($data['SPOUSE_OFFICE_ADDRESS']) && $data['SPOUSE_OFFICE_ADDRESS'] != "") ? $data['SPOUSE_OFFICE_ADDRESS'] : "",
+                'GUARANTER_PIC_PATH' => (isset($data['GUARANTER_PIC_PATH']) && $data['GUARANTER_PIC_PATH'] != "") ? $data['GUARANTER_PIC_PATH'] : "",
+                'GUARANTER_IDNO' => (isset($data['GUARANTER_IDNO']) && $data['GUARANTER_IDNO'] != "") ? $data['GUARANTER_IDNO'] : "",
+                'GUARANTER_NAME' => (isset($data['GUARANTER_NAME']) && $data['GUARANTER_NAME'] != "") ? $data['GUARANTER_NAME'] : "",
+                'GUARANTER_FATHERS_NAME' => (isset($data['GUARANTER_FATHERS_NAME']) && $data['GUARANTER_FATHERS_NAME'] != "") ? $data['GUARANTER_FATHERS_NAME'] : "",
+                'GUARANTER_MOTHERS_NAME' => (isset($data['GUARANTER_MOTHERS_NAME']) && $data['GUARANTER_MOTHERS_NAME'] != "") ? $data['GUARANTER_MOTHERS_NAME'] : "",
+                'GUARANTER_EMAILID' => (isset($data['GUARANTER_EMAILID']) && $data['GUARANTER_EMAILID'] != "") ? $data['GUARANTER_EMAILID'] : "",
+                'GUARANTER_HOME_PHONE' => (isset($data['GUARANTER_HOME_PHONE']) && $data['GUARANTER_HOME_PHONE'] != "") ? $data['GUARANTER_HOME_PHONE'] : "",
+                'GUARANTER_HAND_PHONE' => (isset($data['GUARANTER_HAND_PHONE']) && $data['GUARANTER_HAND_PHONE'] != "") ? $data['GUARANTER_HAND_PHONE'] : "",
+                'GUARANTER_ADDRESS' => (isset($data['GUARANTER_ADDRESS']) && $data['GUARANTER_ADDRESS'] != "") ? $data['GUARANTER_ADDRESS'] : "",
+                'GUARANTER_DOB' => (isset($data['GUARANTER_DOB']) && $data['GUARANTER_DOB'] != "") ? $data['GUARANTER_DOB'] : "",
+                'GUARANTER_AGE' => (isset($data['GUARANTER_AGE']) && $data['GUARANTER_AGE'] != "") ? $data['GUARANTER_AGE'] : "",
+                'GUARANTER_NO_OF_CHILDREN' => (isset($data['GUARANTER_NO_OF_CHILDREN']) && $data['GUARANTER_NO_OF_CHILDREN'] != "") ? $data['GUARANTER_NO_OF_CHILDREN'] : "",
+                'GUARANTER_GENDER' => (isset($data['GUARANTER_GENDER']) && $data['GUARANTER_GENDER'] != "") ? $data['GUARANTER_GENDER'] : "",
+                'GUARANTER_RACE_ID' => (isset($data['GUARANTER_RACE_ID']) && $data['GUARANTER_RACE_ID'] != "") ? $data['GUARANTER_RACE_ID'] : "",
+                'GUARANTER_COMPANY_NAME' => (isset($data['GUARANTER_COMPANY_NAME']) && $data['GUARANTER_COMPANY_NAME'] != "") ? $data['GUARANTER_COMPANY_NAME'] : "",
+                'GUARANTER_OCCUPATION_DEPT' => (isset($data['GUARANTER_OCCUPATION_DEPT']) && $data['GUARANTER_OCCUPATION_DEPT'] != "") ? $data['GUARANTER_OCCUPATION_DEPT'] : "",
+                'GUARANTER_YEARS_OF_SERVICE_YEAR' => (isset($data['GUARANTER_YEARS_OF_SERVICE_YEAR']) && $data['GUARANTER_YEARS_OF_SERVICE_YEAR'] != "") ? $data['GUARANTER_YEARS_OF_SERVICE_YEAR'] : "",
+                'GUARANTER_YEARS_OF_SERVICE_MONTH' => $data['GUARANTER_YEARS_OF_SERVICE_MONTH'],
+                'GUARANTER_SALARY' => (isset($data['GUARANTER_SALARY']) && $data['GUARANTER_SALARY'] != "") ? $data['GUARANTER_SALARY'] : "",
+                'GUARANTER_OFFICE_PHONE1' => (isset($data['GUARANTER_OFFICE_PHONE1']) && $data['GUARANTER_OFFICE_PHONE1'] != "") ? $data['GUARANTER_OFFICE_PHONE1'] : "",
+                'GUARANTER_OFFICE_PHONE2' => (isset($data['GUARANTER_OFFICE_PHONE2']) && $data['GUARANTER_OFFICE_PHONE2'] != "") ? $data['GUARANTER_OFFICE_PHONE2'] : "",
+                'GUARANTER_OFFICE_ADDRESS' => (isset($data['GUARANTER_OFFICE_ADDRESS']) && $data['GUARANTER_OFFICE_ADDRESS'] != "") ? $data['GUARANTER_OFFICE_ADDRESS'] : "",
+                'CUSTOMER_POPUP_NOTES' => (isset($data['CUSTOMER_POPUP_NOTES']) && $data['CUSTOMER_POPUP_NOTES'] != "") ? $data['CUSTOMER_POPUP_NOTES'] : "",
+                'VERIFICATION_HR_INFO' => (isset($data['VERIFICATION_HR_INFO']) && $data['VERIFICATION_HR_INFO'] != "") ? $data['VERIFICATION_HR_INFO'] : "",
+                'VERIFICATION_SPOUSE_INFO' => (isset($data['VERIFICATION_SPOUSE_INFO']) && $data['VERIFICATION_SPOUSE_INFO'] != "") ? $data['VERIFICATION_SPOUSE_INFO'] : "",
+                'VERIFICATION_REFERENCE_INFO' => (isset($data['VERIFICATION_REFERENCE_INFO']) && $data['VERIFICATION_REFERENCE_INFO'] != "") ? $data['VERIFICATION_REFERENCE_INFO'] : "",
+                'VERIFICATION_OTHER_INFO' => (isset($data['VERIFICATION_OTHER_INFO']) && $data['VERIFICATION_OTHER_INFO'] != "") ? $data['VERIFICATION_OTHER_INFO'] : "",
+                'VERIFICATION_CTOS_INFO' => (isset($data['VERIFICATION_CTOS_INFO']) && $data['VERIFICATION_CTOS_INFO'] != "") ? $data['VERIFICATION_CTOS_INFO'] : "",
+                'VERIFICATION_CTOS_ATTACHMENT_FILE_PATH' => (isset($data['VERIFICATION_CTOS_ATTACHMENT_FILE_PATH']) && $data['VERIFICATION_CTOS_ATTACHMENT_FILE_PATH'] != "") ? $data['VERIFICATION_CTOS_ATTACHMENT_FILE_PATH'] : "",
+                'VERIFICATION_COMPLETED' => (isset($data['VERIFICATION_COMPLETED']) && $data['VERIFICATION_COMPLETED'] != "") ? $data['VERIFICATION_COMPLETED'] : "",
+                'CLIENT_ID' => (isset($data['CLIENT_ID']) && $data['CLIENT_ID'] != "") ? $data['CLIENT_ID'] : "",
+                'IS_ACTIVE' => 1,
+            );
+
+            if (!$edit_flag) {
+                $return_array['CREATED_DATE'] = date("Y-m-d H:i:s");
+                $return_array['CREATED_BY'] = isset($this->CI->session->userdata["EMP_DATA"]['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            } else {
+                $return_array['MODIFIED_DATE'] = date("Y-m-d H:i:s");
+                $return_array['MODIFIED_BY'] = isset($this->CI->session->userdata['EMP_DATA']['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+            }
+        }
+        return $return_array;
+    }
+
 }
 ?>
 

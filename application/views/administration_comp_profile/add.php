@@ -36,6 +36,7 @@
                         $name_value = set_value("BRANCH_TYPE");
                         $js = 'id="BRANCH_TYPE" class="form-control required"';
                         echo form_dropdown('BRANCH_TYPE', $BRANCH_TYPE_values, $name_value, $js);
+                        echo form_error("BRANCH_TYPE");
                         ?>
                     </div>
                 </div>

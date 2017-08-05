@@ -185,7 +185,7 @@ class Masters_cust_comp_info_model extends CI_Model {
             $query_columns_array = array("COMPANY_ID, COMPANY_CODE, COMPANY_NAME, COMPANY_ADDRESS, COMPANY_CITY, STATE_ID, COMPANY_POSTCODE, COMPANY_PHONE1, COMPANY_PHONE2, COMPANY_FAX, COMPANY_CREDIT_LIMIT, COMPANY_SALARY_DAY_FROM1, COMPANY_SALARY_DAY_TO1, COMPANY_SALARY_DAY_FROM2, COMPANY_SALARY_DAY_TO2, PIC_NAME, PIC_DESIGNATION , PIC_CONTACT_NO, PIC_MOBILE_NO, COMPANY_BALANCE_CREDIT_LIMIT");
 
             $custom_where = array();
-            $where .= " WHERE CREATED_BY = " . $_SESSION['user']['LOGIN_ID'] . " AND IS_ACTIVE = 1";
+            $where .= " WHERE CREATED_BY = " . $_SESSION['EMP_DATA']['LOGIN_ID'] . " AND IS_ACTIVE = 1";
             $custom_where_string = (count($custom_where) > 0) ? implode(" AND ", array_unique($custom_where)) : "";
             $request['custom_where'] = $custom_where_string;
             $query_columns = implode(",", array_unique($query_columns_array));
