@@ -1,4 +1,10 @@
-<form id="customer_info_creation_form" name="customer_info_creation_form" class="form-horizontal" enctype="multipart/form-data" action="<?php echo base_url(); ?>customer_detail/add" method="post">
+<?php
+if (isset($customer_id) && ($customer_id == "" || $customer_id == 0))
+    $action = base_url() . "customer_detail/add";
+else
+    $action = base_url() . "customer_detail/add/" . $customer_id;
+?>
+<form id="customer_info_creation_form" name="customer_info_creation_form" class="form-horizontal" enctype="multipart/form-data" action="<?php echo $action; ?>" method="post">
     <h1>Customer Info</h1>
     <fieldset>
         <div class="row box">
@@ -33,10 +39,20 @@
                                 <label for="CUSTOMER_IDNO" class="col-md-4 control-label">ID NO</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('CUSTOMER_IDNO');
+                                    } else {
+                                        $value = set_value('CUSTOMER_IDNO');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['CUSTOMER_IDNO']) ? $customer_profile['CUSTOMER_IDNO'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $CUSTOMER_IDNO = array(
                                         'name' => 'CUSTOMER_IDNO',
                                         'id' => 'CUSTOMER_IDNO',
-                                        'value' => set_value('CUSTOMER_IDNO'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control required"
                                     );
@@ -50,10 +66,20 @@
                                 <label for="CUSTOMER_NAME" class="col-md-4 control-label">NAME</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('CUSTOMER_NAME');
+                                    } else {
+                                        $value = set_value('CUSTOMER_NAME');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['CUSTOMER_NAME']) ? $customer_profile['CUSTOMER_NAME'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $CUSTOMER_NAME = array(
                                         'name' => 'CUSTOMER_NAME',
                                         'id' => 'CUSTOMER_NAME',
-                                        'value' => set_value('CUSTOMER_NAME'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control required"
                                     );
@@ -67,10 +93,20 @@
                                 <label for="DOB" class="col-md-4 control-label">DOB</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('DOB');
+                                    } else {
+                                        $value = set_value('DOB');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['DOB']) ? date("Y-m-d", strtotime($customer_profile['DOB'])) : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $DOB = array(
                                         'name' => 'DOB',
                                         'id' => 'DOB',
-                                        'value' => set_value('DOB'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control date-picker dob-class"
                                     );
@@ -84,10 +120,20 @@
                                 <label for="AGE" class="col-md-4 control-label">AGE</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('AGE');
+                                    } else {
+                                        $value = set_value('AGE');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['AGE']) ? $customer_profile['AGE'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $AGE = array(
                                         'name' => 'AGE',
                                         'id' => 'AGE',
-                                        'value' => set_value('AGE'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         'readonly' => true,
                                         "class" => "form-control"
@@ -102,14 +148,23 @@
                                 <label for="GENDER" class="col-md-4 control-label">GENDER</label>
                                 <div class="col-md-8">
                                     <?php
-                                    $name_value = set_value("GENDER");
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GENDER');
+                                    } else {
+                                        $value = set_value('GENDER');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GENDER']) ? $customer_profile['GENDER'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GENDER_values = array(
                                         '' => "Select",
                                         '1' => 'Male',
                                         '2' => 'Female',
                                     );
                                     $js = 'id="GENDER" class="form-control"';
-                                    echo form_dropdown('GENDER', $GENDER_values, $name_value, $js);
+                                    echo form_dropdown('GENDER', $GENDER_values, $namevalue, $js);
                                     echo form_error("GENDER");
                                     ?>
                                 </div>
@@ -118,10 +173,20 @@
                                 <label for="EMAIL_ID" class="col-md-4 control-label">EMAIL ID</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('EMAIL_ID');
+                                    } else {
+                                        $value = set_value('EMAIL_ID');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['EMAIL_ID']) ? $customer_profile['EMAIL_ID'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $EMAIL_ID = array(
                                         'name' => 'EMAIL_ID',
                                         'id' => 'EMAIL_ID',
-                                        'value' => set_value('EMAIL_ID'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -139,10 +204,20 @@
                             <label for="FILE_NO" class="col-md-4 control-label">FILE NO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('FILE_NO');
+                                } else {
+                                    $value = set_value('FILE_NO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['FILE_NO']) ? $customer_profile['FILE_NO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $FILE_NO = array(
                                     'name' => 'FILE_NO',
                                     'id' => 'FILE_NO',
-                                    'value' => set_value('FILE_NO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -156,10 +231,20 @@
                             <label for="OLDIC_NO" class="col-md-4 control-label">OLD IC NO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('OLDIC_NO');
+                                } else {
+                                    $value = set_value('OLDIC_NO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['OLDIC_NO']) ? $customer_profile['OLDIC_NO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $OLDIC_NO = array(
                                     'name' => 'OLDIC_NO',
                                     'id' => 'OLDIC_NO',
-                                    'value' => set_value('OLDIC_NO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -173,10 +258,20 @@
                             <label for="NON_ICNO" class="col-md-4 control-label">NON IC NO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('NON_ICNO');
+                                } else {
+                                    $value = set_value('NON_ICNO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['NON_ICNO']) ? $customer_profile['NON_ICNO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $NON_ICNO = array(
                                     'name' => 'NON_ICNO',
                                     'id' => 'NON_ICNO',
-                                    'value' => set_value('NON_ICNO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -190,10 +285,20 @@
                             <label for="APPLICATION_DATE" class="col-md-4 control-label">APPLICATION DATE</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('APPLICATION_DATE');
+                                } else {
+                                    $value = set_value('APPLICATION_DATE');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['APPLICATION_DATE']) ? date("Y-m-d", strtotime($customer_profile['APPLICATION_DATE'])) : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $APPLICATION_DATE = array(
                                     'name' => 'APPLICATION_DATE',
                                     'id' => 'APPLICATION_DATE',
-                                    'value' => set_value('APPLICATION_DATE'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control required date-picker"
                                 );
@@ -207,13 +312,22 @@
                             <label for="AGENT_ID" class="col-md-4 control-label">AGENT ID</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('AGENT_ID');
+                                } else {
+                                    $value = set_value('AGENT_ID');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['AGENT_ID']) ? $customer_profile['AGENT_ID'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $agent_optins = array("" => "Select");
                                 foreach ($all_masters_agent_info as $masters_agent_info) {
                                     $agent_optins[$masters_agent_info['AGENT_ID']] = $masters_agent_info['AGENT_NAME'];
                                 }
-                                $name_value = set_value("AGENT_ID");
                                 $js = 'id="AGENT_ID" class="form-control required"';
-                                echo form_dropdown('AGENT_ID', $agent_optins, $name_value, $js);
+                                echo form_dropdown('AGENT_ID', $agent_optins, $namevalue, $js);
                                 echo form_error("AGENT_ID");
                                 ?>
                             </div>
@@ -222,10 +336,20 @@
                             <label for="VEHICLE_NO" class="col-md-4 control-label">VEHICLE NO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('VEHICLE_NO');
+                                } else {
+                                    $value = set_value('VEHICLE_NO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['VEHICLE_NO']) ? $customer_profile['VEHICLE_NO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $VEHICLE_NO = array(
                                     'name' => 'VEHICLE_NO',
                                     'id' => 'VEHICLE_NO',
-                                    'value' => set_value('VEHICLE_NO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -239,10 +363,20 @@
                             <label for="RELATED_TO_EMP" class="col-md-4 control-label">RELATED TO EMP</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('RELATED_TO_EMP');
+                                } else {
+                                    $value = set_value('RELATED_TO_EMP');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['RELATED_TO_EMP']) ? $customer_profile['RELATED_TO_EMP'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $RELATED_TO_EMP = array(
                                     'name' => 'RELATED_TO_EMP',
                                     'id' => 'RELATED_TO_EMP',
-                                    'value' => set_value('RELATED_TO_EMP'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -256,13 +390,22 @@
                             <label for="ADVERTISEMENT_ID" class="col-md-4 control-label">ADVERTISEMENT</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('ADVERTISEMENT_ID');
+                                } else {
+                                    $value = set_value('ADVERTISEMENT_ID');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['ADVERTISEMENT_ID']) ? $customer_profile['ADVERTISEMENT_ID'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $adv_options = array("" => "Select");
                                 foreach ($all_masters_advertisements as $masters_advertisement) {
                                     $adv_options[$masters_advertisement['ADVERTISEMENT_ID']] = $masters_advertisement['ADVERTISEMENT_NAME'];
                                 }
-                                $name_value = set_value("ADVERTISEMENT_ID");
                                 $js = 'id="ADVERTISEMENT_ID" class="form-control"';
-                                echo form_dropdown('ADVERTISEMENT_ID', $adv_options, $name_value, $js);
+                                echo form_dropdown('ADVERTISEMENT_ID', $adv_options, $namevalue, $js);
                                 echo form_error("ADVERTISEMENT_ID");
                                 ?>
                             </div>
@@ -272,15 +415,23 @@
                             <label for="HOUSESTATUS_ID" class="col-md-4 control-label">HOUSE STATUS</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('HOUSESTATUS_ID');
+                                } else {
+                                    $value = set_value('HOUSESTATUS_ID');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['HOUSESTATUS_ID']) ? $customer_profile['HOUSESTATUS_ID'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $HOUSESTATUS_ID_values = array(
                                     '' => "Select",
                                     '1' => 'Own',
                                     '2' => 'Rented',
                                 );
-
-                                $name_value = set_value("HOUSESTATUS_ID");
                                 $js = 'id="HOUSESTATUS_ID" class="form-control"';
-                                echo form_dropdown('HOUSESTATUS_ID', $HOUSESTATUS_ID_values, $name_value, $js);
+                                echo form_dropdown('HOUSESTATUS_ID', $HOUSESTATUS_ID_values, $namevalue, $js);
                                 echo form_error("HOUSESTATUS_ID");
                                 ?>
                             </div>
@@ -289,6 +440,16 @@
                             <label for="MARTIAL_STATUS" class="col-md-4 control-label">MARTIAL STATUS</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('MARTIAL_STATUS');
+                                } else {
+                                    $value = set_value('MARTIAL_STATUS');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['MARTIAL_STATUS']) ? $customer_profile['MARTIAL_STATUS'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $MARTIAL_STATUS_values = array(
                                     '' => "Select",
                                     '1' => 'Unmarried',
@@ -296,10 +457,8 @@
                                     '3' => 'Divorced',
                                     '4' => 'Widowed',
                                 );
-
-                                $name_value = set_value("MARTIAL_STATUS");
                                 $js = 'id="MARTIAL_STATUS" class="form-control"';
-                                echo form_dropdown('MARTIAL_STATUS', $MARTIAL_STATUS_values, $name_value, $js);
+                                echo form_dropdown('MARTIAL_STATUS', $MARTIAL_STATUS_values, $namevalue, $js);
                                 echo form_error("MARTIAL_STATUS");
                                 ?>
                             </div>
@@ -309,10 +468,20 @@
                             <label for="APPLIED_BRANCH_ID" class="col-md-4 control-label">APPLIED BRANCH</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('APPLIED_BRANCH_ID');
+                                } else {
+                                    $value = set_value('APPLIED_BRANCH_ID');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['APPLIED_BRANCH_ID']) ? $customer_profile['APPLIED_BRANCH_ID'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $APPLIED_BRANCH_ID = array(
                                     'name' => 'APPLIED_BRANCH_ID',
                                     'id' => 'APPLIED_BRANCH_ID',
-                                    'value' => set_value('APPLIED_BRANCH_ID'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control required"
                                 );
@@ -341,13 +510,22 @@
                             <label for="COMPANY_ID" class="col-md-4 control-label">COMPANY</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('COMPANY_ID');
+                                } else {
+                                    $value = set_value('COMPANY_ID');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['COMPANY_ID']) ? $customer_profile['COMPANY_ID'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $options = array("" => "Select");
                                 foreach ($all_administration_comp_profile as $administration_comp_profile) {
                                     $options[$administration_comp_profile['BRANCH_ID']] = $administration_comp_profile['BRANCH_NAME'];
                                 }
-                                $name_value = set_value("COMPANY_ID");
                                 $js = 'id="COMPANY_ID" class="form-control"';
-                                echo form_dropdown('COMPANY_ID', $MARTIAL_STATUS_values, $name_value, $js);
+                                echo form_dropdown('COMPANY_ID', $options, $namevalue, $js);
                                 echo form_error("COMPANY_ID");
                                 ?>
                             </div>
@@ -356,10 +534,20 @@
                             <label for="OCCUPATION_DEPT_NAME" class="col-md-4 control-label">OCCUPATION DEPT NAME</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('OCCUPATION_DEPT_NAME');
+                                } else {
+                                    $value = set_value('OCCUPATION_DEPT_NAME');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['OCCUPATION_DEPT_NAME']) ? $customer_profile['OCCUPATION_DEPT_NAME'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $OCCUPATION_DEPT_NAME = array(
                                     'name' => 'OCCUPATION_DEPT_NAME',
                                     'id' => 'OCCUPATION_DEPT_NAME',
-                                    'value' => set_value('OCCUPATION_DEPT_NAME'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control required"
                                 );
@@ -373,13 +561,22 @@
                             <label for="RACE_ID" class="col-md-4 control-label">RACE ID</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('RACE_ID');
+                                } else {
+                                    $value = set_value('RACE_ID');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['RACE_ID']) ? $customer_profile['RACE_ID'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $options = array("" => "Select");
                                 foreach ($all_masters_race as $masters_race) {
                                     $options[$masters_race['RACE_ID']] = $masters_race['RACE_NAME'];
                                 }
-                                $name_value = set_value("RACE_ID");
                                 $js = 'id="RACE_ID" class="form-control required"';
-                                echo form_dropdown('RACE_ID', $options, $name_value, $js);
+                                echo form_dropdown('RACE_ID', $options, $namevalue, $js);
                                 echo form_error("RACE_ID");
                                 ?>
                             </div>
@@ -388,10 +585,20 @@
                             <label for="PRESENT_SALARY" class="col-md-4 control-label">PRESENT SALARY</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('PRESENT_SALARY');
+                                } else {
+                                    $value = set_value('PRESENT_SALARY');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['PRESENT_SALARY']) ? $customer_profile['PRESENT_SALARY'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $PRESENT_SALARY = array(
                                     'name' => 'PRESENT_SALARY',
                                     'id' => 'PRESENT_SALARY',
-                                    'value' => set_value('PRESENT_SALARY'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -405,10 +612,20 @@
                             <label for="JOBSECTOR_ID" class="col-md-4 control-label">JOBSECTOR ID</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('JOBSECTOR_ID');
+                                } else {
+                                    $value = set_value('JOBSECTOR_ID');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['JOBSECTOR_ID']) ? $customer_profile['JOBSECTOR_ID'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $JOBSECTOR_ID = array(
                                     'name' => 'JOBSECTOR_ID',
                                     'id' => 'JOBSECTOR_ID',
-                                    'value' => set_value('JOBSECTOR_ID'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control required"
                                 );
@@ -422,10 +639,20 @@
                             <label for="YEARS_OR_SERVICE_YEARS" class="col-md-4 control-label">YEARS OR SERVICE YEARS</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('YEARS_OR_SERVICE_YEARS');
+                                } else {
+                                    $value = set_value('YEARS_OR_SERVICE_YEARS');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['YEARS_OR_SERVICE_YEARS']) ? $customer_profile['YEARS_OR_SERVICE_YEARS'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $YEARS_OR_SERVICE_YEARS = array(
                                     'name' => 'YEARS_OR_SERVICE_YEARS',
                                     'id' => 'YEARS_OR_SERVICE_YEARS',
-                                    'value' => set_value('YEARS_OR_SERVICE_YEARS'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -439,10 +666,20 @@
                             <label for="YEARS_OR_SERVICE_MONTHS" class="col-md-4 control-label">YEARS OR SERVICE MONTHS</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('YEARS_OR_SERVICE_MONTHS');
+                                } else {
+                                    $value = set_value('YEARS_OR_SERVICE_MONTHS');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['YEARS_OR_SERVICE_MONTHS']) ? $customer_profile['YEARS_OR_SERVICE_MONTHS'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $YEARS_OR_SERVICE_MONTHS = array(
                                     'name' => 'YEARS_OR_SERVICE_MONTHS',
                                     'id' => 'YEARS_OR_SERVICE_MONTHS',
-                                    'value' => set_value('YEARS_OR_SERVICE_MONTHS'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -456,10 +693,20 @@
                             <label for="CREDIT_LIMIT" class="col-md-4 control-label">CREDIT LIMIT</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('CREDIT_LIMIT');
+                                } else {
+                                    $value = set_value('CREDIT_LIMIT');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['CREDIT_LIMIT']) ? $customer_profile['CREDIT_LIMIT'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $CREDIT_LIMIT = array(
                                     'name' => 'CREDIT_LIMIT',
                                     'id' => 'CREDIT_LIMIT',
-                                    'value' => set_value('CREDIT_LIMIT'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -482,13 +729,22 @@
                             <label for="BANK_ID" class="col-md-4 control-label">BANK ID</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('BANK_ID');
+                                } else {
+                                    $value = set_value('BANK_ID');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['BANK_ID']) ? $customer_profile['BANK_ID'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $options = array("" => "Select");
                                 foreach ($all_masters_cust_bank as $masters_cust_bank) {
                                     $options[$masters_race['BANK_ID']] = $masters_race['BANK_NAME'];
                                 }
-                                $name_value = set_value("BANK_ID");
                                 $js = 'id="BANK_ID" class="form-control"';
-                                echo form_dropdown('BANK_ID', $options, $name_value, $js);
+                                echo form_dropdown('BANK_ID', $options, $namevalue, $js);
                                 echo form_error("BANK_ID");
                                 ?>
                             </div>
@@ -497,10 +753,20 @@
                             <label for="BANK_ACCOUNTNO" class="col-md-4 control-label">BANK ACCOUNTNO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('BANK_ACCOUNTNO');
+                                } else {
+                                    $value = set_value('BANK_ACCOUNTNO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['BANK_ACCOUNTNO']) ? $customer_profile['BANK_ACCOUNTNO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $BANK_ACCOUNTNO = array(
                                     'name' => 'BANK_ACCOUNTNO',
                                     'id' => 'BANK_ACCOUNTNO',
-                                    'value' => set_value('BANK_ACCOUNTNO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -514,10 +780,20 @@
                             <label for="BANK_ATM_CARD_NO" class="col-md-4 control-label">BANK ATM CARD NO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('BANK_ATM_CARD_NO');
+                                } else {
+                                    $value = set_value('BANK_ATM_CARD_NO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['BANK_ATM_CARD_NO']) ? $customer_profile['BANK_ATM_CARD_NO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $BANK_ATM_CARD_NO = array(
                                     'name' => 'BANK_ATM_CARD_NO',
                                     'id' => 'BANK_ATM_CARD_NO',
-                                    'value' => set_value('BANK_ATM_CARD_NO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -531,10 +807,20 @@
                             <label for="BANK_ATM_CARD_PIN_NO" class="col-md-4 control-label">BANK ATM CARD PIN NO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('BANK_ATM_CARD_PIN_NO');
+                                } else {
+                                    $value = set_value('BANK_ATM_CARD_PIN_NO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['BANK_ATM_CARD_PIN_NO']) ? $customer_profile['BANK_ATM_CARD_PIN_NO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $BANK_ATM_CARD_PIN_NO = array(
                                     'name' => 'BANK_ATM_CARD_PIN_NO',
                                     'id' => 'BANK_ATM_CARD_PIN_NO',
-                                    'value' => set_value('BANK_ATM_CARD_PIN_NO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -548,10 +834,20 @@
                             <label for="BANK_ATM_CARD_VALIDITY" class="col-md-4 control-label">BANK ATM CARD VALIDITY</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('BANK_ATM_CARD_VALIDITY');
+                                } else {
+                                    $value = set_value('BANK_ATM_CARD_VALIDITY');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['BANK_ATM_CARD_VALIDITY']) ? date("Y-m-d", strtotime($customer_profile['BANK_ATM_CARD_VALIDITY'])) : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $BANK_ATM_CARD_VALIDITY = array(
                                     'name' => 'BANK_ATM_CARD_VALIDITY',
                                     'id' => 'BANK_ATM_CARD_VALIDITY',
-                                    'value' => set_value('BANK_ATM_CARD_VALIDITY'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -591,10 +887,20 @@
                                 <label for="SPOUSE_IDNO" class="col-md-4 control-label">ID NO</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_IDNO');
+                                    } else {
+                                        $value = set_value('SPOUSE_IDNO');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_IDNO']) ? $customer_profile['SPOUSE_IDNO'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_IDNO = array(
                                         'name' => 'SPOUSE_IDNO',
                                         'id' => 'SPOUSE_IDNO',
-                                        'value' => set_value('SPOUSE_IDNO'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -608,10 +914,20 @@
                                 <label for="SPOUSE_NAME" class="col-md-4 control-label">NAME</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_NAME');
+                                    } else {
+                                        $value = set_value('SPOUSE_NAME');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_NAME']) ? $customer_profile['SPOUSE_NAME'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_NAME = array(
                                         'name' => 'SPOUSE_NAME',
                                         'id' => 'SPOUSE_NAME',
-                                        'value' => set_value('SPOUSE_NAME'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -625,10 +941,20 @@
                                 <label for="SPOUSE_FATHERS_NAME" class="col-md-4 control-label"> FATHERS NAME</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_FATHERS_NAME');
+                                    } else {
+                                        $value = set_value('SPOUSE_FATHERS_NAME');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_FATHERS_NAME']) ? $customer_profile['SPOUSE_FATHERS_NAME'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_FATHERS_NAME = array(
                                         'name' => 'SPOUSE_FATHERS_NAME',
                                         'id' => 'SPOUSE_FATHERS_NAME',
-                                        'value' => set_value('SPOUSE_FATHERS_NAME'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -642,10 +968,20 @@
                                 <label for="SPOUSE_MOTHERS_NAME" class="col-md-4 control-label"> MOTHERS NAME</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_MOTHERS_NAME');
+                                    } else {
+                                        $value = set_value('SPOUSE_MOTHERS_NAME');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_MOTHERS_NAME']) ? $customer_profile['SPOUSE_MOTHERS_NAME'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_MOTHERS_NAME = array(
                                         'name' => 'SPOUSE_MOTHERS_NAME',
                                         'id' => 'SPOUSE_MOTHERS_NAME',
-                                        'value' => set_value('SPOUSE_MOTHERS_NAME'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -659,10 +995,20 @@
                                 <label for="SPOUSE_EMAILID" class="col-md-4 control-label">EMAIL ID</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_EMAILID');
+                                    } else {
+                                        $value = set_value('SPOUSE_EMAILID');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_EMAILID']) ? $customer_profile['SPOUSE_EMAILID'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_EMAILID = array(
                                         'name' => 'SPOUSE_EMAILID',
                                         'id' => 'SPOUSE_EMAILID',
-                                        'value' => set_value('SPOUSE_EMAILID'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -676,10 +1022,20 @@
                                 <label for="SPOUSE_HOME_PHONE" class="col-md-4 control-label">HOME PHONE</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_HOME_PHONE');
+                                    } else {
+                                        $value = set_value('SPOUSE_HOME_PHONE');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_HOME_PHONE']) ? $customer_profile['SPOUSE_HOME_PHONE'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_HOME_PHONE = array(
                                         'name' => 'SPOUSE_HOME_PHONE',
                                         'id' => 'SPOUSE_HOME_PHONE',
-                                        'value' => set_value('SPOUSE_HOME_PHONE'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -693,10 +1049,20 @@
                                 <label for="SPOUSE_HAND_PHONE" class="col-md-4 control-label"> HAND PHONE</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_HAND_PHONE');
+                                    } else {
+                                        $value = set_value('SPOUSE_HAND_PHONE');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_HAND_PHONE']) ? $customer_profile['SPOUSE_HAND_PHONE'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_HAND_PHONE = array(
                                         'name' => 'SPOUSE_HAND_PHONE',
                                         'id' => 'SPOUSE_HAND_PHONE',
-                                        'value' => set_value('SPOUSE_HAND_PHONE'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -710,10 +1076,20 @@
                                 <label for="SPOUSE_ADDRESS" class="col-md-4 control-label"> ADDRESS</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_ADDRESS');
+                                    } else {
+                                        $value = set_value('SPOUSE_ADDRESS');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_ADDRESS']) ? $customer_profile['SPOUSE_ADDRESS'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_ADDRESS = array(
                                         'name' => 'SPOUSE_ADDRESS',
                                         'id' => 'SPOUSE_ADDRESS',
-                                        'value' => set_value('SPOUSE_ADDRESS'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -727,10 +1103,20 @@
                                 <label for="SPOUSE_OFFICE_ADDRESS" class="col-md-4 control-label"> OFFICE ADDRESS</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_OFFICE_ADDRESS');
+                                    } else {
+                                        $value = set_value('SPOUSE_OFFICE_ADDRESS');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_OFFICE_ADDRESS']) ? $customer_profile['SPOUSE_OFFICE_ADDRESS'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_OFFICE_ADDRESS = array(
                                         'name' => 'SPOUSE_OFFICE_ADDRESS',
                                         'id' => 'SPOUSE_OFFICE_ADDRESS',
-                                        'value' => set_value('SPOUSE_OFFICE_ADDRESS'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -753,10 +1139,20 @@
                                 <label for="SPOUSE_DOB" class="col-md-4 control-label">DOB</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_DOB');
+                                    } else {
+                                        $value = set_value('SPOUSE_DOB');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_DOB']) ? date("Y-m-d", strtotime($customer_profile['SPOUSE_DOB'])) : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_DOB = array(
                                         'name' => 'SPOUSE_DOB',
                                         'id' => 'SPOUSE_DOB',
-                                        'value' => set_value('SPOUSE_DOB'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control date-picker dob-class"
                                     );
@@ -770,10 +1166,20 @@
                                 <label for="SPOUSE_AGE" class="col-md-4 control-label">AGE</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_OFFICE_ADDRESS');
+                                    } else {
+                                        $value = set_value('SPOUSE_OFFICE_ADDRESS');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_OFFICE_ADDRESS']) ? $customer_profile['SPOUSE_OFFICE_ADDRESS'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_AGE = array(
                                         'name' => 'SPOUSE_AGE',
                                         'id' => 'SPOUSE_AGE',
-                                        'value' => set_value('SPOUSE_AGE'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         'readonly' => true,
                                         "class" => "form-control"
@@ -788,10 +1194,20 @@
                                 <label for="SPOUSE_NO_OF_CHILDREN" class="col-md-4 control-label">NO OF CHILDREN</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_NO_OF_CHILDREN');
+                                    } else {
+                                        $value = set_value('SPOUSE_NO_OF_CHILDREN');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_NO_OF_CHILDREN']) ? $customer_profile['SPOUSE_NO_OF_CHILDREN'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_NO_OF_CHILDREN = array(
                                         'name' => 'SPOUSE_NO_OF_CHILDREN',
                                         'id' => 'SPOUSE_NO_OF_CHILDREN',
-                                        'value' => set_value('SPOUSE_NO_OF_CHILDREN'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -805,14 +1221,23 @@
                                 <label for="SPOUSE_GENDER" class="col-md-4 control-label"> GENDER</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_GENDER');
+                                    } else {
+                                        $value = set_value('SPOUSE_GENDER');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_GENDER']) ? $customer_profile['SPOUSE_GENDER'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $SPOUSE_GENDER_values = array(
                                         '' => "Select",
                                         '1' => 'Male',
                                         '2' => 'Female',
                                     );
-                                    $name_value = set_value("SPOUSE_GENDER");
                                     $js = 'id="SPOUSE_GENDER" class="form-control"';
-                                    echo form_dropdown('SPOUSE_GENDER', $SPOUSE_GENDER_values, $name_value, $js);
+                                    echo form_dropdown('SPOUSE_GENDER', $SPOUSE_GENDER_values, $namevalue, $js);
                                     echo form_error("SPOUSE_GENDER");
                                     ?>
                                 </div>
@@ -821,13 +1246,22 @@
                                 <label for="SPOUSE_RACE_ID" class="col-md-4 control-label"> RACE ID</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('SPOUSE_RACE_ID');
+                                    } else {
+                                        $value = set_value('SPOUSE_RACE_ID');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['SPOUSE_RACE_ID']) ? $customer_profile['SPOUSE_RACE_ID'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $options = array("" => "Select");
                                     foreach ($all_masters_race as $masters_race) {
                                         $options[$masters_race['RACE_ID']] = $masters_race['RACE_NAME'];
                                     }
-                                    $name_value = set_value("SPOUSE_RACE_ID");
                                     $js = 'id="SPOUSE_RACE_ID" class="form-control"';
-                                    echo form_dropdown('SPOUSE_RACE_ID', $options, $name_value, $js);
+                                    echo form_dropdown('SPOUSE_RACE_ID', $options, $namevalue, $js);
                                     echo form_error("SPOUSE_RACE_ID");
                                     ?>
                                 </div>
@@ -846,13 +1280,22 @@
                             <label for="SPOUSE_COMPANY_NAME" class="col-md-4 control-label"> COMPANY NAME</label>
                             <div class="col-md-8">
                                 <?php
-                                $options = array("" => "Select");
-                                foreach ($all_masters_cust_comp_info as $masters_cust_comp_info) {
-                                    $options[$masters_cust_comp_info['COMPANY_ID']] = $masters_cust_comp_info['COMPANY_NAME'];
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('SPOUSE_COMPANY_NAME');
+                                } else {
+                                    $value = set_value('SPOUSE_COMPANY_NAME');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['SPOUSE_COMPANY_NAME']) ? $customer_profile['SPOUSE_COMPANY_NAME'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
                                 }
-                                $name_value = set_value("SPOUSE_COMPANY_NAME");
-                                $js = 'id="SPOUSE_COMPANY_NAME" class="form-control required"';
-                                echo form_dropdown('SPOUSE_COMPANY_NAME', $options, $name_value, $js);
+                                $SPOUSE_COMPANY_NAMEoptions = array("" => "Select");
+                                foreach ($all_masters_cust_comp_info as $masters_cust_comp_info) {
+                                    $SPOUSE_COMPANY_NAMEoptions[$masters_cust_comp_info['COMPANY_ID']] = $masters_cust_comp_info['COMPANY_NAME'];
+                                }
+                                $js = 'id="SPOUSE_COMPANY_NAME" class="form-control"';
+                                echo form_dropdown('SPOUSE_COMPANY_NAME', $SPOUSE_COMPANY_NAMEoptions, $namevalue, $js);
                                 echo form_error("SPOUSE_COMPANY_NAME");
                                 ?>
                             </div>
@@ -861,10 +1304,20 @@
                             <label for="SPOUSE_OCCUPATION_DEPT" class="col-md-4 control-label"> OCCUPATION DEPT</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('SPOUSE_OCCUPATION_DEPT');
+                                } else {
+                                    $value = set_value('SPOUSE_OCCUPATION_DEPT');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['SPOUSE_OCCUPATION_DEPT']) ? $customer_profile['SPOUSE_OCCUPATION_DEPT'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $SPOUSE_OCCUPATION_DEPT = array(
                                     'name' => 'SPOUSE_OCCUPATION_DEPT',
                                     'id' => 'SPOUSE_OCCUPATION_DEPT',
-                                    'value' => set_value('SPOUSE_OCCUPATION_DEPT'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -878,10 +1331,20 @@
                             <label for="SPOUSE_YEARS_OF_SERVICE_YEAR" class="col-md-4 control-label"> YEARS OF SERVICE YEAR</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('SPOUSE_YEARS_OF_SERVICE_YEAR');
+                                } else {
+                                    $value = set_value('SPOUSE_YEARS_OF_SERVICE_YEAR');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['SPOUSE_YEARS_OF_SERVICE_YEAR']) ? $customer_profile['SPOUSE_YEARS_OF_SERVICE_YEAR'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $SPOUSE_YEARS_OF_SERVICE_YEAR = array(
                                     'name' => 'SPOUSE_YEARS_OF_SERVICE_YEAR',
                                     'id' => 'SPOUSE_YEARS_OF_SERVICE_YEAR',
-                                    'value' => set_value('SPOUSE_YEARS_OF_SERVICE_YEAR'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -895,10 +1358,20 @@
                             <label for="SPOUSE_YEARS_OF_SERVICE_MONTH" class="col-md-4 control-label"> YEARS OF SERVICE MONTH</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('SPOUSE_YEARS_OF_SERVICE_MONTH');
+                                } else {
+                                    $value = set_value('SPOUSE_YEARS_OF_SERVICE_MONTH');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['SPOUSE_YEARS_OF_SERVICE_MONTH']) ? $customer_profile['SPOUSE_YEARS_OF_SERVICE_MONTH'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $SPOUSE_YEARS_OF_SERVICE_MONTH = array(
                                     'name' => 'SPOUSE_YEARS_OF_SERVICE_MONTH',
                                     'id' => 'SPOUSE_YEARS_OF_SERVICE_MONTH',
-                                    'value' => set_value('SPOUSE_YEARS_OF_SERVICE_MONTH'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -912,10 +1385,20 @@
                             <label for="SPOUSE_SALARY" class="col-md-4 control-label"> SALARY</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('SPOUSE_SALARY');
+                                } else {
+                                    $value = set_value('SPOUSE_SALARY');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['SPOUSE_SALARY']) ? $customer_profile['SPOUSE_SALARY'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $SPOUSE_SALARY = array(
                                     'name' => 'SPOUSE_SALARY',
                                     'id' => 'SPOUSE_SALARY',
-                                    'value' => set_value('SPOUSE_SALARY'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -929,10 +1412,20 @@
                             <label for="SPOUSE_OFFICE_PHONE1" class="col-md-4 control-label"> OFFICE PHONE1</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('SPOUSE_OFFICE_PHONE1');
+                                } else {
+                                    $value = set_value('SPOUSE_OFFICE_PHONE1');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['SPOUSE_OFFICE_PHONE1']) ? $customer_profile['SPOUSE_OFFICE_PHONE1'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $SPOUSE_OFFICE_PHONE1 = array(
                                     'name' => 'SPOUSE_OFFICE_PHONE1',
                                     'id' => 'SPOUSE_OFFICE_PHONE1',
-                                    'value' => set_value('SPOUSE_OFFICE_PHONE1'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -946,10 +1439,20 @@
                             <label for="SPOUSE_OFFICE_PHONE2" class="col-md-4 control-label"> OFFICE PHONE2</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('SPOUSE_OFFICE_PHONE2');
+                                } else {
+                                    $value = set_value('SPOUSE_OFFICE_PHONE2');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['SPOUSE_OFFICE_PHONE2']) ? $customer_profile['SPOUSE_OFFICE_PHONE2'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $SPOUSE_OFFICE_PHONE2 = array(
                                     'name' => 'SPOUSE_OFFICE_PHONE2',
                                     'id' => 'SPOUSE_OFFICE_PHONE2',
-                                    'value' => set_value('SPOUSE_OFFICE_PHONE2'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -963,10 +1466,20 @@
                             <label for="SPOUSE_OFFICE_ADDRESS" class="col-md-4 control-label"> OFFICE ADDRESS</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('SPOUSE_OFFICE_ADDRESS');
+                                } else {
+                                    $value = set_value('SPOUSE_OFFICE_ADDRESS');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['SPOUSE_OFFICE_ADDRESS']) ? $customer_profile['SPOUSE_OFFICE_ADDRESS'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $SPOUSE_OFFICE_ADDRESS = array(
                                     'name' => 'SPOUSE_OFFICE_ADDRESS',
                                     'id' => 'SPOUSE_OFFICE_ADDRESS',
-                                    'value' => set_value('SPOUSE_OFFICE_ADDRESS'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1008,10 +1521,20 @@
                                 <label for="GUARANTER_IDNO" class="col-md-4 control-label"> ID NO</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_IDNO');
+                                    } else {
+                                        $value = set_value('GUARANTER_IDNO');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_IDNO']) ? $customer_profile['GUARANTER_IDNO'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_IDNO = array(
                                         'name' => 'GUARANTER_IDNO',
                                         'id' => 'GUARANTER_IDNO',
-                                        'value' => set_value('GUARANTER_IDNO'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -1025,10 +1548,20 @@
                                 <label for="GUARANTER_NAME" class="col-md-4 control-label"> NAME</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_NAME');
+                                    } else {
+                                        $value = set_value('GUARANTER_NAME');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_NAME']) ? $customer_profile['GUARANTER_NAME'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_NAME = array(
                                         'name' => 'GUARANTER_NAME',
                                         'id' => 'GUARANTER_NAME',
-                                        'value' => set_value('GUARANTER_NAME'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -1042,10 +1575,20 @@
                                 <label for="GUARANTER_FATHERS_NAME" class="col-md-4 control-label"> FATHERS NAME</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_FATHERS_NAME');
+                                    } else {
+                                        $value = set_value('GUARANTER_FATHERS_NAME');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_FATHERS_NAME']) ? $customer_profile['GUARANTER_FATHERS_NAME'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_FATHERS_NAME = array(
                                         'name' => 'GUARANTER_FATHERS_NAME',
                                         'id' => 'GUARANTER_FATHERS_NAME',
-                                        'value' => set_value('GUARANTER_FATHERS_NAME'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -1059,10 +1602,20 @@
                                 <label for="GUARANTER_MOTHERS_NAME" class="col-md-4 control-label"> MOTHERS NAME</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_MOTHERS_NAME');
+                                    } else {
+                                        $value = set_value('GUARANTER_MOTHERS_NAME');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_MOTHERS_NAME']) ? $customer_profile['GUARANTER_MOTHERS_NAME'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_MOTHERS_NAME = array(
                                         'name' => 'GUARANTER_MOTHERS_NAME',
                                         'id' => 'GUARANTER_MOTHERS_NAME',
-                                        'value' => set_value('GUARANTER_MOTHERS_NAME'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -1076,10 +1629,20 @@
                                 <label for="GUARANTER_EMAILID" class="col-md-4 control-label"> EMAILID</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_EMAILID');
+                                    } else {
+                                        $value = set_value('GUARANTER_EMAILID');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_EMAILID']) ? $customer_profile['GUARANTER_EMAILID'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_EMAILID = array(
                                         'name' => 'GUARANTER_EMAILID',
                                         'id' => 'GUARANTER_EMAILID',
-                                        'value' => set_value('GUARANTER_EMAILID'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -1093,10 +1656,20 @@
                                 <label for="GUARANTER_HOME_PHONE" class="col-md-4 control-label"> HOME PHONE</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_HOME_PHONE');
+                                    } else {
+                                        $value = set_value('GUARANTER_HOME_PHONE');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_HOME_PHONE']) ? $customer_profile['GUARANTER_HOME_PHONE'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_HOME_PHONE = array(
                                         'name' => 'GUARANTER_HOME_PHONE',
                                         'id' => 'GUARANTER_HOME_PHONE',
-                                        'value' => set_value('GUARANTER_HOME_PHONE'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -1110,10 +1683,20 @@
                                 <label for="GUARANTER_HAND_PHONE" class="col-md-4 control-label"> HAND PHONE</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_HAND_PHONE');
+                                    } else {
+                                        $value = set_value('GUARANTER_HAND_PHONE');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_HAND_PHONE']) ? $customer_profile['GUARANTER_HAND_PHONE'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_HAND_PHONE = array(
                                         'name' => 'GUARANTER_HAND_PHONE',
                                         'id' => 'GUARANTER_HAND_PHONE',
-                                        'value' => set_value('GUARANTER_HAND_PHONE'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -1127,10 +1710,20 @@
                                 <label for="GUARANTER_ADDRESS" class="col-md-4 control-label"> ADDRESS</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_ADDRESS');
+                                    } else {
+                                        $value = set_value('GUARANTER_ADDRESS');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_ADDRESS']) ? $customer_profile['GUARANTER_ADDRESS'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_ADDRESS = array(
                                         'name' => 'GUARANTER_ADDRESS',
                                         'id' => 'GUARANTER_ADDRESS',
-                                        'value' => set_value('GUARANTER_ADDRESS'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -1153,10 +1746,20 @@
                                 <label for="GUARANTER_DOB" class="col-md-4 control-label"> DOB</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_DOB');
+                                    } else {
+                                        $value = set_value('GUARANTER_DOB');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_DOB']) ? date("Y-m-d", strtotime($customer_profile['GUARANTER_DOB'])) : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_DOB = array(
                                         'name' => 'GUARANTER_DOB',
                                         'id' => 'GUARANTER_DOB',
-                                        'value' => set_value('GUARANTER_DOB'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control date-picker  dob-class"
                                     );
@@ -1170,10 +1773,20 @@
                                 <label for="GUARANTER_AGE" class="col-md-4 control-label"> AGE</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_AGE');
+                                    } else {
+                                        $value = set_value('GUARANTER_AGE');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_AGE']) ? $customer_profile['GUARANTER_AGE'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_AGE = array(
                                         'name' => 'GUARANTER_AGE',
                                         'id' => 'GUARANTER_AGE',
-                                        'value' => set_value('GUARANTER_AGE'),
+                                        'value' => $namevalue,
                                         'readonly' => true,
                                         'maxlength' => '50',
                                         "class" => "form-control"
@@ -1188,10 +1801,20 @@
                                 <label for="GUARANTER_NO_OF_CHILDREN" class="col-md-4 control-label"> NO OF CHILDREN</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_NO_OF_CHILDREN');
+                                    } else {
+                                        $value = set_value('GUARANTER_NO_OF_CHILDREN');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_NO_OF_CHILDREN']) ? $customer_profile['GUARANTER_NO_OF_CHILDREN'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_NO_OF_CHILDREN = array(
                                         'name' => 'GUARANTER_NO_OF_CHILDREN',
                                         'id' => 'GUARANTER_NO_OF_CHILDREN',
-                                        'value' => set_value('GUARANTER_NO_OF_CHILDREN'),
+                                        'value' => $namevalue,
                                         'maxlength' => '50',
                                         "class" => "form-control"
                                     );
@@ -1205,14 +1828,23 @@
                                 <label for="GUARANTER_GENDER" class="col-md-4 control-label"> GENDER</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_GENDER');
+                                    } else {
+                                        $value = set_value('GUARANTER_GENDER');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_GENDER']) ? $customer_profile['GUARANTER_GENDER'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $GUARANTER_GENDER_values = array(
                                         '' => "Select",
                                         '1' => 'Male',
                                         '2' => 'Female',
                                     );
-                                    $name_value = set_value("GUARANTER_GENDER");
                                     $js = 'id="GUARANTER_GENDER" class="form-control"';
-                                    echo form_dropdown('GUARANTER_GENDER', $GUARANTER_GENDER_values, $name_value, $js);
+                                    echo form_dropdown('GUARANTER_GENDER', $GUARANTER_GENDER_values, $namevalue, $js);
                                     echo form_error("GUARANTER_GENDER");
                                     ?>
                                 </div>
@@ -1221,13 +1853,22 @@
                                 <label for="GUARANTER_RACE_ID" class="col-md-4 control-label"> RACE</label>
                                 <div class="col-md-8">
                                     <?php
+                                    if (!isset($customer_profile)) {
+                                        $namevalue = set_value('GUARANTER_RACE_ID');
+                                    } else {
+                                        $value = set_value('GUARANTER_RACE_ID');
+                                        if (empty($value)) {
+                                            $namevalue = isset($customer_profile['GUARANTER_RACE_ID']) ? $customer_profile['GUARANTER_RACE_ID'] : "";
+                                        } else {
+                                            $namevalue = $value;
+                                        }
+                                    }
                                     $options = array("" => "Select");
                                     foreach ($all_masters_race as $masters_race) {
                                         $options[$masters_race['RACE_ID']] = $masters_race['RACE_NAME'];
                                     }
-                                    $name_value = set_value("GUARANTER_RACE_ID");
                                     $js = 'id="GUARANTER_RACE_ID" class="form-control"';
-                                    echo form_dropdown('GUARANTER_RACE_ID', $options, $name_value, $js);
+                                    echo form_dropdown('GUARANTER_RACE_ID', $options, $namevalue, $js);
                                     echo form_error("GUARANTER_RACE_ID");
                                     ?>
                                 </div>
@@ -1246,13 +1887,22 @@
                             <label for="GUARANTER_COMPANY_NAME" class="col-md-4 control-label"> COMPANY NAME</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('GUARANTER_COMPANY_NAME');
+                                } else {
+                                    $value = set_value('GUARANTER_COMPANY_NAME');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['GUARANTER_COMPANY_NAME']) ? $customer_profile['GUARANTER_COMPANY_NAME'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $options = array("" => "Select");
                                 foreach ($all_masters_cust_comp_info as $masters_cust_comp_info) {
                                     $options[$masters_cust_comp_info['COMPANY_ID']] = $masters_cust_comp_info['COMPANY_NAME'];
                                 }
-                                $name_value = set_value("GUARANTER_COMPANY_NAME");
                                 $js = 'id="GUARANTER_COMPANY_NAME" class="form-control"';
-                                echo form_dropdown('GUARANTER_COMPANY_NAME', $options, $name_value, $js);
+                                echo form_dropdown('GUARANTER_COMPANY_NAME', $options, $namevalue, $js);
                                 echo form_error("GUARANTER_COMPANY_NAME");
                                 ?>
                             </div>
@@ -1261,10 +1911,20 @@
                             <label for="GUARANTER_OCCUPATION_DEPT" class="col-md-4 control-label"> OCCUPATION DEPT</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('GUARANTER_OCCUPATION_DEPT');
+                                } else {
+                                    $value = set_value('GUARANTER_OCCUPATION_DEPT');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['GUARANTER_OCCUPATION_DEPT']) ? $customer_profile['GUARANTER_OCCUPATION_DEPT'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $GUARANTER_OCCUPATION_DEPT = array(
                                     'name' => 'GUARANTER_OCCUPATION_DEPT',
                                     'id' => 'GUARANTER_OCCUPATION_DEPT',
-                                    'value' => set_value('GUARANTER_OCCUPATION_DEPT'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1278,10 +1938,20 @@
                             <label for="GUARANTER_YEARS_OF_SERVICE_YEAR" class="col-md-4 control-label"> YEARS OF SERVICE YEAR</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('GUARANTER_YEARS_OF_SERVICE_YEAR');
+                                } else {
+                                    $value = set_value('GUARANTER_YEARS_OF_SERVICE_YEAR');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['GUARANTER_YEARS_OF_SERVICE_YEAR']) ? $customer_profile['GUARANTER_YEARS_OF_SERVICE_YEAR'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $GUARANTER_YEARS_OF_SERVICE_YEAR = array(
                                     'name' => 'GUARANTER_YEARS_OF_SERVICE_YEAR',
                                     'id' => 'GUARANTER_YEARS_OF_SERVICE_YEAR',
-                                    'value' => set_value('GUARANTER_YEARS_OF_SERVICE_YEAR'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1295,10 +1965,20 @@
                             <label for="GUARANTER_YEARS_OF_SERVICE_MONTH" class="col-md-4 control-label"> YEARS OF SERVICE MONTH</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('GUARANTER_YEARS_OF_SERVICE_MONTH');
+                                } else {
+                                    $value = set_value('GUARANTER_YEARS_OF_SERVICE_MONTH');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['GUARANTER_YEARS_OF_SERVICE_MONTH']) ? $customer_profile['GUARANTER_YEARS_OF_SERVICE_MONTH'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $GUARANTER_YEARS_OF_SERVICE_MONTH = array(
                                     'name' => 'GUARANTER_YEARS_OF_SERVICE_MONTH',
                                     'id' => 'GUARANTER_YEARS_OF_SERVICE_MONTH',
-                                    'value' => set_value('GUARANTER_YEARS_OF_SERVICE_MONTH'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1312,10 +1992,20 @@
                             <label for="GUARANTER_SALARY" class="col-md-4 control-label"> SALARY</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('GUARANTER_SALARY');
+                                } else {
+                                    $value = set_value('GUARANTER_SALARY');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['GUARANTER_SALARY']) ? $customer_profile['GUARANTER_SALARY'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $GUARANTER_SALARY = array(
                                     'name' => 'GUARANTER_SALARY',
                                     'id' => 'GUARANTER_SALARY',
-                                    'value' => set_value('GUARANTER_SALARY'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1329,10 +2019,20 @@
                             <label for="GUARANTER_OFFICE_PHONE1" class="col-md-4 control-label"> OFFICE PHONE</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('GUARANTER_OFFICE_PHONE1');
+                                } else {
+                                    $value = set_value('GUARANTER_OFFICE_PHONE1');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['GUARANTER_OFFICE_PHONE1']) ? $customer_profile['GUARANTER_OFFICE_PHONE1'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $GUARANTER_OFFICE_PHONE1 = array(
                                     'name' => 'GUARANTER_OFFICE_PHONE1',
                                     'id' => 'GUARANTER_OFFICE_PHONE1',
-                                    'value' => set_value('GUARANTER_OFFICE_PHONE1'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1346,10 +2046,20 @@
                             <label for="GUARANTER_OFFICE_PHONE2" class="col-md-4 control-label"> OFFICE Alt PHONE</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('GUARANTER_OFFICE_PHONE2');
+                                } else {
+                                    $value = set_value('GUARANTER_OFFICE_PHONE2');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['GUARANTER_OFFICE_PHONE2']) ? $customer_profile['GUARANTER_OFFICE_PHONE2'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $GUARANTER_OFFICE_PHONE2 = array(
                                     'name' => 'GUARANTER_OFFICE_PHONE2',
                                     'id' => 'GUARANTER_OFFICE_PHONE2',
-                                    'value' => set_value('GUARANTER_OFFICE_PHONE2'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1363,10 +2073,20 @@
                             <label for="GUARANTER_OFFICE_ADDRESS" class="col-md-4 control-label"> OFFICE ADDRESS</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('GUARANTER_OFFICE_ADDRESS');
+                                } else {
+                                    $value = set_value('GUARANTER_OFFICE_ADDRESS');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['GUARANTER_OFFICE_ADDRESS']) ? $customer_profile['GUARANTER_OFFICE_ADDRESS'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $GUARANTER_OFFICE_ADDRESS = array(
                                     'name' => 'GUARANTER_OFFICE_ADDRESS',
                                     'id' => 'GUARANTER_OFFICE_ADDRESS',
-                                    'value' => set_value('GUARANTER_OFFICE_ADDRESS'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1394,10 +2114,20 @@
                             <label for="CUSTOMER_POPUP_NOTES" class="col-md-4 control-label">CUSTOMER POPUP NOTES</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('CUSTOMER_POPUP_NOTES');
+                                } else {
+                                    $value = set_value('CUSTOMER_POPUP_NOTES');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['CUSTOMER_POPUP_NOTES']) ? $customer_profile['CUSTOMER_POPUP_NOTES'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $CUSTOMER_POPUP_NOTES = array(
                                     'name' => 'CUSTOMER_POPUP_NOTES',
                                     'id' => 'CUSTOMER_POPUP_NOTES',
-                                    'value' => set_value('CUSTOMER_POPUP_NOTES'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1411,10 +2141,20 @@
                             <label for="VERIFICATION_HR_INFO" class="col-md-4 control-label"> HR INFO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('VERIFICATION_HR_INFO');
+                                } else {
+                                    $value = set_value('VERIFICATION_HR_INFO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['VERIFICATION_HR_INFO']) ? $customer_profile['VERIFICATION_HR_INFO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $VERIFICATION_HR_INFO = array(
                                     'name' => 'VERIFICATION_HR_INFO',
                                     'id' => 'VERIFICATION_HR_INFO',
-                                    'value' => set_value('VERIFICATION_HR_INFO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1428,10 +2168,20 @@
                             <label for="VERIFICATION_SPOUSE_INFO" class="col-md-4 control-label"> SPOUSE INFO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('VERIFICATION_SPOUSE_INFO');
+                                } else {
+                                    $value = set_value('VERIFICATION_SPOUSE_INFO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['VERIFICATION_SPOUSE_INFO']) ? $customer_profile['VERIFICATION_SPOUSE_INFO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $VERIFICATION_SPOUSE_INFO = array(
                                     'name' => 'VERIFICATION_SPOUSE_INFO',
                                     'id' => 'VERIFICATION_SPOUSE_INFO',
-                                    'value' => set_value('VERIFICATION_SPOUSE_INFO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1445,10 +2195,20 @@
                             <label for="VERIFICATION_REFERENCE_INFO" class="col-md-4 control-label"> REFERENCE INFO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('VERIFICATION_REFERENCE_INFO');
+                                } else {
+                                    $value = set_value('VERIFICATION_REFERENCE_INFO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['VERIFICATION_REFERENCE_INFO']) ? $customer_profile['VERIFICATION_REFERENCE_INFO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $VERIFICATION_REFERENCE_INFO = array(
                                     'name' => 'VERIFICATION_REFERENCE_INFO',
                                     'id' => 'VERIFICATION_REFERENCE_INFO',
-                                    'value' => set_value('VERIFICATION_REFERENCE_INFO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1464,10 +2224,20 @@
                             <label for="VERIFICATION_OTHER_INFO" class="col-md-4 control-label"> OTHER INFO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('VERIFICATION_OTHER_INFO');
+                                } else {
+                                    $value = set_value('VERIFICATION_OTHER_INFO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['VERIFICATION_OTHER_INFO']) ? $customer_profile['VERIFICATION_OTHER_INFO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $VERIFICATION_OTHER_INFO = array(
                                     'name' => 'VERIFICATION_OTHER_INFO',
                                     'id' => 'VERIFICATION_OTHER_INFO',
-                                    'value' => set_value('VERIFICATION_OTHER_INFO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1481,10 +2251,20 @@
                             <label for="VERIFICATION_CTOS_INFO" class="col-md-4 control-label"> CTOS INFO</label>
                             <div class="col-md-8">
                                 <?php
+                                if (!isset($customer_profile)) {
+                                    $namevalue = set_value('VERIFICATION_CTOS_INFO');
+                                } else {
+                                    $value = set_value('VERIFICATION_CTOS_INFO');
+                                    if (empty($value)) {
+                                        $namevalue = isset($customer_profile['VERIFICATION_CTOS_INFO']) ? $customer_profile['VERIFICATION_CTOS_INFO'] : "";
+                                    } else {
+                                        $namevalue = $value;
+                                    }
+                                }
                                 $VERIFICATION_CTOS_INFO = array(
                                     'name' => 'VERIFICATION_CTOS_INFO',
                                     'id' => 'VERIFICATION_CTOS_INFO',
-                                    'value' => set_value('VERIFICATION_CTOS_INFO'),
+                                    'value' => $namevalue,
                                     'maxlength' => '50',
                                     "class" => "form-control"
                                 );
@@ -1498,18 +2278,7 @@
                         <div class="form-group">
                             <label for="VERIFICATION_COMPLETED" class="col-md-4 control-label"> COMPLETED</label>
                             <div class="col-md-8">
-                                <?php
-                                $VERIFICATION_COMPLETED = array(
-                                    'name' => 'VERIFICATION_COMPLETED',
-                                    'id' => 'VERIFICATION_COMPLETED',
-                                    'value' => set_value('VERIFICATION_COMPLETED'),
-                                    'maxlength' => '50',
-                                    "class" => "form-control"
-                                );
-
-                                echo form_checkbox($VERIFICATION_COMPLETED);
-                                echo form_error("VERIFICATION_COMPLETED");
-                                ?>
+                                <input type="checkbox" name="VERIFICATION_COMPLETED" value="1"  id="VERIFICATION_COMPLETED" />
                             </div>
                         </div>
                     </div>
@@ -1897,7 +2666,7 @@
                         <div class="col-md-4" style="padding-left:30px;">
 
                             <div class="form-group">
-                                <label for="CUSTOMER_TYPE" class="col-md-4 control-label">Doc Name</label>
+                                <label for="CUSTOMER_DOC_TYPE" class="col-md-4 control-label">Doc Name</label>
 
                                 <div class="col-md-6">
                                     <?php
@@ -1906,10 +2675,10 @@
                                         '1' => 'AAdhar',
                                         '2' => 'Pan',
                                     );
-                                    $name_value = set_value("CUSTOMER_TYPE");
-                                    $js = 'id="CUSTOMER_TYPE" class="form-control"';
-                                    echo form_dropdown('CUSTOMER_TYPE', $doc_TYPE_values, $name_value, $js);
-                                    echo form_error("CUSTOMER_TYPE");
+                                    $name_value = set_value("CUSTOMER_DOC_TYPE");
+                                    $js = 'id="CUSTOMER_DOC_TYPE" class="form-control"';
+                                    echo form_dropdown('CUSTOMER_DOC_TYPE', $doc_TYPE_values, $name_value, $js);
+                                    echo form_error("CUSTOMER_DOC_TYPE");
                                     ?>
                                 </div>
                             </div>

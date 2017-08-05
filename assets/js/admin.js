@@ -140,14 +140,13 @@ var admin = function () {
             },
             onFinished: function (event, currentIndex)
             {
-                $('.actions > ul > li:nth-child(3)').addClass("disabled");
-                $('.actions > ul > li:nth-child(3)').attr("style", 'display:none');
-                getLocalTime();
+//                $('.actions > ul > li:nth-child(3)').addClass("disabled");
+//                $('.actions > ul > li:nth-child(3)').attr("style", 'display:none');
                 var form = $(this);
                 // Submit form input
                 form.submit();
-                $(this).addClass("text-center");
-                $(this).html('<img src="' + SITEURL + 'assets/images/loading.gif" alt="Loading...">');
+//                $(this).addClass("text-center");
+//                $(this).html('<img src="' + SITEURL + 'assets/images/loading.gif" alt="Loading...">');
             }
         }).validate({
             errorPlacement: function errorPlacement(error, element) {

@@ -261,12 +261,12 @@ $config = array(
             'rules' => 'trim|required'
         ),
         array(
-            'field' => 'REFERENCE_NAME',
+            'field' => 'REFERENCE_NAME[]',
             'label' => 'Reference name',
             'rules' => 'trim|required|min_length[1]|max_length[100]|callback_namefield'
         ),
         array(
-            'field' => 'REFERENCE_IDNO',
+            'field' => 'REFERENCE_IDNO[]',
             'label' => 'Reference id no',
             'rules' => 'trim|required'
         ),

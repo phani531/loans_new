@@ -10,6 +10,7 @@ class Customer_detail extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model(array('Masters_cust_comp_info_model', 'Masters_cust_bank_model', 'Masters_race_model', 'file_model', 'Customer_detail_model', 'Masters_agent_info_model', 'Masters_advertisement_model', 'Administration_comp_profile_model'));
+        $this->load->helper(array("datatable"));
         $this->load->library(array('form_validation', 'PostData'));
         $session_data = (isset($this->session->userdata['EMP_DATA']) && !empty($this->session->userdata['EMP_DATA'])) ? $this->session->userdata['EMP_DATA'] : array();
         if (empty($session_data))
@@ -27,13 +28,24 @@ class Customer_detail extends CI_Controller {
         $this->load->view('layouts/main', $data);
     }
 
+    function getAllCustomers() {
+        $request = $_GET;
+        $result = $this->Customer_detail_model->get_all_customer_details_data($request, array());
+        echo json_encode($result);
+        exit;
+    }
+
     /*
      * Adding a new customer_detail
      */
 
-    function add() {
+    function add($id = 0) {
         $data = array();
         $postData = $this->input->post();
+        if ($id != 0) {
+            $data['customer_profile'] = $this->Customer_detail_model->get_customer_detail($id);
+        }
+        $data['customer_id'] = $id;
         $data['all_masters_agent_info'] = $this->Masters_agent_info_model->get_all_masters_agent_info();
         $data['all_masters_advertisements'] = $this->Masters_advertisement_model->get_all_masters_advertisements();
         $data['all_administration_comp_profile'] = $this->Administration_comp_profile_model->get_all_administration_comp_profile_data();
@@ -44,13 +56,15 @@ class Customer_detail extends CI_Controller {
         $data['all_masters_race'] = $this->Masters_race_model->get_all_masters_race();
         $data['all_masters_cust_comp_info'] = $this->Masters_cust_comp_info_model->get_all_masters_cust_comp_info();
         if (!empty($postData)) {
-            if ($this->form_validation->run("admin_comp_profile_form") == TRUE) {
-                $cust_data = $this->postdata->getAdminCustProfileData($postData);
-                echo "<pre>";
-                print_r($cust_data);
-                exit;
+            if ($this->form_validation->run("customer_info_creation_form") == TRUE) {
+                if ($id == 0 || $id == "")
+                    $cust_data = $this->postdata->getAdminCustProfileData($postData);
+                else {
+                    $cust_data = $this->postdata->getAdminCustProfileData($postData, TRUE);
+                    $cust_data['id'] = $id;
+                }
                 $customer_detail_id = $this->Customer_detail_model->add_customer_detail($cust_data);
-                redirect('customers/customerDetails');
+                redirect('customer_detail/index');
             } else {
                 $data['_view'] = 'customer_detail/add';
                 $this->load->view('layouts/main', $data);
