@@ -61,7 +61,7 @@ class Customer_detail extends CI_Controller {
         $data['all_masters_cust_comp_info'] = $this->Masters_cust_comp_info_model->get_all_masters_cust_comp_info();
         if (!empty($postData)) {
             if ($this->form_validation->run("customer_info_creation_form") == TRUE) {
-                if (!empty($_FILES)) {
+                if (!empty($_FILES) && isset($_FILES['userFiles']['name']) && $_FILES['userFiles']['name'][0] != "") {
                     $filesCount = count($_FILES['userFiles']['name']);
                     for ($i = 0; $i < $filesCount; $i++) {
                         $_FILES['userFile']['name'] = $_FILES['userFiles']['name'][$i];

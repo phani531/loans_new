@@ -37,6 +37,10 @@ var admin = function () {
 
     }
 
+    /**
+     * Function to initialize custom tabs
+     * @returns {undefined}
+     */
     function initCustomTabs() {
         $(".custom-tabs li").on("click", function () {
             var parentId = $(this).parent().attr("id");
@@ -125,15 +129,21 @@ var admin = function () {
             transitionEffect: "slideLeft",
             onStepChanging: function (event, currentIndex, newIndex)
             {
+                var customer_type = $("#CUSTOMER_TYPE").val();
+                if (customer_type == 2) {
+                    $('#customer_info_creation_form-t-2').hide();
+                    $('#customer_info_creation_form-p-2').css("visibility", "hidden");
+                } else {
+                    if (newIndex === 2) {
+                        $('#customer_info_creation_form-t-2').show();
+                        $('#customer_info_creation_form-p-2').css("visibility", "visible");
+                    }
+                }
+
                 // Allways allow previous action even if the current form is not valid!
                 if (currentIndex > newIndex)
                 {
                     return true;
-                }
-                // Forbid next action on "Warning" step if the user is to young
-                if (newIndex === 3 && Number($("#age-2").val()) < 18)
-                {
-                    return false;
                 }
                 // Needed in some cases if the user went back (clean up)
                 if (currentIndex < newIndex)
@@ -165,13 +175,9 @@ var admin = function () {
             },
             onFinished: function (event, currentIndex)
             {
-//                $('.actions > ul > li:nth-child(3)').addClass("disabled");
-//                $('.actions > ul > li:nth-child(3)').attr("style", 'display:none');
                 var form = $(this);
                 // Submit form input
                 form.submit();
-//                $(this).addClass("text-center");
-//                $(this).html('<img src="' + SITEURL + 'assets/images/loading.gif" alt="Loading...">');
             }
         }).validate({
             errorPlacement: function errorPlacement(error, element) {

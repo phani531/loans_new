@@ -9,19 +9,31 @@ else
 echo $this->session->flashdata('errormessage');
 echo form_open_multipart($action, array("id" => "customer_info_creation_form", "name" => "customer_info_creation_form", "class" => "form-horizontal", "method" => "post"));
 ?>
-<?php /*
-  $CUSTOMER_TYPE_values = array(
-  '1' => 'Individual',
-  '2' => 'Company',
-  );
-  $name_value = set_value("CUSTOMER_TYPE");
-  $js = 'id="CUSTOMER_TYPE" class="form-control required"';
-  echo form_dropdown('CUSTOMER_TYPE', $CUSTOMER_TYPE_values, $name_value, $js);
-  echo form_error("CUSTOMER_TYPE"); */
-?>
 <h1>Customer Info</h1>
 <fieldset>
     <div class="row box">
+        <div class="col-md-3 pull-right">
+            <?php
+            if (!isset($customer_profile)) {
+                $namevalue = set_value('CUSTOMER_TYPE');
+            } else {
+                $value = set_value('CUSTOMER_TYPE');
+                if (empty($value)) {
+                    $namevalue = isset($customer_profile['CUSTOMER_TYPE']) ? $customer_profile['CUSTOMER_TYPE'] : "";
+                } else {
+                    $namevalue = $value;
+                }
+            }
+            $CUSTOMER_TYPE_values = array(
+                '1' => 'Individual',
+                '2' => 'Company',
+            );
+            $name_value = $namevalue;
+            $js = 'id="CUSTOMER_TYPE" class="form-control required"';
+            echo form_dropdown('CUSTOMER_TYPE', $CUSTOMER_TYPE_values, $name_value, $js);
+            echo form_error("CUSTOMER_TYPE");
+            ?>
+        </div>
         <div class="col-md-12">
             <div class="box box-info">
                 <div class="box-header with-border">
