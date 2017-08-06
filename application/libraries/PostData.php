@@ -359,6 +359,80 @@ class PostData {
         return $return_array;
     }
 
+    /**
+     * Function to prepare customer address data
+     * 
+     * @param array $data
+     * @param boolean $edit_flag
+     * @return array $return_array
+     */
+    function getCustomerAddressData($data, $edit_flag = false) {
+        $return_array = array();
+        if (!empty($data)) {
+            $i = 0;
+            foreach ($data as $key => $value):
+                if (strpos($key, "CONTACT") !== false && $i < count($value)) {
+                    $return_array[$i]['ACTUAL_ADDRESS'] = $data['CONTACT_Address'][$i];
+                    $return_array[$i]['CITY'] = $data['CONTACT_City'][$i];
+                    $return_array[$i]['STATE_ID'] = $data['CONTACT_State'][$i];
+                    $return_array[$i]['POSTCODE'] = $data['CONTACT_code'][$i];
+                    $return_array[$i]['PHONE1'] = $data['CONTACT_phone1'][$i];
+                    $return_array[$i]['PHONE2'] = $data['CONTACT_alt_phone'][$i];
+                    $return_array[$i]['FAX'] = $data['CONTACT_fax'][$i];
+                    $return_array[$i]['IS_ACTIVE'] = 1;
+                    if (!$edit_flag) {
+                        $return_array[$i]['CREATED_DATE'] = date("Y-m-d H:i:s");
+                        $return_array[$i]['CREATED_BY'] = isset($this->CI->session->userdata["EMP_DATA"]['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+                    } else {
+                        $return_array[$i]['MODIFIED_DATE'] = date("Y-m-d H:i:s");
+                        $return_array[$i]['MODIFIED_BY'] = isset($this->CI->session->userdata['EMP_DATA']['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+                    }
+                    $i++;
+                }
+            endforeach;
+        }
+        return $return_array;
+    }
+
+    /**
+     * Function to prepare customer reference data
+     * 
+     * @param array $data
+     * @param boolean $edit_flag
+     * @return array $return_array
+     */
+    function getCustomerReferenceData($data, $edit_flag = false) {
+        $return_array = array();
+        if (!empty($data)) {
+            $i = 0;
+            foreach ($data as $key => $value):
+                if (strpos($key, "REFERENCE") !== false && $i < count($value)) {
+                    $return_array[$i]['REFERENCE_NAME'] = $data['REFERENCE_NAME'][$i];
+                    $return_array[$i]['REFERENCE_IDNO'] = $data['REFERENCE_IDNO'][$i];
+                    $return_array[$i]['REFERENCE_RELATION'] = $data['REFERENCE_RELATION'][$i];
+                    $return_array[$i]['ADDRESS_KEY'] = $data['REFERECE_ADDRESS_KEY'][$i];
+                    $return_array[$i]['ACTUAL_ADDRESS'] = $data['REFERECE_ACTUAL_ADDRESS'][$i];
+                    $return_array[$i]['CITY'] = $data['REFERECE_CITY'][$i];
+                    $return_array[$i]['STATE_ID'] = $data['REFERECE_STATE_ID'][$i];
+                    $return_array[$i]['POSTCODE'] = $data['REFERECE_POSTCODE'][$i];
+                    $return_array[$i]['PHONE1'] = $data['REFERECE_PHONE1'][$i];
+                    $return_array[$i]['PHONE2'] = $data['REFERECE_PHONE2'][$i];
+                    $return_array[$i]['FAX'] = $data['REFERECE_FAX'][$i];
+                    $return_array[$i]['IS_ACTIVE'] = 1;
+                    if (!$edit_flag) {
+                        $return_array[$i]['CREATED_DATE'] = date("Y-m-d H:i:s");
+                        $return_array[$i]['CREATED_BY'] = isset($this->CI->session->userdata["EMP_DATA"]['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+                    } else {
+                        $return_array[$i]['MODIFIED_DATE'] = date("Y-m-d H:i:s");
+                        $return_array[$i]['MODIFIED_BY'] = isset($this->CI->session->userdata['EMP_DATA']['EMP_ID']) ? $this->CI->session->userdata['EMP_DATA']['EMP_ID'] : 0;
+                    }
+                    $i++;
+                }
+            endforeach;
+        }
+        return $return_array;
+    }
+
 }
 ?>
 

@@ -28,12 +28,29 @@ var admin = function () {
         initAgeCaluculator();
         initRelcopy();
         initSignup();
+        initCustomTabs();
         initDeleteIndividualRow();
         initDatePicker();
     }
 
     function ajaxInit() {
 
+    }
+
+    function initCustomTabs() {
+        $(".custom-tabs li").on("click", function () {
+            var parentId = $(this).parent().attr("id");
+            $(".custom-tabs li").removeClass("active");
+            var id = $(this).data("tab-id");
+            $("#li_" + id).addClass("active");
+            if (parentId.indexOf("contact") >= 0) {
+                $(".contact-tab .tab-pane").removeClass("active");
+                $("#contact_" + id).addClass("active");
+            } else if (parentId.indexOf("reference") >= 0) {
+                $(".reference-tab .tab-pane").removeClass("active");
+                $("#reference_" + id).addClass("active");
+            }
+        });
     }
 
     /**
@@ -68,6 +85,8 @@ var admin = function () {
             $(".contactContent").append('<div class="tab-pane" id="contact_' + li + '" style="margin:10px;"></div>');
             var a = $('#contact_' + l).html();
             var b = $('#contact_' + li).html(a);
+            $("#contact_" + (l + 1) + " input").val("");
+            $("#contact_" + (l + 1) + " textarea").val("");
         });
 
         $(".addMoreReference").click(function () {
@@ -77,13 +96,19 @@ var admin = function () {
             $(".referenceContent").append('<div class="tab-pane" id="reference_' + li + '" style="margin:10px;"></div>');
             var a = $('#reference_' + l).html();
             var b = $('#reference_' + li).html(a);
+            $("#reference_" + (l + 1) + " input").val("");
+            $("#reference_" + (l + 1) + " textarea").val("");
         });
 
         $(".addMoreDocs").click(function () {
             var li = parseInt(1) + parseInt(1);
-            $(".reference").after('<div id="docs_' + li + '" class="col-md-12"></div>');
-            var a = $('.reference').html();
-            var b = $('#docs_' + li).html(a);
+            var l = $("#length_hidden").val();
+            if (l < 2) {
+                var l = $("#length_hidden").val(2);
+                $(".reference").after('<div id="docs_' + li + '" class="col-md-12"></div>');
+                var a = $('.reference').html();
+                var b = $('#docs_' + li).html(a);
+            }
         });
     }
 

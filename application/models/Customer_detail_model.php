@@ -97,7 +97,29 @@ class Customer_detail_model extends CI_Model {
      */
 
     function get_customer_detail($CUSTOMER_ID) {
-        return $this->db->get_where('customer_details', array('CUSTOMER_ID' => $CUSTOMER_ID))->row_array();
+        return $this->db->get_where('customer_details', array('CUSTOMER_ID' => $CUSTOMER_ID, "IS_ACTIVE" => 1))->row_array();
+    }
+
+    /**
+     * Function to get customer address
+     * 
+     * @param int $CUSTOMER_ID
+     * 
+     * @return array result
+     */
+    function get_address_detail($CUSTOMER_ID) {
+        return $this->db->get_where('customer_address', array('CUSTOMER_ID' => $CUSTOMER_ID, "IS_ACTIVE" => 1))->result_array();
+    }
+
+    /**
+     * Function to get customer address
+     * 
+     * @param int $CUSTOMER_ID
+     * 
+     * @return array result
+     */
+    function get_reference_detail($CUSTOMER_ID) {
+        return $this->db->get_where('customer_reference', array('CUSTOMER_ID' => $CUSTOMER_ID, "IS_ACTIVE" => 1))->result_array();
     }
 
     /*
@@ -105,21 +127,60 @@ class Customer_detail_model extends CI_Model {
      */
 
     function get_all_customer_details() {
-        return $this->db->get('customer_details')->result_array();
+        return $this->db->where(array("IS_ACTIVE" => 1))->get('customer_details')->result_array();
     }
 
     /*
      * function to add new customer_detail
      */
 
-    function add_customer_detail($params) {
-        if (isset($params['id']) && $params['id'] != "" && $params['id'] != 0) {
-            $update_data = $params;
-            unset($update_data['id']);
-            $this->db->where(array("CUSTOMER_ID" => $params['id']))->update('customer_details', $update_data);
-        } else
-            $this->db->insert('customer_details', $params);
-        return true;
+    function add_customer_detail($insert_data) {
+        try {
+            $this->db->trans_begin();
+
+            if (isset($insert_data['customer_profile']['id']) && $insert_data['customer_profile']['id'] != "" && $insert_data['customer_profile']['id'] != 0) {
+                $customer_id = $insert_data['customer_profile']['id'];
+                $update_data = $insert_data;
+                unset($update_data['customer_profile']['id']);
+                $this->db->where(array("CUSTOMER_ID" => $insert_data['customer_profile']['id']))->update('customer_details', $update_data['customer_profile']);
+                $this->db->where(array("CUSTOMER_ID" => $insert_data['customer_profile']['id']))->update('customer_address', array("IS_ACTIVE" => 0));
+                $this->db->where(array("CUSTOMER_ID" => $insert_data['customer_profile']['id']))->update('customer_reference', array("IS_ACTIVE" => 0));
+            } else {
+                $this->db->insert('customer_details', $insert_data['customer_profile']);
+                $customer_id = $this->db->insert_id();
+            }
+            foreach ($insert_data['customer_address'] as $key => $value):
+                $insert_data['customer_address'][$key]['CUSTOMER_ID'] = $customer_id;
+            endforeach;
+            foreach ($insert_data['customer_reference'] as $key => $value):
+                $insert_data['customer_reference'][$key]['CUSTOMER_ID'] = $customer_id;
+            endforeach;
+            $this->db->insert_batch('customer_address', $insert_data['customer_address']);
+            $this->db->insert_batch('customer_reference', $insert_data['customer_reference']);
+
+            if (isset($insert_data['file_data']) && count($insert_data['file_data']) > 0) {
+                foreach ($insert_data['file_data'] as $key => $value):
+                    $insert_data['file_data'][$key]['CUSTOMER_ID'] = $customer_id;
+                endforeach;
+                $this->db->insert_batch('customer_doc_checklist', $insert_data['file_data']);
+            }
+
+            if ($this->db->trans_status() == TRUE) {
+                $this->db->trans_commit();
+                return true;
+            } else {
+                $this->db->trans_rollback();
+                return false;
+            }
+        } catch (Exception $e) {
+            log_message("Insertion of customer details failed.");
+            $this->db->trans_rollback();
+            return false;
+        }
+    }
+
+    function save_customer_address_detail() {
+        
     }
 
     /*
@@ -141,11 +202,23 @@ class Customer_detail_model extends CI_Model {
      */
 
     function delete_customer_detail($CUSTOMER_ID) {
-        $response = $this->db->delete('customer_details', array('CUSTOMER_ID' => $CUSTOMER_ID));
-        if ($response) {
-            return "customer_detail deleted successfully";
-        } else {
-            return "Error occuring while deleting customer_detail";
+        try {
+            $this->db->trans_begin();
+            $this->db->where(array("CUSTOMER_ID" => $CUSTOMER_ID))->update('customer_details', array('IS_ACTIVE' => 0));
+            $this->db->where(array("CUSTOMER_ID" => $CUSTOMER_ID))->update('customer_address', array('IS_ACTIVE' => 0));
+            $this->db->where(array("CUSTOMER_ID" => $CUSTOMER_ID))->update('customer_reference', array('IS_ACTIVE' => 0));
+            $this->db->where(array("CUSTOMER_ID" => $CUSTOMER_ID))->update('customer_doc_checklist', array('IS_ACTIVE' => 0));
+            if ($this->db->trans_status() == TRUE) {
+                $this->db->trans_commit();
+                return true;
+            } else {
+                $this->db->trans_rollback();
+                return false;
+            }
+        } catch (Exception $e) {
+            log_message("Error", "Deletion failed");
+            $this->db->trans_rollback();
+            return false;
         }
     }
 
