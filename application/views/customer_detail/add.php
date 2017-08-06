@@ -43,8 +43,14 @@ echo form_open_multipart($action, array("id" => "customer_info_creation_form", "
                     <div class="box box-primary col-md-offset-5" style="border-radius:0px;height:130px;box-shadow:none;border:0px;">
                         <div class="box-body box-profile" style="border:0px;">
                             <div class="profile-img-container img-circle">
-                                <input type="file" />
-                                <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url(); ?>assets/default-user.png" alt="User profile picture">
+                                <input type="file" name="customer_pic" />
+                                <?php
+                                $img_path = base_url() . "assets/default-user.png";
+                                if (isset($customer_profile['CUSTOMER_PIC_PATH']) && $customer_profile['CUSTOMER_PIC_PATH'] != "") {
+                                    $img_path = base_url() . "uploads/profilepics/" . $customer_profile['CUSTOMER_PIC_PATH'];
+                                }
+                                ?>
+                                <img class="profile-user-img img-responsive img-circle" src="<?php echo $img_path; ?>" alt="User profile picture">
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -891,8 +897,14 @@ echo form_open_multipart($action, array("id" => "customer_info_creation_form", "
                         <div class="box box-primary col-md-6" style="border-radius:0px;height:130px;box-shadow:none;border:0px;border-right:1px solid #00c0ef;margin-bottom:0px;">
                             <div class="box-body box-profile" style="border:0px;">
                                 <div class="profile-img-container img-circle" style="margin:0 40%;">
-                                    <input type="file" />
-                                    <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url(); ?>assets/default-user.png" alt="User profile picture">
+                                    <input type="file" name="spouse_pic_name"/>
+                                    <?php
+                                    $img_path = base_url() . "assets/default-user.png";
+                                    if (isset($customer_profile['SPOUSE_PIC_PATH']) && $customer_profile['SPOUSE_PIC_PATH'] != "") {
+                                        $img_path = base_url() . "uploads/profilepics/" . $customer_profile['SPOUSE_PIC_PATH'];
+                                    }
+                                    ?>
+                                    <img class="profile-user-img img-responsive img-circle" src="<?php echo $img_path; ?>" alt="User profile picture">
                                 </div>
                             </div>
                         </div>
@@ -1523,8 +1535,14 @@ echo form_open_multipart($action, array("id" => "customer_info_creation_form", "
                         <div class="box box-primary col-md-6" style="border-radius:0px;height:130px;box-shadow:none;border:0px;border-right:1px solid #00c0ef;margin-bottom:0px;">
                             <div class="box-body box-profile" style="border:0px;">
                                 <div class="profile-img-container img-circle" style="margin:0 40%;">
-                                    <input type="file" />
-                                    <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url(); ?>assets/default-user.png" alt="User profile picture">
+                                    <input type="file" name="gurant_pic"/>
+                                    <?php
+                                    $img_path = base_url() . "assets/default-user.png";
+                                    if (isset($customer_profile['GUARANTER_PIC_PATH']) && $customer_profile['GUARANTER_PIC_PATH'] != "") {
+                                        $img_path = base_url() . "uploads/profilepics/" . $customer_profile['GUARANTER_PIC_PATH'];
+                                    }
+                                    ?>
+                                    <img class="profile-user-img img-responsive img-circle" src="<?php echo $img_path; ?>" alt="User profile picture">
                                 </div>
                             </div>
                             <!-- /.box-body -->

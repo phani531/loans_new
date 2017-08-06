@@ -61,6 +61,75 @@ class Customer_detail extends CI_Controller {
         $data['all_masters_cust_comp_info'] = $this->Masters_cust_comp_info_model->get_all_masters_cust_comp_info();
         if (!empty($postData)) {
             if ($this->form_validation->run("customer_info_creation_form") == TRUE) {
+                if (!empty($_FILES) && isset($_FILES['customer_pic']['name']) && $_FILES['customer_pic']['name'] != "") {
+                    $msg = "";
+                    $_FILES['customer_pic']['name'] = $_FILES['customer_pic']['name'];
+                    $_FILES['customer_pic']['type'] = $_FILES['customer_pic']['type'];
+                    $_FILES['customer_pic']['tmp_name'] = $_FILES['customer_pic']['tmp_name'];
+                    $_FILES['customer_pic']['error'] = $_FILES['customer_pic']['error'];
+                    $_FILES['customer_pic']['size'] = $_FILES['customer_pic']['size'];
+
+                    $uploadPath = 'uploads/profilepics/';
+                    $config['upload_path'] = $uploadPath;
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $this->upload->initialize($config);
+                    if ($this->upload->do_upload('customer_pic')) {
+                        $fileData = $this->upload->data();
+                        $customer_pic_name = $fileData['file_name'];
+                    } else {
+                        $msg = $this->upload->display_errors();
+                    }
+                    if ($msg != "") {
+                        $this->session->set_flashdata('errormessage', $msg);
+                        ($id == 0 || $id == "") ? redirect("customer_detail/add") : redirect("customer_detail/add/" . $id);
+                    }
+                }
+                if (!empty($_FILES) && isset($_FILES['spouse_pic_name']['name']) && $_FILES['spouse_pic_name']['name'] != "") {
+                    $msg = "";
+                    $_FILES['spouse_pic_name']['name'] = $_FILES['spouse_pic_name']['name'];
+                    $_FILES['spouse_pic_name']['type'] = $_FILES['spouse_pic_name']['type'];
+                    $_FILES['spouse_pic_name']['tmp_name'] = $_FILES['spouse_pic_name']['tmp_name'];
+                    $_FILES['spouse_pic_name']['error'] = $_FILES['spouse_pic_name']['error'];
+                    $_FILES['spouse_pic_name']['size'] = $_FILES['spouse_pic_name']['size'];
+
+                    $uploadPath = 'uploads/profilepics/';
+                    $config['upload_path'] = $uploadPath;
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $this->upload->initialize($config);
+                    if ($this->upload->do_upload('spouse_pic_name')) {
+                        $fileData = $this->upload->data();
+                        $spouse_pic_name = $fileData['file_name'];
+                    } else {
+                        $msg = $this->upload->display_errors();
+                    }
+                    if ($msg != "") {
+                        $this->session->set_flashdata('errormessage', $msg);
+                        ($id == 0 || $id == "") ? redirect("customer_detail/add") : redirect("customer_detail/add/" . $id);
+                    }
+                }
+                if (!empty($_FILES) && isset($_FILES['gurant_pic']['name']) && $_FILES['gurant_pic']['name'] != "") {
+                    $msg = "";
+                    $_FILES['gurant_pic']['name'] = $_FILES['gurant_pic']['name'];
+                    $_FILES['gurant_pic']['type'] = $_FILES['gurant_pic']['type'];
+                    $_FILES['gurant_pic']['tmp_name'] = $_FILES['gurant_pic']['tmp_name'];
+                    $_FILES['gurant_pic']['error'] = $_FILES['gurant_pic']['error'];
+                    $_FILES['gurant_pic']['size'] = $_FILES['gurant_pic']['size'];
+
+                    $uploadPath = 'uploads/profilepics/';
+                    $config['upload_path'] = $uploadPath;
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $this->upload->initialize($config);
+                    if ($this->upload->do_upload('gurant_pic')) {
+                        $fileData = $this->upload->data();
+                        $gurant_pic_name = $fileData['file_name'];
+                    } else {
+                        $msg = $this->upload->display_errors();
+                    }
+                    if ($msg != "") {
+                        $this->session->set_flashdata('errormessage', $msg);
+                        ($id == 0 || $id == "") ? redirect("customer_detail/add") : redirect("customer_detail/add/" . $id);
+                    }
+                }
                 if (!empty($_FILES) && isset($_FILES['userFiles']['name']) && $_FILES['userFiles']['name'][0] != "") {
                     $filesCount = count($_FILES['userFiles']['name']);
                     for ($i = 0; $i < $filesCount; $i++) {
@@ -97,6 +166,15 @@ class Customer_detail extends CI_Controller {
                     $customer_address_data = $this->postdata->getCustomerAddressData($postData, TRUE);
                     $customer_reference_data = $this->postdata->getCustomerReferenceData($postData, TRUE);
                     $cust_data['id'] = $id;
+                }
+                if (isset($customer_pic_name) && $customer_pic_name != "") {
+                    $cust_data['CUSTOMER_PIC_PATH'] = $customer_pic_name;
+                }
+                if (isset($spouse_pic_name) && $spouse_pic_name != "") {
+                    $cust_data['SPOUSE_PIC_PATH'] = $spouse_pic_name;
+                }
+                if (isset($gurant_pic_name) && $gurant_pic_name != "") {
+                    $cust_data['GUARANTER_PIC_PATH'] = $gurant_pic_name;
                 }
                 $insert_data['customer_profile'] = $cust_data;
                 $insert_data['customer_address'] = $customer_address_data;

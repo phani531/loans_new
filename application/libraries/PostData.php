@@ -256,7 +256,6 @@ class PostData {
         if (!empty($data)) {
             $return_array = array(
                 'CUSTOMER_TYPE' => (isset($data['CUSTOMER_TYPE']) && $data['CUSTOMER_TYPE'] != "") ? $data['CUSTOMER_TYPE'] : "",
-                'CUSTOMER_PIC_PATH' => (isset($data['CUSTOMER_PIC_PATH']) && $data['CUSTOMER_PIC_PATH'] != "") ? $data['CUSTOMER_PIC_PATH'] : "",
                 'CUSTOMER_IDNO' => (isset($data['CUSTOMER_IDNO']) && $data['CUSTOMER_IDNO'] != "") ? $data['CUSTOMER_IDNO'] : "",
                 'CUSTOMER_NAME' => (isset($data['CUSTOMER_NAME']) && $data['CUSTOMER_NAME'] != "") ? $data['CUSTOMER_NAME'] : "",
                 'FILE_NO' => (isset($data['FILE_NO']) && $data['FILE_NO'] != "") ? $data['FILE_NO'] : "",
@@ -292,7 +291,6 @@ class PostData {
                 'MONEY_DEPOSIT_BANK_ID' => (isset($data['MONEY_DEPOSIT_BANK_ID']) && $data['MONEY_DEPOSIT_BANK_ID'] != "") ? $data['MONEY_DEPOSIT_BANK_ID'] : "",
                 'MONEY_DEPOSIT_ACCOUNT_NO' => (isset($data['MONEY_DEPOSIT_ACCOUNT_NO']) && $data['MONEY_DEPOSIT_ACCOUNT_NO'] != "") ? $data['MONEY_DEPOSIT_ACCOUNT_NO'] : "",
                 'MONEY_DEPOSIT_ACCOUNT_HOLDER_NAME' => (isset($data['MONEY_DEPOSIT_ACCOUNT_HOLDER_NAME']) && $data['MONEY_DEPOSIT_ACCOUNT_HOLDER_NAME'] != "") ? $data['MONEY_DEPOSIT_ACCOUNT_HOLDER_NAME'] : "",
-                'SPOUSE_PIC_PATH' => (isset($data['SPOUSE_PIC_PATH']) && $data['SPOUSE_PIC_PATH'] != "") ? $data['SPOUSE_PIC_PATH'] : "",
                 'SPOUSE_IDNO' => (isset($data['SPOUSE_IDNO']) && $data['SPOUSE_IDNO'] != "") ? $data['SPOUSE_IDNO'] : "",
                 'SPOUSE_NAME' => (isset($data['SPOUSE_NAME']) && $data['SPOUSE_NAME'] != "") ? $data['SPOUSE_NAME'] : "",
                 'SPOUSE_FATHERS_NAME' => (isset($data['SPOUSE_FATHERS_NAME']) && $data['SPOUSE_FATHERS_NAME'] != "") ? $data['SPOUSE_FATHERS_NAME'] : "",
@@ -314,7 +312,6 @@ class PostData {
                 'SPOUSE_OFFICE_PHONE1' => (isset($data['SPOUSE_OFFICE_PHONE1']) && $data['SPOUSE_OFFICE_PHONE1'] != "") ? $data['SPOUSE_OFFICE_PHONE1'] : "",
                 'SPOUSE_OFFICE_PHONE2' => (isset($data['SPOUSE_OFFICE_PHONE2']) && $data['SPOUSE_OFFICE_PHONE2'] != "") ? $data['SPOUSE_OFFICE_PHONE2'] : "",
                 'SPOUSE_OFFICE_ADDRESS' => (isset($data['SPOUSE_OFFICE_ADDRESS']) && $data['SPOUSE_OFFICE_ADDRESS'] != "") ? $data['SPOUSE_OFFICE_ADDRESS'] : "",
-                'GUARANTER_PIC_PATH' => (isset($data['GUARANTER_PIC_PATH']) && $data['GUARANTER_PIC_PATH'] != "") ? $data['GUARANTER_PIC_PATH'] : "",
                 'GUARANTER_IDNO' => (isset($data['GUARANTER_IDNO']) && $data['GUARANTER_IDNO'] != "") ? $data['GUARANTER_IDNO'] : "",
                 'GUARANTER_NAME' => (isset($data['GUARANTER_NAME']) && $data['GUARANTER_NAME'] != "") ? $data['GUARANTER_NAME'] : "",
                 'GUARANTER_FATHERS_NAME' => (isset($data['GUARANTER_FATHERS_NAME']) && $data['GUARANTER_FATHERS_NAME'] != "") ? $data['GUARANTER_FATHERS_NAME'] : "",
