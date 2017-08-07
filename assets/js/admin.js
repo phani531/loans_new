@@ -29,12 +29,32 @@ var admin = function () {
         initRelcopy();
         initSignup();
         initCustomTabs();
+        initJqueryImagePreview();
         initDeleteIndividualRow();
         initDatePicker();
     }
 
     function ajaxInit() {
 
+    }
+
+    /**
+     * Function to intialize image preview
+     * @returns {undefined}
+     */
+    function initJqueryImagePreview() {
+        $(".img_upload").each(function () {
+            $(this).change(function (event) {
+                var id = $(this).attr("id");
+                var input = event.target;
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var dataURL = reader.result;
+                    $("#display_" + id).attr("src", dataURL);
+                };
+                reader.readAsDataURL(input.files[0]);
+            });
+        });
     }
 
     /**
